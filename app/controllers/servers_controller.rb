@@ -10,6 +10,7 @@ class ServersController < ApplicationController
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
     @filter = ProcessorFilter.new(@servers, params)
+
     @pagy, @servers = pagy(@filter.results, items: 100)
   end
 
