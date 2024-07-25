@@ -105,3 +105,5 @@ gem "rubanok"
 gem "stimulus-rails", "~> 1.2"
 gem "store_attribute", "~> 1.2"
 gem "view_component"
+
+gem "crass", "~> 1.0"
