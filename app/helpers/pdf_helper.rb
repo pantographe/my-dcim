@@ -5,10 +5,11 @@ module PdfHelper
     css_variables = find_css_variables(css_content)
 
     css_variables.each do |var|
-      css_content = css_content.gsub "var(#{var[:name]})", var[:values].first
+      # Regex: var(--var-name[^)]*)
+      css_content = css_content.gsub(/var\(#{var[:name]}[^)]*\)/, var[:values].first)
     end
 
-    css_content
+    css_content.html_safe
   end
 
   private
