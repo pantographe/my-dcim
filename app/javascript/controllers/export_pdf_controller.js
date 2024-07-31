@@ -9,13 +9,34 @@ const exportOptions = {
 };
 
 export default class extends Controller {
-  export(event){
+  static targets = ["spinner"]
+
+  async export(event){
     const viewTarget = event.target.dataset.viewTarget;
     if (!viewTarget) return
 
     const exportTargetElement = document.querySelector(`[data-view="${viewTarget}"]`)
     if (!exportTargetElement) return
 
-    html2pdf().set(exportOptions).from(exportTargetElement).save();
+    this.showSpinner()
+
+    await html2pdf().set(exportOptions).from(exportTargetElement).toContainer().save().then(
+      //  Success
+      () => {
+        this.hideSpinner()
+      },
+      //  Failure
+      () => {
+        this.hideSpinner()
+      }
+    )
+  }
+
+  showSpinner(){
+    this.spinnerTarget.classList.remove("d-none")
+  }
+
+  hideSpinner(){
+    this.spinnerTarget.classList.add("d-none")
   }
 }
