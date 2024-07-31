@@ -11,8 +11,6 @@
 <% server_height = 2.5 %>
 
 <div class="container-fluid room_overview show_room" id="full-overview">
-  <button class="btn btn-sm btn-primary" id="export-pdf-btn">Export PDF (front)</button>
-
   <div class="card mb-3" style="min-height: 55px;">
     <div id="collapseRoomOverviewCardBody" class="collapse show">
       <div class="card-body d-flex justify-content-between">
@@ -246,20 +244,4 @@ function loadFrame(frame_id, bay_id, frame_title) {
     data: { frame_id: frame_id, view: view, bg: searchParams.get('bg') }
   });
 }
-
-const opt = {
-  margin: 4,
-  html2canvas: {
-    scale: 4,
-  },
-  filename: 'output.pdf',
-};
-
-$("#export-pdf-btn").click(function() {
-  const element = $(".view-front .frame")[0];
-
-  if (!element) return;
-
-  html2pdf().set(opt).from(element).save();
-});
 </script>
