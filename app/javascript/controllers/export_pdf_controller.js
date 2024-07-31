@@ -2,11 +2,16 @@ import { Controller } from "@hotwired/stimulus"
 
 const exportOptions = {
   margin: 4,
+  image: {
+    type: 'jpeg',
+    quality: 1.0
+  },
   html2canvas: {
     scale: 4,
+    width: 800
   },
   filename: 'output.pdf',
-};
+}
 
 export default class extends Controller {
   static targets = ["spinner"]
