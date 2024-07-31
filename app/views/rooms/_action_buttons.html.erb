@@ -37,49 +37,21 @@
       <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= t("export_button.label") %>
       </button>
-      <ul class="dropdown-menu dropdown-menu-end">
+      <ul class="dropdown-menu dropdown-menu-end" data-controller="export-pdf">
         <li>
           <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
         </li>
         <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, view: :front })),
-                      target: :_blank,
-                      class: "dropdown-item" do %>
+          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front">
             <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
             <%= t("export_button.faces.front") %>
-          <% end %>
+          </a>
         </li>
         <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, view: :back })),
-                      class: "dropdown-item",
-                      target: :_blank do %>
+          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back">
             <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
             <%= t("export_button.faces.back") %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, view: :front, bg: :cablage })),
-                      class: "dropdown-item",
-                      target: :_blank do %>
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.faces.front_wiring") %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, view: :back, bg: :cablage })),
-                      class: "dropdown-item",
-                      target: :_blank do %>
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.faces.back_wiring") %>
-          <% end %>
+          </A>
         </li>
 
         <li><hr class="dropdown-divider"></li>

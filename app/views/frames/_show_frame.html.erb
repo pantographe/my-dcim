@@ -9,7 +9,7 @@
 <% view_type = 'front' if local_assigns[:view_type].nil? %>
 <% clickable_lines = local_assigns[:clickable_lines].nil? ? false : local_assigns[:clickable_lines] %>
 
-<div class="frame" id="frame_<%= frame.id %>">
+<div class="frame" id="frame_<%= frame.id %>" data-view="<%= view_type %>">
   <div class="card card-frame">
     <div class="card-header">
       <h5 class="card-title d-inline">
