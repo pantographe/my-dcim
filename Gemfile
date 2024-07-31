@@ -106,5 +106,3 @@ gem "stimulus-rails", "~> 1.2"
 gem "store_attribute", "~> 1.2"
 gem "turbo-rails"
 gem "view_component"
-
-gem "crass", "~> 1.0"

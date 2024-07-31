@@ -583,7 +583,6 @@ DEPENDENCIES
   bootstrap (~> 5.3.2)
   byebug
   capybara (>= 2.15)
-  crass (~> 1.0)
   csv
   dalli
   dartsass-sprockets
