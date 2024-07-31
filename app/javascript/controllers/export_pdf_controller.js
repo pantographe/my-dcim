@@ -20,16 +20,11 @@ export default class extends Controller {
 
     this.showSpinner()
 
-    await html2pdf().set(exportOptions).from(exportTargetElement).toContainer().save().then(
-      //  Success
-      () => {
-        this.hideSpinner()
-      },
-      //  Failure
-      () => {
-        this.hideSpinner()
-      }
-    );
+    await html2pdf()
+      .set(exportOptions)
+      .from(exportTargetElement)
+      .save()
+      .finally(() => this.hideSpinner())
   }
 
   showSpinner(){
