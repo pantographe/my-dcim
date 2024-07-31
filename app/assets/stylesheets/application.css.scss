@@ -498,6 +498,10 @@ body {
 /* Forces the light theme for PDF */
 .html2pdf__container {
   @extend html, [data-bs-theme="light"];
+
+  & > .draw_connections_link {
+    display: none;
+  }
 }
 
 body {
