@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
     member do
       get :network
+      get :export_to_pdf
     end
   end
 

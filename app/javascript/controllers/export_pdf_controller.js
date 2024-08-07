@@ -1,35 +1,34 @@
 import { Controller } from "@hotwired/stimulus"
 
 const exportOptions = {
-  margin: 4,
+  margin: 10,
   image: {
-    type: 'jpeg',
+    type: "jpeg",
     quality: 1.0
   },
-  html2canvas: {
-    scale: 4,
-    width: 800
-  },
-  filename: 'output.pdf',
+  enableLinks: false,
+  pagebreak: { mode: "avoid-all" },
+  html2canvas: { width: 1200 },
+  filename: "frame.pdf",
 }
 
 export default class extends Controller {
   static targets = ["spinner"]
 
   async export(event){
-    const viewTarget = event.target.dataset.viewTarget;
-    if (!viewTarget) return
+    // const viewTarget = event.target.dataset.viewTarget
+    // if (!viewTarget) return
 
-    const exportTargetElement = document.querySelector(`[data-view="${viewTarget}"]`)
+    const exportTargetElement = document.querySelector(".container-fluid")
     if (!exportTargetElement) return
 
-    this.showSpinner()
+    // this.showSpinner()
 
     await html2pdf()
       .set(exportOptions)
       .from(exportTargetElement)
       .save()
-      .finally(() => this.hideSpinner())
+      .finally()
   }
 
   showSpinner(){

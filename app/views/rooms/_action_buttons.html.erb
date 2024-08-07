@@ -44,16 +44,16 @@
           <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
         </li>
         <li>
-          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front">
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.faces.front") %>
-          </a>
+          <%= link_to export_to_pdf_frame_path(@frame, params: { view: :front }), target: :_blank, class: "dropdown-item" do %>
+                      <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+                      <%= t("export_button.faces.front") %>
+                    <% end %>
         </li>
         <li>
-          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back">
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.faces.back") %>
-          </A>
+          <%= link_to export_to_pdf_frame_path(@frame, params: { view: :back }), target: :_blank, class: "dropdown-item" do %>
+                      <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+                      <%= t("export_button.faces.back") %>
+                    <% end %>
         </li>
 
         <li><hr class="dropdown-divider"></li>
@@ -71,7 +71,7 @@
         <li>
           <%= link_to url_for(params.except(:controller, :action)
                                     .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, debug: '1' })),
+                                    .merge({ format: :pdf, debug: "1" })),
                       class: "dropdown-item",
                       target: :_blank do %>
           <span class="bi bi-printer" aria-hidden="true"></span>
