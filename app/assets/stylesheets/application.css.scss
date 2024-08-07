@@ -28,28 +28,6 @@
 @import "bootstrap-icons.scss";
 @import "bootstrap";
 
-body {
-  -webkit-print-color-adjust: exact;
-}
-
-.pdf_body {
-  .frame .server .server_name {
-    font-size: 16px;
-  }
-  .card-islet {
-    page-break-after: always;
-
-    .frames .frame {
-      clear: both;
-      page-break-after: always;
-    }
-  }
-
-  a {
-    text-decoration: none;
-  }
-}
-
 .truncate {
   // width: 250px;
   white-space: nowrap;
@@ -495,17 +473,54 @@ body {
   font-size: 14px;
 }
 
-/* Forces the light theme for PDF */
-.html2pdf__container {
-  @extend html, [data-bs-theme="light"];
-
-  & > .draw_connections_link {
-    display: none;
-  }
-}
-
 body {
   min-height: 100%;
+  print-color-adjust: exact;
+}
+
+/* PDF exclusive CSS */
+.html2pdf__container {
+  /* Forces the light theme for PDF */
+  /* @extend html, [data-bs-theme="light"]; */
+
+  /* min-width: 70%; */
+
+  .col-lg-6 {
+    width: 100% !important;
+  }
+
+  body {
+    /* padding-top: 0; */
+  }
+/*
+  .frame {
+    width: 100%;
+  } */
+
+  .frame .server {
+    background-color: white;
+  }
+
+  /* main {
+    background-color: transparent;
+    padding-bottom: 0;
+  } */
+
+  /* .frame .server .server_name {
+    font-size: 16px;
+  } */
+
+  /* .card-frame .card-header {
+    display: block;
+  } */
+
+  a {
+    text-decoration: none !important;
+
+    &[href]:after {
+      content: none !important;
+    }
+  }
 }
 
 .mydcim {
