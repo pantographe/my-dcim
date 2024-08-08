@@ -1,6 +1,6 @@
 <% view_side = Frame.view_sides[:front] if local_assigns[:view_side].blank? %>
 
-<span class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
+<span class="d-flex flex-wrap gap-2 flex-column flex-lg-row" data-controller="export-pdf">
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
@@ -36,50 +36,24 @@
     <div class="btn-group">
       <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= t("export_button.label") %>
+
+        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" data-export-pdf-target="spinner"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
         <li>
           <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
         </li>
         <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, view: :front })),
-                      target: :_blank,
-                      class: "dropdown-item" do %>
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.faces.front") %>
-          <% end %>
+          <%= link_to export_to_pdf_frame_path(@frame, params: { view: :front }), target: :_blank, class: "dropdown-item" do %>
+                      <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+                      <%= t("export_button.faces.front") %>
+                    <% end %>
         </li>
         <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, view: :back })),
-                      class: "dropdown-item",
-                      target: :_blank do %>
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.faces.back") %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, view: :front, bg: :cablage })),
-                      class: "dropdown-item",
-                      target: :_blank do %>
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.faces.front_wiring") %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, view: :back, bg: :cablage })),
-                      class: "dropdown-item",
-                      target: :_blank do %>
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.faces.back_wiring") %>
-          <% end %>
+          <%= link_to export_to_pdf_frame_path(@frame, params: { view: :back }), target: :_blank, class: "dropdown-item" do %>
+                      <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+                      <%= t("export_button.faces.back") %>
+                    <% end %>
         </li>
 
         <li><hr class="dropdown-divider"></li>
@@ -97,7 +71,7 @@
         <li>
           <%= link_to url_for(params.except(:controller, :action)
                                     .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, debug: '1' })),
+                                    .merge({ format: :pdf, debug: "1" })),
                       class: "dropdown-item",
                       target: :_blank do %>
           <span class="bi bi-printer" aria-hidden="true"></span>
