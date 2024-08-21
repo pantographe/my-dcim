@@ -1,0 +1,13 @@
+{
+  "name": "my-dcim",
+  "private": true,
+  "devDependencies": {
+    "esbuild": "^0.23.1"
+  },
+  "dependencies": {
+    "html2pdf.js": "^0.10.2"
+  },
+  "scripts": {
+    "build:html2pdf.js": "esbuild vendor/javascript/html2pdf.js.js --bundle --outfile=vendor/javascript/html2pdf.js.bundle.js"
+  }
+}
