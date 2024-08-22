@@ -1,10 +1,18 @@
-<div class="dropdown btn-group btn-group-sm" data-controller="export-pdf">
-  <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                                                          aria-haspopup="true"
-                                                                          aria-expanded="false">
-    <%= t("export_button.label") %>
-
-    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" data-export-pdf-target="spinner"></span>
+<div class="dropdown btn-group btn-group-sm"
+     data-controller="export-pdf"
+     data-export-pdf-model-ids-value="<%= islet.frames.order(:name).pluck(:id) %>"
+     data-export-pdf-filename-value="islet-<%= islet.name %>">
+  <button type="button"
+          class="btn btn-outline-primary dropdown-toggle d-flex align-items-center"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          style="max-width: 77px;">
+    <span class="spinner-border spinner-border-sm flex-shrink-1 d-flex d-none" role="status" aria-hidden="true"
+          data-export-pdf-target="spinner"></span>
+    <span class="text-truncate d-inline-block ms-2">
+      <%= t("export_button.label") %>
+    </span>
   </button>
 
   <ul class="dropdown-menu dropdown-menu-end">
@@ -12,13 +20,13 @@
       <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front" data-model-id="<%= islet.id %>" data-model-name="islets">
+      <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back" data-model-id="<%= islet.id %>" data-model-name="islets">
+      <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back") %>
       </a>

@@ -9,21 +9,17 @@ const exportOptions = {
     type: "jpeg",
     quality: 1.0
   },
+  pagebreak: { avoid: ".server" },
   enableLinks: false,
-  // pagebreak: { mode: "css" },
-  // html2canvas: { dpi: 192, letterRendering: true, scale: 2, width: 1200 },
-  pagebreak: {
-    mode: "avoid-all",
-  },
-  // html2canvas:  { scale: 3 },
-  // jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-  // jsPDF: { format: "legal" }
+  html2canvas:  { width: 1200, scale: 2 },
+  jsPDF: { format: "legal" }
 }
 
 export default class extends Controller {
   static targets = ["spinner"]
   static values = {
-    modelIds: Array
+    modelIds: Array,
+    filename: String
   }
 
   async export(event) {
@@ -32,27 +28,22 @@ export default class extends Controller {
 
     this.showSpinner()
 
-    // const pdf = await this.generatePDF(viewTarget)
-    // pdf.save("filename")
-
     const pdfDoc = await this.generatePDF(viewTarget)
     const pdfBytes = await pdfDoc.save()
     const blob = new Blob([pdfBytes], { type: "application/pdf" })
 
-    saveAs(blob, "filename.pdf")
+    saveAs(blob, `${this.filenameValue}_${viewTarget}.pdf`)
 
     this.hideSpinner()
   }
 
   async generatePDF(viewTarget) {
-    // const doc = new jsPDF(exportOptions.jsPDF)
-    // const pageSize = jsPDF.getPageSize(exportOptions.jsPDF)
     const pdfDoc = await PDFLib.PDFDocument.create();
 
     for (let i = 0; i < this.modelIdsValue.length; i++) {
       const modelId = this.modelIdsValue[i]
 
-      const url = `/frames/${modelId}.pdf?view=${viewTarget}`
+      const url = `/frames/${modelId}.pdf?view=${viewTarget}&debug=true`
       const response = await get(url, {
         responseKind: "application/pdf"
       })
@@ -65,13 +56,10 @@ export default class extends Controller {
           .from(html)
           .output("arraybuffer")
 
-        // if (i != 0) doc.addPage()
-        // doc.addImage(framePage.src, "jpeg", exportOptions.margin, exportOptions.margin, framePage.width / 480, framePage.height / 480)
+        const tmpDoc = await PDFLib.PDFDocument.load(framePage)
+        const tmpPage = await pdfDoc.copyPages(tmpDoc, tmpDoc.getPageIndices())
 
-        const firstDoc = await PDFLib.PDFDocument.load(framePage)
-        const firstPage = await pdfDoc.copyPages(firstDoc, firstDoc.getPageIndices())
-
-        firstPage.forEach((page) => pdfDoc.addPage(page))
+        tmpPage.forEach((page) => pdfDoc.addPage(page))
       }
     }
 

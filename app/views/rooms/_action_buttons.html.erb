@@ -1,6 +1,6 @@
 <% view_side = Frame.view_sides[:front] if local_assigns[:view_side].blank? %>
 
-<span class="d-flex flex-wrap gap-2 flex-column flex-lg-row" data-controller="export-pdf">
+<span class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
@@ -33,24 +33,24 @@
   <% end %>
 
   <% if formats!=[:pdf] && @room.present? && !@room.kind_of?(String) %>
-    <div class="btn-group">
+    <div class="btn-group" data-controller="export-pdf" data-export-pdf-model-ids-value="<%= [params[:id]] %>"
+                                                        data-export-pdf-filename-value="frame-<%= params[:id] %>">
       <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="spinner-border spinner-border-sm flex-shrink-1 d-flex d-none" role="status" aria-hidden="true" data-export-pdf-target="spinner"></span>
         <%= t("export_button.label") %>
-
-        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" data-export-pdf-target="spinner"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
         <li>
           <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
         </li>
         <li>
-          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front" data-model-id="<%= params["id"] %>" data-model-name="frames">
+          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front">
             <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
             <%= t("export_button.faces.front") %>
           </a>
         </li>
         <li>
-          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back" data-model-id="<%= params["id"] %>" data-model-name="frames">
+          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back">
             <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
             <%= t("export_button.faces.back") %>
           </a>
