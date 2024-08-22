@@ -4,7 +4,7 @@ import { get } from "@rails/request.js"
 import { html2pdf, jsPDF } from "html2pdf.js"
 
 const exportOptions = {
-  margin: 0.25,
+  margin: 10,
   image: {
     type: "jpeg",
     quality: 1.0
@@ -32,15 +32,22 @@ export default class extends Controller {
 
     this.showSpinner()
 
-    const pdf = await this.generatePDF(viewTarget)
-    pdf.save("filename")
+    // const pdf = await this.generatePDF(viewTarget)
+    // pdf.save("filename")
+
+    const pdfDoc = await this.generatePDF(viewTarget)
+    const pdfBytes = await pdfDoc.save()
+    const file = new Blob([pdfBytes], { type: "application/pdf" })
+    const fileURL = URL.createObjectURL(file)
+    window.open(fileURL)
 
     this.hideSpinner()
   }
 
   async generatePDF(viewTarget) {
-    const doc = new jsPDF(exportOptions.jsPDF)
+    // const doc = new jsPDF(exportOptions.jsPDF)
     // const pageSize = jsPDF.getPageSize(exportOptions.jsPDF)
+    const pdfDoc = await PDFLib.PDFDocument.create();
 
     for (let i = 0; i < this.modelIdsValue.length; i++) {
       const modelId = this.modelIdsValue[i]
@@ -56,14 +63,19 @@ export default class extends Controller {
         const framePage = await html2pdf()
           .set(exportOptions)
           .from(html)
-          .toPdf()
+          .output("arraybuffer")
 
-        if (i != 0) doc.addPage()
-        doc.addImage(framePage.src, "jpeg", exportOptions.margin, exportOptions.margin, framePage.width / 400, framePage.height / 400)
+        // if (i != 0) doc.addPage()
+        // doc.addImage(framePage.src, "jpeg", exportOptions.margin, exportOptions.margin, framePage.width / 480, framePage.height / 480)
+
+        const firstDoc = await PDFLib.PDFDocument.load(framePage)
+        const firstPage = await pdfDoc.copyPages(firstDoc, firstDoc.getPageIndices())
+
+        firstPage.forEach((page) => pdfDoc.addPage(page))
       }
     }
 
-    return doc
+    return pdfDoc
   }
 
 

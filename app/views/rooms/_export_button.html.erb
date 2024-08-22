@@ -1,4 +1,4 @@
-<div class="dropdown btn-group-sm btn-group" data-controller="export-pdf" data-export-pdf-model-ids-value="<%= room.frame_ids %>">
+<div class="dropdown btn-group-sm btn-group" data-controller="export-pdf" data-export-pdf-model-ids-value="<%= sorted_frames_per_islet(room.frames, :front).map(&:id) %>">
   <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
                                                                           aria-haspopup="true"
                                                                           aria-expanded="false">
