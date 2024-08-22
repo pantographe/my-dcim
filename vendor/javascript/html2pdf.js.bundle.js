@@ -19906,7 +19906,7 @@ var init_index_es = __esm({
   }
 });
 
-// node_modules/jsPDF/dist/jspdf.es.min.js
+// node_modules/jspdf/dist/jspdf.es.min.js
 var jspdf_es_min_exports = {};
 __export(jspdf_es_min_exports, {
   AcroForm: () => St,
@@ -23507,7 +23507,7 @@ function ee(t3) {
 }
 var n2, a2, u2, h2, l2, N2, S, k, q, D, R, T2, U, z, H, W, V, G, Y, J, X, K, Z, $, Q, tt, et2, rt, nt, it, at, ot, st, ct, ut, ht, lt, ft, dt, pt, gt, mt, vt, bt, yt, wt, Nt, Lt, At, xt, St, Pt, kt, It, Ft, Ct, Bt, Mt, Ut, zt, Ht, Wt, Vt, Gt, Yt, Jt, Xt, Kt, re, ne, ie, ae, oe, se, ce, ue, he, le, fe, de, pe, ge, me, ve, be, ye, we, Ne, Le, jspdf_es_min_default;
 var init_jspdf_es_min = __esm({
-  "node_modules/jsPDF/dist/jspdf.es.min.js"() {
+  "node_modules/jspdf/dist/jspdf.es.min.js"() {
     init_typeof();
     init_browser();
     n2 = /* @__PURE__ */ function() {
@@ -32908,13 +32908,91 @@ var require_html2pdf = __commonJS({
   }
 });
 
+// node_modules/file-saver/dist/FileSaver.min.js
+var require_FileSaver_min = __commonJS({
+  "node_modules/file-saver/dist/FileSaver.min.js"(exports, module) {
+    (function(a3, b2) {
+      if ("function" == typeof define && define.amd) define([], b2);
+      else if ("undefined" != typeof exports) b2();
+      else {
+        b2(), a3.FileSaver = { exports: {} }.exports;
+      }
+    })(exports, function() {
+      "use strict";
+      function b2(a4, b3) {
+        return "undefined" == typeof b3 ? b3 = { autoBom: false } : "object" != typeof b3 && (console.warn("Deprecated: Expected third argument to be a object"), b3 = { autoBom: !b3 }), b3.autoBom && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(a4.type) ? new Blob(["\uFEFF", a4], { type: a4.type }) : a4;
+      }
+      function c4(a4, b3, c5) {
+        var d3 = new XMLHttpRequest();
+        d3.open("GET", a4), d3.responseType = "blob", d3.onload = function() {
+          g2(d3.response, b3, c5);
+        }, d3.onerror = function() {
+          console.error("could not download file");
+        }, d3.send();
+      }
+      function d2(a4) {
+        var b3 = new XMLHttpRequest();
+        b3.open("HEAD", a4, false);
+        try {
+          b3.send();
+        } catch (a5) {
+        }
+        return 200 <= b3.status && 299 >= b3.status;
+      }
+      function e2(a4) {
+        try {
+          a4.dispatchEvent(new MouseEvent("click"));
+        } catch (c5) {
+          var b3 = document.createEvent("MouseEvents");
+          b3.initMouseEvent("click", true, true, window, 0, 0, 0, 80, 20, false, false, false, false, 0, null), a4.dispatchEvent(b3);
+        }
+      }
+      var f3 = "object" == typeof window && window.window === window ? window : "object" == typeof self && self.self === self ? self : "object" == typeof global && global.global === global ? global : void 0, a3 = f3.navigator && /Macintosh/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent) && !/Safari/.test(navigator.userAgent), g2 = f3.saveAs || ("object" != typeof window || window !== f3 ? function() {
+      } : "download" in HTMLAnchorElement.prototype && !a3 ? function(b3, g3, h3) {
+        var i3 = f3.URL || f3.webkitURL, j2 = document.createElement("a");
+        g3 = g3 || b3.name || "download", j2.download = g3, j2.rel = "noopener", "string" == typeof b3 ? (j2.href = b3, j2.origin === location.origin ? e2(j2) : d2(j2.href) ? c4(b3, g3, h3) : e2(j2, j2.target = "_blank")) : (j2.href = i3.createObjectURL(b3), setTimeout(function() {
+          i3.revokeObjectURL(j2.href);
+        }, 4e4), setTimeout(function() {
+          e2(j2);
+        }, 0));
+      } : "msSaveOrOpenBlob" in navigator ? function(f4, g3, h3) {
+        if (g3 = g3 || f4.name || "download", "string" != typeof f4) navigator.msSaveOrOpenBlob(b2(f4, h3), g3);
+        else if (d2(f4)) c4(f4, g3, h3);
+        else {
+          var i3 = document.createElement("a");
+          i3.href = f4, i3.target = "_blank", setTimeout(function() {
+            e2(i3);
+          });
+        }
+      } : function(b3, d3, e3, g3) {
+        if (g3 = g3 || open("", "_blank"), g3 && (g3.document.title = g3.document.body.innerText = "downloading..."), "string" == typeof b3) return c4(b3, d3, e3);
+        var h3 = "application/octet-stream" === b3.type, i3 = /constructor/i.test(f3.HTMLElement) || f3.safari, j2 = /CriOS\/[\d]+/.test(navigator.userAgent);
+        if ((j2 || h3 && i3 || a3) && "undefined" != typeof FileReader) {
+          var k2 = new FileReader();
+          k2.onloadend = function() {
+            var a4 = k2.result;
+            a4 = j2 ? a4 : a4.replace(/^data:[^;]*;/, "data:attachment/file;"), g3 ? g3.location.href = a4 : location = a4, g3 = null;
+          }, k2.readAsDataURL(b3);
+        } else {
+          var l3 = f3.URL || f3.webkitURL, m4 = l3.createObjectURL(b3);
+          g3 ? g3.location = m4 : location.href = m4, g3 = null, setTimeout(function() {
+            l3.revokeObjectURL(m4);
+          }, 4e4);
+        }
+      });
+      f3.saveAs = g2.saveAs = g2, "undefined" != typeof module && (module.exports = g2);
+    });
+  }
+});
+
 // vendor/javascript/html2pdf.js.js
 var import_html2pdf = __toESM(require_html2pdf());
-init_jspdf_es_min();
+var import_file_saver = __toESM(require_FileSaver_min());
 var export_html2pdf = import_html2pdf.default;
+var export_saveAs = import_file_saver.saveAs;
 export {
   export_html2pdf as html2pdf,
-  jspdf_es_min_default as jsPDF
+  export_saveAs as saveAs
 };
 /*! Bundled license information:
 
@@ -32958,7 +33036,7 @@ svg-pathdata/lib/SVGPathData.module.js:
   PERFORMANCE OF THIS SOFTWARE.
   ***************************************************************************** *)
 
-jsPDF/dist/jspdf.es.min.js:
+jspdf/dist/jspdf.es.min.js:
   (** @license
    *
    * jsPDF - PDF Document creation from JavaScript

@@ -1,4 +1,4 @@
 import html2pdf from "html2pdf.js"
-import jsPDF from "jsPDF"
+import { saveAs } from "file-saver"
 
-export { html2pdf, jsPDF }
+export { html2pdf, saveAs }

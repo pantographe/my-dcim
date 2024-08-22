@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 import { get } from "@rails/request.js"
-import { html2pdf, jsPDF } from "html2pdf.js"
+import { html2pdf, saveAs } from "html2pdf.js"
 
 const exportOptions = {
   margin: 10,
@@ -37,9 +37,9 @@ export default class extends Controller {
 
     const pdfDoc = await this.generatePDF(viewTarget)
     const pdfBytes = await pdfDoc.save()
-    const file = new Blob([pdfBytes], { type: "application/pdf" })
-    const fileURL = URL.createObjectURL(file)
-    window.open(fileURL)
+    const blob = new Blob([pdfBytes], { type: "application/pdf" })
+
+    saveAs(blob, "filename.pdf")
 
     this.hideSpinner()
   }
