@@ -33,9 +33,7 @@ class IsletsController < ApplicationController
       format.json
       format.pdf do
         render template: "rooms/show",
-               show_as_html: params[:debug].present?,
-               pdf: 'frame',
-               zoom: 0.75
+               show_as_html: true
       end
       format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
     end

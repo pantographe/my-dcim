@@ -44,17 +44,37 @@
           <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
         </li>
         <li>
-          <%= link_to export_to_pdf_frame_path(@frame, params: { view: :front }), target: :_blank, class: "dropdown-item" do %>
-                      <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-                      <%= t("export_button.faces.front") %>
-                    <% end %>
+          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front" data-model-id="<%= params["id"] %>" data-model-name="frames">
+            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+            <%= t("export_button.faces.front") %>
+          </a>
         </li>
         <li>
-          <%= link_to export_to_pdf_frame_path(@frame, params: { view: :back }), target: :_blank, class: "dropdown-item" do %>
-                      <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-                      <%= t("export_button.faces.back") %>
-                    <% end %>
+          <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back" data-model-id="<%= params["id"] %>" data-model-name="frames">
+            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+            <%= t("export_button.faces.back") %>
+          </a>
         </li>
+        <!-- <li>
+          <%= link_to url_for(params.except(:controller, :action)
+                                    .permit(:view, :islet, :id, :bg, :format)
+                                    .merge({ format: :pdf, view: :front, bg: :cablage })),
+                      class: "dropdown-item",
+                      target: :_blank do %>
+            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+            <%= t("export_button.faces.front_wiring") %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to url_for(params.except(:controller, :action)
+                                    .permit(:view, :islet, :id, :bg, :format)
+                                    .merge({ format: :pdf, view: :back, bg: :cablage })),
+                      class: "dropdown-item",
+                      target: :_blank do %>
+            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+            <%= t("export_button.faces.back_wiring") %>
+          <% end %>
+        </li> -->
 
         <li><hr class="dropdown-divider"></li>
 
@@ -71,7 +91,7 @@
         <li>
           <%= link_to url_for(params.except(:controller, :action)
                                     .permit(:view, :islet, :id, :bg, :format)
-                                    .merge({ format: :pdf, debug: "1" })),
+                                    .merge({ format: :pdf, debug: '1' })),
                       class: "dropdown-item",
                       target: :_blank do %>
           <span class="bi bi-printer" aria-hidden="true"></span>

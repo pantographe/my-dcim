@@ -17,16 +17,12 @@ class FramesController < ApplicationController
       format.html
       format.json
       format.js
-      format.pdf
+      format.pdf do
+        render template: "frames/show",
+               show_as_html: true
+      end
       format.txt { send_data @frame.to_txt(params[:bg]) }
     end
-  end
-
-  def export_to_pdf
-    @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports => [:connection => [:cable => :connections]], :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
-    @room = @frame.room
-
-    render layout: "pdf"
   end
 
   def new

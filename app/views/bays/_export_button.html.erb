@@ -1,8 +1,10 @@
-<div class="btn-group btn-group-sm">
+<div class="btn-group btn-group-sm" data-controller="export-pdf">
   <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
                                                                           aria-haspopup="true"
                                                                           aria-expanded="false">
     <%= t("export_button.label") %>
+
+    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" data-export-pdf-target="spinner"></span>
   </button>
 
   <ul class="dropdown-menu dropdown-menu-end">
@@ -10,18 +12,18 @@
       <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
     </li>
     <li>
-      <%= link_to bay_path(bay, format: :pdf, view: :front, bg: ""), class: "dropdown-item", target: :_blank do %>
+      <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front" data-model-id="<%= bay.id %>" data-model-name="bays">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front") %>
-      <% end %>
+      </a>
     </li>
     <li>
-      <%= link_to bay_path(bay, format: :pdf, view: :back, bg: ""), class: "dropdown-item", target: :_blank do %>
+      <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back" data-model-id="<%= bay.id %>" data-model-name="bays">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back") %>
-      <% end %>
+      </a>
     </li>
-    <li>
+    <!-- <li>
       <%= link_to bay_path(bay, format: :pdf, view: :front, bg: :cablage), class: "dropdown-item", target: :_blank do %>
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front_wiring") %>
@@ -32,7 +34,7 @@
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back_wiring") %>
       <% end %>
-    </li>
+    </li> -->
 
     <li><hr class="dropdown-divider"></li>
 
