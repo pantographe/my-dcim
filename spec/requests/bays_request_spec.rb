@@ -16,7 +16,7 @@ RSpec.describe "Bays" do
     include_context "with authenticated user"
 
     context "with not found bay" do
-      let(:bay) { Bay.new(id: SecureRandom.uuid) }
+      let(:bay) { Bay.new(id: 999_999_999) }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end

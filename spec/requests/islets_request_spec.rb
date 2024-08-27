@@ -26,7 +26,7 @@ RSpec.describe "Islets" do
     include_context "with authenticated user"
 
     context "with not found islet" do
-      let(:islet) { Islet.new(id: SecureRandom.uuid) }
+      let(:islet) { Islet.new(id: 999_999_999) }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
@@ -194,7 +194,7 @@ RSpec.describe "Islets" do
     include_context "with authenticated user"
 
     context "with not found islet" do
-      let(:islet) { Islet.new(id: SecureRandom.uuid) }
+      let(:islet) { Islet.new(id: 999_999_999) }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end

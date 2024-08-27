@@ -16,7 +16,7 @@ RSpec.describe "Rooms" do
     include_context "with authenticated user"
 
     context "with not found room" do
-      let(:room) { Room.new(id: SecureRandom.uuid) }
+      let(:room) { Room.new(id: 999_999_999) }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end

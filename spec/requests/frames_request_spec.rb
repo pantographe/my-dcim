@@ -16,7 +16,7 @@ RSpec.describe "Frames" do
     include_context "with authenticated user"
 
     context "with not found frame" do
-      let(:frame) { Frame.new(id: SecureRandom.uuid) }
+      let(:frame) { Frame.new(id: 999_999_999) }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end

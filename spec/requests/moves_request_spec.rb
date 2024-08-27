@@ -16,7 +16,7 @@ RSpec.describe "Moves" do
     include_context "with authenticated user"
 
     context "with not found frame" do
-      before { move.frame_id = SecureRandom.uuid }
+      before { move.frame_id = 999_999_999 }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
