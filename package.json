@@ -6,7 +6,8 @@
   },
   "dependencies": {
     "file-saver": "^2.0.5",
-    "html2pdf.js": "^0.10.2"
+    "html2pdf.js": "^0.10.2",
+    "pdf-lib": "^1.17.1"
   },
   "scripts": {
     "build:html2pdf.js": "esbuild vendor/javascript/html2pdf.js.js --bundle --outfile=vendor/javascript/html2pdf.js.bundle.js --format=esm"

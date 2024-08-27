@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 import { get } from "@rails/request.js"
-import { html2pdf, saveAs } from "html2pdf.js"
+import { html2pdf, saveAs, PDFDocument } from "html2pdf.js"
 
 const exportOptions = {
   margin: 10,
@@ -41,7 +41,7 @@ export default class extends Controller {
   }
 
   async generatePDF(viewTarget, bgWiring) {
-    const pdfDoc = await PDFLib.PDFDocument.create();
+    const pdfDoc = await PDFDocument.create();
 
     for (let i = 0; i < this.modelIdsValue.length; i++) {
       const modelId = this.modelIdsValue[i]
@@ -62,7 +62,7 @@ export default class extends Controller {
           .from(html)
           .output("arraybuffer")
 
-        const tmpDoc = await PDFLib.PDFDocument.load(framePage)
+        const tmpDoc = await PDFDocument.load(framePage)
         const tmpPage = await pdfDoc.copyPages(tmpDoc, tmpDoc.getPageIndices())
 
         tmpPage.forEach((page) => pdfDoc.addPage(page))
