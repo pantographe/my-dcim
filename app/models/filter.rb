@@ -58,7 +58,9 @@ class Filter
 
     return attributes[symbol] if attribute_names.include?(symbol)
 
-    return attributes[method_name.chop.to_sym] = args.first if method_name.end_with?("=") && attribute_names.include?(method_name.chop.to_sym)
+    if method_name.end_with?("=") && attribute_names.include?(method_name.chop.to_sym)
+      return attributes[method_name.chop.to_sym] = args.first
+    end
 
     super
   end
