@@ -508,8 +508,10 @@ fr:
     index:
       new_move: Prévoir un nouveau déplacement
       delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
+      execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       frame_table_title: Baies après déplacements
       edit_connections: Modifier les connexions
+      server: Matériel
       action:
         execute_move: Exécuter le déplacement du serveur et de ses connexions
     new:
@@ -599,7 +601,7 @@ fr:
       background_color: 'Couleur de fond : %{bg}'
       background_choices:
         modele: Modèle
-        manager: Gestionnaire
+        gestionnaire: Gestionnaire
         cluster: Cluster
       dragn_drop:
         enable: Activer le drag'n drop

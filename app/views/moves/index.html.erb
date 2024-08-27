@@ -14,17 +14,35 @@
 
   <div class="table-responsive mb-4">
     <table class="table table-striped table-bordered table-hover align-middle">
+      <thead>
+      <th><%= t(".server") %></th>
+      <th><%= t("activerecord.attributes.server.numero") %></th>
+      <th><%= t("activerecord.models.gestion") %></th>
+      <th><%= t("activerecord.models.domaine") %></th>
+      <th><%= t("moves.form.initial_bay") %></th>
+      <th><%= t("activerecord.attributes.move.frame_id") %></th>
+      </thead>
       <tbody>
-        <%= content_tag_for(:tr, @moves) do |move| %>
-          <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
-          <td>
-            <%= link_to t(".action.execute_move"), execute_move_path(move), class: "btn btn-sm btn-outline-primary" %>
-          </td>
-          <td>
-            <%= link_to t("action.delete"), move, method: :delete, data: { confirm: t(".delete_confirmation") },
-                                                                   class: "btn btn-sm btn-danger" %>
-          </td>
-        <% end %>
+      <%= content_tag_for(:tr, @moves) do |move| %>
+        <td><%= link_to move.moveable, edit_move_path(move) %></td>
+        <td><%= "#{move.moveable.numero}" %></td>
+        <td><%= "#{move.moveable.gestion}" %></td>
+        <td><%= "#{move.moveable.domaine}" %></td>
+        <td><%= link_to "#{move.moveable.frame}", frame_path(move.moveable.frame) %></td>
+        <td><%= link_to "#{move.frame}", frame_path(move.frame) %></td>
+        <td>
+          <%= link_to t(".action.execute_move"),
+                      execute_move_path(move),
+                      data: { confirm: t(".execute_confirmation") },
+                      class: "btn btn-sm btn-primary" %>
+        </td>
+        <td>
+          <%= link_to t("action.delete"), move,
+                      method: :delete,
+                      data: { confirm: t(".delete_confirmation") },
+                      class: "btn btn-sm btn-outline-danger" %>
+        </td>
+      <% end %>
       </tbody>
     </table>
   </div>
@@ -33,7 +51,7 @@
   <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover align_middle">
       <tbody>
-      <%= content_tag_for(:tr, @frames) do |frame| %>
+        <%= content_tag_for(:tr, @frames) do |frame| %>
           <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
           <td class="text-center">
             <%= link_to t(".edit_connections"), "/moves/frames/#{frame.id}", class: "btn btn-sm btn-primary" %>
@@ -57,7 +75,7 @@
                     aria-hidden="true" data-export-pdf-target="spinner"></span>
             </a>
           </td>
-      <% end %>
+        <% end %>
       </tbody>
     </table>
   </div>
