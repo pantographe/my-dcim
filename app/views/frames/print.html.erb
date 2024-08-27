@@ -12,6 +12,5 @@
 
 <div class="container-fluid">
   <%= render partial: "servers/room",
-             formats: :html,
              locals: { room: @room, islets: @servers_per_frames, pdf: true, view_side: params[:view] } %>
 </div>
