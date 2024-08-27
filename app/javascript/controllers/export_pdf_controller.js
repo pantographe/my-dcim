@@ -19,31 +19,37 @@ export default class extends Controller {
   static targets = ["spinner"]
   static values = {
     modelIds: Array,
-    filename: String
+    filename: String,
+    isMove: Boolean
   }
 
   async export(event) {
-    const viewTarget = event.target.dataset.viewTarget
+    const viewTarget = event.target.closest("a").dataset.viewTarget
     if (!viewTarget) return
+
+    const bgWiring = event.target.dataset.bgWiring
 
     this.showSpinner()
 
-    const pdfDoc = await this.generatePDF(viewTarget)
+    const pdfDoc = await this.generatePDF(viewTarget, bgWiring)
     const pdfBytes = await pdfDoc.save()
     const blob = new Blob([pdfBytes], { type: "application/pdf" })
 
-    saveAs(blob, `${this.filenameValue}_${viewTarget}.pdf`)
+    saveAs(blob, `${this.filenameValue}_${viewTarget}${ bgWiring ? "_wiring" : ""}.pdf`)
 
     this.hideSpinner()
   }
 
-  async generatePDF(viewTarget) {
+  async generatePDF(viewTarget, bgWiring) {
     const pdfDoc = await PDFLib.PDFDocument.create();
 
     for (let i = 0; i < this.modelIdsValue.length; i++) {
       const modelId = this.modelIdsValue[i]
 
-      const url = `/frames/${modelId}.pdf?view=${viewTarget}&debug=true`
+
+      const url = this.isMoveValue ? `moves/print/${modelId}`:
+                                     `/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
+
       const response = await get(url, {
         responseKind: "application/pdf"
       })
@@ -65,7 +71,6 @@ export default class extends Controller {
 
     return pdfDoc
   }
-
 
   showSpinner() {
     this.spinnerTarget.classList.remove("d-none")

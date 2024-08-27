@@ -138,26 +138,18 @@ class MovesController < ApplicationController
     @destination_port = @moved_connection.port_to
   end
 
-  def frame
-    @frame = Frame.find(params[:id])
+  def print
+    @frame = Frame.find(params[:frame_id])
 
-    @moves = Move.where(frame: @frame, moveable_type: 'Server')
+    @moves = Move.where(frame: @frame, moveable_type: "Server")
     @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server }
 
-    @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: 'Server').map(&:moveable)
+    @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: "Server").map(&:moveable)
 
     @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0 }.reverse
     @moved_connections = MovedConnection.per_servers(@servers)
 
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render template: "moves/frame",
-               show_as_html: params[:debug].present?,
-               pdf: 'frame',
-               zoom: 0.75
-      end
-    end
+    render layout: "pdf"
   end
 
   private

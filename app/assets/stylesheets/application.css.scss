@@ -473,7 +473,48 @@ body {
 
 body {
   min-height: 100%;
-  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* Print and PDF exclusive CSS */
+.print-body {
+  a {
+    text-decoration: none !important;
+    color: black;
+
+    &[href]:after {
+      content: none !important;
+    }
+  }
+}
+
+/* Print exclusive CSS */
+@media print {
+  .print-body {
+    .frames {
+      flex-direction: column;
+      row-gap: 2rem;
+    }
+
+    .frame .server {
+      break-inside: avoid;
+    }
+
+    .card-islet {
+      break-after: page;
+
+      .frames .frame {
+        break-after: page;
+      }
+    }
+
+    div {
+      float: none !important;
+      position: static !important;
+      display: inline;
+      box-sizing: content-box !important;
+    }
+  }
 }
 
 /* PDF exclusive CSS */
@@ -481,8 +522,7 @@ body {
   /* Forces the light theme for PDF */
   @extend html, [data-bs-theme="light"];
 
-  min-width: 90%;
-
+  min-width: 75%;
 
   .col-lg-6 {
     width: 100% !important;
@@ -494,14 +534,6 @@ body {
 
   h3 {
     color: black;
-  }
-
-  a {
-    text-decoration: none !important;
-
-    &[href]:after {
-      content: none !important;
-    }
   }
 }
 
@@ -716,6 +748,14 @@ body {
         text-decoration: underline;
       }
     }
+  }
+
+  .export-button {
+    max-width: 77px;
+  }
+
+  .export-button-move {
+    max-width: 100px;
   }
 
   /* Tom-Select fix for dark mode */

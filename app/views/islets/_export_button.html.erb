@@ -3,12 +3,11 @@
      data-export-pdf-model-ids-value="<%= islet.frames.order(:name).pluck(:id) %>"
      data-export-pdf-filename-value="islet-<%= islet.name %>">
   <button type="button"
-          class="btn btn-outline-primary dropdown-toggle d-flex align-items-center"
+          class="btn btn-outline-primary dropdown-toggle d-flex align-items-center export-button"
           data-bs-toggle="dropdown"
           aria-haspopup="true"
-          aria-expanded="false"
-          style="max-width: 77px;">
-    <span class="spinner-border spinner-border-sm flex-shrink-1 d-flex d-none" role="status" aria-hidden="true"
+          aria-expanded="false">
+    <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none" role="status" aria-hidden="true"
           data-export-pdf-target="spinner"></span>
     <span class="text-truncate d-inline-block ms-2">
       <%= t("export_button.label") %>
@@ -31,20 +30,20 @@
         <%= t("export_button.faces.back") %>
       </a>
     </li>
-    <!-- <li>
-      <%= link_to islet_path(islet, format: :pdf, view: :front, bg: "cablage"), class: "dropdown-item",
-                                                                                target: :_blank do %>
+    <li>
+      <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="front"
+                                                                                    data-bg-wiring="true">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front_wiring") %>
-      <% end %>
+      </a>
     </li>
     <li>
-      <%= link_to islet_path(islet, format: :pdf, view: :back, bg: "cablage"), class: "dropdown-item",
-                                                                               target: :_blank do %>
+      <a role="button" class="dropdown-item" data-action="click->export-pdf#export" data-view-target="back"
+                                                                                    data-bg-wiring="true">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back_wiring") %>
-      <% end %>
-    </li> -->
+      </a>
+    </li>
 
     <li><hr class="dropdown-divider"></li>
 
@@ -56,8 +55,7 @@
     </li>
 
     <li>
-      <%= link_to islet_path(islet, format: :pdf, view: :front, bg: "", debug: "1"), class: "dropdown-item",
-                                                                                     target: :_blank do %>
+      <%= link_to print_islet_path(islet), class: "dropdown-item", target: :_blank do %>
         <span class="bi bi-printer" aria-hidden="true"></span>
         <%= t("export_button.exports.print") %>
       <% end %>
