@@ -61,7 +61,7 @@
               data-export-pdf-model-ids-value="<%= [frame.id] %>"
               data-export-pdf-filename-value="move-frame-<%= frame.name %>"
               data-export-pdf-is-move-value="true">
-            <%= link_to "/moves/print/#{frame.id}", class: "btn btn-sm btn-outline-primary", target: :_blank do %>
+            <%= link_to print_moves_path(frame.id), class: "btn btn-sm btn-outline-primary", target: :_blank do %>
               <span class="bi bi-printer" aria-hidden="true"></span>
               <%= t("export_button.exports.print") %>
             <% end %>

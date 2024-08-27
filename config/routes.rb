@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get :load_frame
       get :load_connection
       get "/frames/:frame_id", to: "moves#frame"
-      get "/print/:frame_id", to: "moves#print"
+      get "/print/:frame_id", to: "moves#print", as: :print
       match 'update_connection', to: 'moves#update_connection', via: [:patch, :post, :put]
     end
   end
