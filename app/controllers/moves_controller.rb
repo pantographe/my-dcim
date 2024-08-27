@@ -3,6 +3,7 @@
 class MovesController < ApplicationController
   before_action :set_move, only: [:show, :edit, :update, :destroy, :execute_movement]
   before_action :load_form_data, only: [:new, :edit]
+  before_action :set_frame_updated, only: %i[frame print]
 
   def index
     @moves = Move.order(created_at: :asc)
@@ -138,17 +139,9 @@ class MovesController < ApplicationController
     @destination_port = @moved_connection.port_to
   end
 
+  def frame; end
+
   def print
-    @frame = Frame.find(params[:frame_id])
-
-    @moves = Move.where(frame: @frame, moveable_type: "Server")
-    @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server }
-
-    @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: "Server").map(&:moveable)
-
-    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0 }.reverse
-    @moved_connections = MovedConnection.per_servers(@servers)
-
     render layout: "pdf"
   end
 
@@ -184,5 +177,17 @@ class MovesController < ApplicationController
     @all_servers_per_frame = Frame.order(:name).to_h do |frame|
       [frame.name, frame.servers.map { |v| [v.name, v.id, { data: { frame_name: frame.name } }] }]
     end
+  end
+
+  def set_frame_updated
+    @frame = Frame.find(params[:frame_id])
+
+    @moves = Move.where(frame: @frame, moveable_type: "Server")
+    @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server }
+
+    @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: "Server").map(&:moveable)
+
+    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0 }.reverse
+    @moved_connections = MovedConnection.per_servers(@servers)
   end
 end
