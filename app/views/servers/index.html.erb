@@ -137,7 +137,8 @@
       <% end %>
 
       <% table.with_column(Server.human_attribute_name(:type), sort_by: :"categories.name") do |server| %>
-        <%= link_to server.modele.category, category_path(server.modele.category), data: { turbo_frame: :_top } if server.modele.try(:category) %>
+        <%= link_to server.modele.category, category_path(server.modele.category),
+                    data: { turbo_frame: :_top } if server.modele.try(:category) %>
       <% end %>
 
       <% table.with_column(Server.human_attribute_name(:room), sort_by: :"rooms.name") do |server| %>
@@ -166,7 +167,10 @@
                                                                        data-bs-placement="left"></span>
             <span class="visually-hidden"><%= t("action.edit") %></span>
           <% end %>
-          <%= link_to server, method: :delete, data: { turbo_frame: :_top, confirm: t("action.confirm") }, class: "btn btn-danger" do %>
+          <%= link_to server,
+                      method: :delete,
+                      data: { turbo_frame: :_top, confirm: t("action.confirm") },
+                      class: "btn btn-danger" do %>
             <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                         data-controller="tooltip"
                                                                         data-bs-placement="left"></span>
