@@ -8,7 +8,11 @@ class FilterComponent < ApplicationComponent
       <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
         <%#= filters_badge_tags %>
 
-        <%= form_with model: @filter, url: "", method: :get, class: "row row-cols-lg-auto g-3 align-items-center", id: :filters do |f| %>
+        <%= form_with model: @filter,
+                      url: "",
+                      method: :get,
+                      class: "filters-component row row-cols-lg-auto g-3 align-items-start",
+                      id: :filters do |f| %>
           <%= form&.call(f) %>
 
           <% card.with_footer do %>

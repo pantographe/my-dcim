@@ -79,10 +79,8 @@ fr:
 
   islets:
     index:
-      add_islet: Ajouter un ilot
+      new_islet: Ajouter un ilot
       delete_confirmation: Cet ilôt ne pourra pas être supprimé tant qu'il sera associé à au moins une baie. Voulez-vous continuer ?
-    show:
-      title: Détails de l'ilôt
     new:
       title: Nouvel îlot
     create:
@@ -154,7 +152,6 @@ fr:
   architectures:
     index:
       new_architecture: Ajouter une architecture
-      title: Architectures
       delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
     show:
       title: Détails de l'architecture
@@ -421,7 +418,7 @@ fr:
       new_enclosure: Nouvelle enclosure
       add_slot: Ajouter un slot
     index:
-      add_model: Ajouter un modèle
+      new_modele: Ajouter un modèle
       delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
     new:
       title: Nouveau modèle
@@ -488,17 +485,18 @@ fr:
       memories_total: Ram totale
       cpus: Processeurs
   frames:
-    form:
-      coupled_bay_label: Baie couplée à
-      no_coupled_bay: Aucune baie couplée
+    coupled_frame_label: Châssis couplé à
+    no_coupled_frame: Aucun châssis couplé.
     show_complete_frame:
       title: Salle %{room} - Ilot %{islet}
     index:
       new_frame: Ajouter un châssis
       title: Tous les châssis
       delete_confirmation: Ce châssis ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
+    show:
+      title: Châssis %{frame}
     edit:
-      title: Modifier la baie %{frame}
+      title: Modifier le châssis
     update:
       flashes:
         updated: Le châssis a été mis à jour.
@@ -578,7 +576,7 @@ fr:
         enable: Activer le drag'n drop
     index:
       delete_confirmation: Cette salle ne pourra pas être supprimée tant qu'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
-      add_room: Ajouter une salle
+      new_room: Ajouter une salle
     new:
       title: Nouvelle salle
     edit:
@@ -629,12 +627,11 @@ fr:
       changes: Changements
       metadatas: Metadonnées
   air_conditioners:
+    temperatures: Températures
     index:
-      new: Ajouter une climatisation
+      new_air_conditioner: Ajouter une climatisation
       title: Climatisations
       delete_confirmation: Cette climatisation sera supprimée. Voulez-vous continuer ?
-    show:
-      title: Détails de la climatisation
     create:
       flashes:
         created: La climatisation a bien été ajoutée.
@@ -667,13 +664,11 @@ fr:
                           \n\r
                           Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
                           alors ventilation = débit maximal"
-      location: Emplacement
-      temperatures: Températures
       day: Jour
       night: Nuit
   bays:
     index:
-      new: Ajouter une baie ou un couple de baies
+      new_bay: Ajouter une baie ou un couple de baies
       title: Baies et doubles-baies
       delete_confirmation: Cette baie ne pourra pas être supprimée tant qu'elle est associée à au moins un chassis. Voulez-vous continuer ?
     new:
@@ -681,6 +676,8 @@ fr:
     create:
       flashes:
         created: La baie a été ajoutée.
+    show:
+      title: Baie %{type} %{frames}
     edit:
       title: Modifier la baie %{type} %{frames}
     update:
@@ -728,16 +725,27 @@ fr:
         q: Recherche
         u: Nombre de U
         architecture_id: Architecture
+        architecture_ids: Architecture
         category_id: Catégorie
+        category_ids: Catégorie
         manufacturer_id: Constructeur
+        manufacturer_ids: Constructeur
         islet_id: Ilot
+        islet_ids: Ilot
         room_id: Salle
+        room_ids: Salle
         domaine_id: Domaine
+        domaine_ids: Domaine
         gestion_id: Gestionnaire
+        gestion_ids: Gestionnaire
         frame_id: Châssis
+        frame_ids: Châssis
         bay_id: Baie
+        bay_ids: Baie
         modele_id: Modèle
+        modele_ids: Modèle
         cluster_id: Cluster
+        cluster_ids: Cluster
         network_type: Type de réseaux
     placeholder:
       search: Rechercher ...

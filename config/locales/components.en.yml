@@ -8,9 +8,8 @@ en:
     see_more_filters: See more filters
   changelog_entries:
     object_list_component:
-      loading: Loading changelog...
+      loading: Loading ...
   list:
     data_table_component:
       empty_table:
         title: No data found!
-        text: We haven't found any data to match your request.

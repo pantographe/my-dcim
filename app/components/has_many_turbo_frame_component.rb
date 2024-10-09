@@ -4,12 +4,12 @@ class HasManyTurboFrameComponent < ApplicationComponent
   include Turbo::FramesHelper
 
   erb_template <<~ERB
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |c| %>
+    <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary mt-4") do |c| %>
       <% c.with_header do %>
         <div class="d-flex justify-content-between">
           <span><%= @title %></span>
 
-          <%= link_to @url do %>
+          <%= link_to @url, class:"link-light" do %>
             <%= t(".see_more_filters") %>
           <% end %>
         </div>
@@ -17,8 +17,8 @@ class HasManyTurboFrameComponent < ApplicationComponent
 
       <%= turbo_frame_tag(@frame_id, loading: :lazy, src: @url) do %>
         <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-          <span><%= t(".loading") %></span>
-          <span class="spinner-border spinner-border-sm p-4"></span>
+          <span role="status"><%= t(".loading") %></span>
+          <span class="spinner-grow text-primary" aria-hidden="true"></span>
         </div>
       <% end %>
     <% end %>

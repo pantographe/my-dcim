@@ -13,9 +13,8 @@ fr:
     see_more_filters: Voir plus de filtres
   changelog_entries:
     object_list_component:
-      loading: Chargement de l'historique...
+      loading: Chargement en cours ...
   list:
     data_table_component:
       empty_table:
         title: Aucune donnée trouvée !
-        text: Nous n'avons pas trouvé de données correspondant à votre demande.
