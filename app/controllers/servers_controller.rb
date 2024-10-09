@@ -11,7 +11,7 @@ class ServersController < ApplicationController
       .order(:name)
     @filter = ProcessorFilter.new(@servers, params)
 
-    @pagy, @servers = pagy(@filter.results, items: 100)
+    @pagy, @servers = pagy(@filter.results, limit: 100)
   end
 
   def grid
