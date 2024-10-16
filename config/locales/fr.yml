@@ -19,6 +19,7 @@ fr:
     suspend: Verrouiller
     unsuspend: Déverrouiller
     create: Créer
+    execute: Exécuter
   export_button:
     label: Exports
     exports:
@@ -51,6 +52,10 @@ fr:
       projects_dropdown:
         projects: Projets
         moves: Déplacements prévus
+      visualization_dropdown:
+        overview: Afficher toutes les salles
+        capacity: Vue capacité réseau
+        infrastructure: Vue infrastructure
     breadcrumb:
       home: Accueil
       bay:
@@ -87,7 +92,7 @@ fr:
       flashes:
         created: L'ilôt a bien été créé.
     edit:
-      title: Modification îlot %{name} - %{room}
+      title: Modification de l'îlot
     update:
       flashes:
         updated: L'ilôt a bien été modifié.
@@ -95,8 +100,6 @@ fr:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
   connections:
-    index:
-      title: Connexions
     edit:
       title: Modifier la connexion
     form:
@@ -105,9 +108,6 @@ fr:
         show_less_bay: Voir moins de baies
         delete_confirmation: Confirmez-vous vouloir supprimer la connexion ?
       delete_title: Supprimer la connexion
-  cables:
-    index:
-      title: Câbles
   sites:
     index:
       title: Sites
@@ -132,10 +132,7 @@ fr:
   gestions:
     index:
       new_gestion: Ajouter un gestionnaire
-      title: Gestionnaires
       delete_confirmation: Ce gestionnaire ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
-    show:
-      title: Détails du gestionnaire
     new:
       title: Nouveau gestionnaire
     create:
@@ -153,8 +150,6 @@ fr:
     index:
       new_architecture: Ajouter une architecture
       delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
-    show:
-      title: Détails de l'architecture
     new:
       title: Nouvelle architecture
     create:
@@ -171,10 +166,7 @@ fr:
   clusters:
     index:
       new_cluster: Nouveau cluster
-      title: Liste des clusters
       delete_confirmation: Ce cluster ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
-    show:
-      title: Détails du cluster
     new:
       title: Nouveau cluster
     create:
@@ -191,10 +183,7 @@ fr:
   stacks:
     index:
       new_stack: Ajouter un stack
-      title: Stacks
       delete_confirmation: Ce stack ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
-    show:
-      title: Stack
     new:
       title: Nouvelle stack
     create:
@@ -210,11 +199,8 @@ fr:
         destroyed: La stack a bien été supprimé.
   card_types:
     index:
-      title: Types de cartes
-      add_card: Ajouter un type de carte
+      new_card_type: Ajouter un type de carte
       delete_confirmation: Ce type de carte ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?
-    show:
-      title: Détails du type de carte
     new:
       title: Nouveau type de carte
     create:
@@ -231,8 +217,9 @@ fr:
         destroyed: Le type de carte a bien été supprimé.
   colors:
     index:
-      title: Couleurs
       delete_confirmation: Supprimer cette couleur la supprimera des données où elle est utilisée. Voulez-vous continuer ?
+    new:
+      title: Nouvelle couleur
     create:
       flashes:
         created: La couleur a bien été créée.
@@ -248,11 +235,8 @@ fr:
       title: Détails de la couleur
   maintainers:
     index:
-      title: Mainteneurs
-      add_maintainer: Ajouter un mainteneur
+      new_maintainer: Ajouter un mainteneur
       delete_confirmation: Ce mainteneur ne pourra pas être supprimé tant qu'il sera associé à au moins un contrat de maintenance. Voulez-vous continuer ?
-    show:
-      title: Détails du mainteneur
     new:
       title: Nouveau mainteneur
     create:
@@ -268,10 +252,8 @@ fr:
         destroyed: Le mainteneur a bien été supprimé.
   contract_types:
     index:
-      add_contract_type: Ajouter un contrat de maintenance
+      new_contract_type: Ajouter un contrat de maintenance
       delete_confirmation: Toutes les données concernant ce contrat de maintenance seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
-    show:
-      title: Détails du contrat de maintenance
     new:
       title: Nouveau contrat de maintenance
     create:
@@ -287,10 +269,7 @@ fr:
         destroyed: Le contrat de maintenance a bien été supprimé.
   disk_types:
     index:
-      title: Types de disque
-      add_disk_type: Nouveau type de disque
-    show:
-      title: Détails du type de disque
+      new_disk_type: Nouveau type de disque
     new:
       title: Nouveau type de disque
     create:
@@ -310,10 +289,7 @@ fr:
       information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
     index:
       new_manufacturer: Ajouter un constructeur
-      title: Constructeurs
       delete_confirmation: Ce constructeur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
-    show:
-      title: Détails du constructeur
     new:
       title: Nouveau constructeur
     create:
@@ -330,10 +306,7 @@ fr:
   domaines:
     index:
       new_domaine: Ajouter un domaine
-      title: Domaines
       delete_confirmation: Ce domaine ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
-    show:
-      title: Détails du domaine
     new:
       title: Nouveau domaine
     create:
@@ -350,9 +323,6 @@ fr:
   memory_types:
     index:
       new_memory_type: Nouveau type de RAM
-      title: Types de RAM
-    show:
-      title: Détails du type de RAM
     new:
       title: Nouveau type de RAM
     create:
@@ -371,8 +341,7 @@ fr:
       title: Liste des ports cablés
   port_types:
     index:
-      title: Types de ports
-      add_port_type: Ajouter un type de port
+      new_port_type: Ajouter un type de port
       delete_confirmation: Ce type de port ne pourra pas être supprimé tant qu'il sera associé à au moins un type de carte. Voulez-vous continuer ?
     create:
       flashes:
@@ -384,8 +353,6 @@ fr:
     update:
       flashes:
         updated: Le type de port a bien été modifié.
-    show:
-      title: Détails du type de port
     destroy:
       flashes:
         destroyed: Le type de port a bien été supprimé.
@@ -395,8 +362,6 @@ fr:
       title: Catégories
       delete_confirmation: Cette catégorie ne pourra pas être supprimé tant qu'il aura au moins un modèle associé. Voulez-vous continuer ?
       usage: Usage
-    show:
-      title: Détails de la catégorie
     new:
       title: Nouvelle catégorie
     create:
@@ -551,9 +516,8 @@ fr:
       edit:
         title: Changez votre mot de passe
   rooms:
-    title: Salles
-    overview_view:
-      title: Afficher toutes les salles
+    overview:
+      title: Aperçu des salles
     capacity_view:
       title: Vue capacité réseau
       networks:

@@ -1,12 +1,12 @@
 <%
-  provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture.name}")
+  provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture}")
 
   breadcrumb_steps = {
-    Architecture.model_name.human.pluralize => architectures_path, @architecture.name => ""
+    Architecture.model_name.human.pluralize => architectures_path, @architecture => ""
   }
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @architecture, title: @architecture.name, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>
@@ -19,5 +19,10 @@
     <% end %>
   </div>
 
+  <%= render HasManyTurboFrameComponent.new(
+    Modele.model_name.human.pluralize,
+    url: modeles_path(architecture_id: @architecture.id),
+    frame_id: dom_id(Modele, :table)
+  ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@architecture) %>
 </div>

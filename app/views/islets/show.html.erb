@@ -1,13 +1,12 @@
 <%
-  islet_label = "#{Islet.model_name.human} #{@islet} - #{@islet.room}"
   breadcrumb_steps = {
-    Islet.model_name.human.pluralize => islets_path, islet_label => ""
+    Islet.model_name.human.pluralize => islets_path, @islet.name_with_room => ""
   }
 
-  provide(:title, "#{Islet.model_name.human.pluralize} | #{islet_label}")
+  provide(:title, "#{Islet.model_name.human.pluralize} | #{@islet.name_with_room}")
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @islet, title: islet_label, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @islet, title: @islet.name_with_room, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <div class="d-flex flex-row flex-wrap">
     <div class="col-12 col-lg-6 pe-lg-4">
@@ -27,9 +26,20 @@
           <%= t("layouts.sidebar.location.title") %>
         <% end %>
 
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <dl class="show-page_dl d-grid row-gap-2 mb-0 align-items-center">
           <dt class="pb-2"><%= Room.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to @islet.room, room_path(@islet.room) %></dd>
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+            <%= link_to @islet.room, room_path(@islet.room) %>
+            <%= link_to visualization_room_path(@islet.room),
+                        class: "btn btn-primary btn-sm",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill"
+                    aria-hidden="true"
+                    data-controller="tooltip"
+                    data-bs-placement="left"
+                    title="<%= t("visualization.title") %>"></span>
+            <% end %>
+          </dd>
 
           <dt class="pb-2"><%= Islet.human_attribute_name(:position) %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= @islet.position %></dd>
