@@ -10,7 +10,6 @@ class Site < ApplicationRecord
   after_validation :geocode
 
   scope :sorted, -> { order(:position) }
-  scope :visible_on_home_page, -> { where(display_on_home_page: true) }
 
   def to_s
     name
