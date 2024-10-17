@@ -106,7 +106,9 @@ fr:
         span: Slots
       site:
         name: Nom
+        description: Description
         position: Position
+        display_on_home_page: Afficher sur la page d'accueil
         street: Rue
         city: Ville
         country: Pays
