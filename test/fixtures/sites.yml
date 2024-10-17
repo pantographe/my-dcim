@@ -7,3 +7,4 @@ one:
 two:
   id: 2
   name: Site 2
+  display_on_home_page: false

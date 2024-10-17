@@ -15,6 +15,7 @@ class Room < ApplicationRecord
 
   scope :sorted, -> { order(:site_id, :position, :name) }
   scope :not_empty, -> { joins(:servers) }
+  scope :visible_on_home_page, -> { where(display_on_home_page: true) }
 
   def to_s
     name.to_s
