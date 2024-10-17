@@ -26,8 +26,4 @@ RSpec.describe Room do
   describe "#should_generate_new_friendly_id?" do
     pending
   end
-
-  describe ".visible_on_home_page" do
-    it { expect(described_class.visible_on_home_page).to match_array([rooms(:one), rooms(:two)]) }
-  end
 end

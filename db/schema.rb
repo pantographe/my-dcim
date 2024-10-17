@@ -486,7 +486,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_17_143515) do
     t.decimal "longitude"
     t.integer "rooms_count", default: 0, null: false
     t.text "description"
-    t.boolean "display_on_home_page", default: true, null: false
   end
 
   create_table "stacks", force: :cascade do |t|

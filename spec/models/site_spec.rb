@@ -20,8 +20,4 @@ RSpec.describe Site do
   describe "#address" do
     it { expect(site.address).to eq "Rue du Cactus, 92055 La Défense, France" }
   end
-
-  describe ".visible_on_home_page" do
-    it { expect(described_class.visible_on_home_page).to match_array([sites(:one)]) }
-  end
 end
