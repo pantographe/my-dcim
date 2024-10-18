@@ -7,6 +7,8 @@ class Site < ApplicationRecord
   has_many :rooms, dependent: :restrict_with_error
   has_many :frames, through: :rooms, dependent: :restrict_with_error
 
+  has_one_attached :delivery_map
+
   after_validation :geocode
 
   scope :sorted, -> { order(:position) }
