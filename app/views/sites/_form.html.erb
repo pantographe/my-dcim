@@ -71,7 +71,7 @@
       <%= f.label :delivery_map, class: "form-label" %>
       <%= f.file_field :delivery_map, class: "form-control" %>
       <% if @site.delivery_map.attached? %>
-        <%= image_tag @site.delivery_map.variant(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
+        <%= image_tag @site.delivery_map.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
       <% end %>
     </fieldset>
   <% end %>
