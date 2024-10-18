@@ -51,7 +51,7 @@
           <dd class="mb-0 pb-2 ps-3">
             <% if @site.delivery_map.attached? %>
               <%= link_to @site.delivery_map, rel: :noopener, target: :_blank do %>
-                <%= image_tag @site.delivery_map, class: "w-100" %>
+                <%= image_tag @site.delivery_map.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
               <% end %>
             <% end %>
           </dd>
