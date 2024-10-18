@@ -485,7 +485,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_17_155157) do
     t.decimal "latitude"
     t.decimal "longitude"
     t.integer "rooms_count", default: 0, null: false
-    t.text "description"
     t.text "delivery_address"
     t.text "delivery_times"
   end
