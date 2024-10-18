@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus"
+import ExportPdfController from "./export_pdf_controller.js"
 
 import { get } from "@rails/request.js"
 import { html2pdf, saveAs, PDFDocument } from "html2pdf.js"
@@ -15,11 +15,9 @@ const exportOptions = {
   jsPDF: { format: "legal" }
 }
 
-export default class extends Controller {
-  static targets = ["spinner"]
+export default class extends ExportPdfController {
   static values = {
     modelIds: Array,
-    filename: String,
     isMove: Boolean
   }
 
@@ -49,9 +47,7 @@ export default class extends Controller {
       const url = this.isMoveValue ? `moves/print/${modelId}`:
                                      `/visualization/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
 
-      const response = await get(url, {
-        responseKind: "application/pdf"
-      })
+      const response = await get(url)
 
       if (response.ok) {
         const html = await response.text
@@ -69,13 +65,5 @@ export default class extends Controller {
     }
 
     return pdfDoc
-  }
-
-  showSpinner() {
-    this.spinnerTarget.classList.remove("d-none")
-  }
-
-  hideSpinner() {
-    this.spinnerTarget.classList.add("d-none")
   }
 }
