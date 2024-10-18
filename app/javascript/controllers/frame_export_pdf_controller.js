@@ -46,7 +46,6 @@ export default class extends Controller {
     for (let i = 0; i < this.modelIdsValue.length; i++) {
       const modelId = this.modelIdsValue[i]
 
-
       const url = this.isMoveValue ? `moves/print/${modelId}`:
                                      `/visualization/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
 
