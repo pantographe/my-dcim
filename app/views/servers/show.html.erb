@@ -215,7 +215,7 @@
             <% end %>
 
             <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
-              <%= image_tag @server.photo, class: "w-100" %>
+              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
             <% end %>
           <% end %>
         <% end %>
