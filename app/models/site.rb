@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Site < ApplicationRecord
-  geocoded_by :address
   has_changelog
 
   has_many :rooms, dependent: :restrict_with_error
@@ -9,6 +8,9 @@ class Site < ApplicationRecord
 
   has_one_attached :delivery_map
 
+  validates :delivery_map, content_type: [:png, :jpg, :jpeg, :pdf, :gif]
+
+  geocoded_by :address
   after_validation :geocode
 
   scope :sorted, -> { order(:position) }
