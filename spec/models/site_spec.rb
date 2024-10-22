@@ -15,7 +15,7 @@ RSpec.describe Site do
 
   describe "validations" do
     it do
-      is_expected.to validate_content_type_of(:delivery_map).allowing("image/png",
+      is_expected.to validate_content_type_of(:delivery_map).allowing("image/png", # rubocop:disable RSpec/ImplicitSubject
                                                                       "image/jpeg",
                                                                       "image/gif",
                                                                       "application/pdf")
