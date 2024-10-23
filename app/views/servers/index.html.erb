@@ -122,7 +122,7 @@
         </fieldset>
       </div>
     <% end %>
-  </div>
+  <% end %>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@servers) do |table| %>
