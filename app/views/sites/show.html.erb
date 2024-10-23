@@ -3,23 +3,7 @@
   breadcrumb_steps = { Site.model_name.human.pluralize => sites_path, @site.name => "" }
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @site, title: @site.name, breadcrumb_steps:) do |heading| %>
-  <% heading.with_extra_buttons do %>
-    <button type="button"
-            class="btn btn-outline-primary d-flex align-items-center me-2 export-pdf-button"
-            title="<%= t("export_button.exports.pdf") %>"
-            data-controller="export-pdf"
-            data-action="click->export-pdf#export"
-            data-export-pdf-filename-value="<%= "#{Site.model_name.human.downcase}_#{@site.name.parameterize}" %>">
-      <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
-      <span class="text-truncate d-none d-md-inline-block ms-2">
-        <%= t("export_button.exports.pdf") %>
-      </span>
-      <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none ms-2" role="status" aria-hidden="true"
-            data-export-pdf-target="spinner"></span>
-    </button>
-  <% end %>
-<% end %>
+<%= render Page::HeadingShowComponent.new(resource: @site, title: @site.name, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <div class="d-flex flex-row flex-wrap">
     <div class="col-12 col-lg-6 pe-lg-4">
@@ -47,7 +31,23 @@
     <div class="col-12 col-lg-6" id="export-to-pdf">
       <%= render CardComponent.new(type: :primary) do |card| %>
         <% card.with_header do %>
-          <%= t("layouts.sidebar.location.title") %>
+          <div class="justify-content-between d-flex">
+            <span><%= t("layouts.sidebar.location.title") %></span>
+            <button type="button"
+                    class="btn btn-outline-light btn-sm d-flex align-items-center export-pdf-button"
+                    title="<%= t("export_button.exports.pdf") %>"
+                    data-controller="export-pdf"
+                    data-action="click->export-pdf#export"
+                    data-export-pdf-filename-value="<%= "#{Site.model_name.human.downcase}_#{@site.name.parameterize}" %>"
+                    data-html2canvas-ignore="true" >
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+              <span class="text-truncate d-none d-md-inline-block ms-2">
+                <%= t("export_button.exports.pdf") %>
+              </span>
+              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none ms-2" role="status" aria-hidden="true"
+                    data-export-pdf-target="spinner"></span>
+            </button>
+          </div>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
