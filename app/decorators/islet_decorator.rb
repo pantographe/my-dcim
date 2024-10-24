@@ -12,5 +12,11 @@ class IsletDecorator < ApplicationDecorator
         [site.name, islets]
       end
     end
+
+    def cooling_modes_for_options
+      Islet.cooling_modes.keys.map do |cooling_mode|
+        [Islet.human_attribute_name("cooling_mode.#{cooling_mode}"), cooling_mode]
+      end
+    end
   end
 end
