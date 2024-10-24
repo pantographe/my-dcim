@@ -34,4 +34,8 @@ module RoomsHelper
     nb_of_lanes = islet.bays.map(&:lane).max
     frame_width * (((nb_of_frames) / nb_of_lanes) + 1)
   end
+
+  def surface_area_with_suffix(surface_area)
+    "#{surface_area} #{t("surface_area.unit")}"
+  end
 end
