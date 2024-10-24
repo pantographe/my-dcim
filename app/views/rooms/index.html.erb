@@ -70,7 +70,9 @@
       <% end %>
 
       <% table.with_column(Room.human_attribute_name(:status), sort_by: :status) do |room| %>
-        <%= Room.human_attribute_name("status.#{room.status}") %>
+        <span class="badge rounded-pill <%= room.decorated.badge_color_for_status %>">
+          <%= Room.human_attribute_name("status.#{room.status}") %>
+        </span>
       <% end %>
 
       <% table.with_column(style: "min-width: 132px; width: 132px") do |room| %>

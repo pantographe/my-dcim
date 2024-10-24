@@ -52,7 +52,11 @@
           </dd>
 
           <dt class="pb-2"><%= Room.human_attribute_name(:status) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= Room.human_attribute_name("status.#{@room.status}") %></dd>
+          <dd class="mb-0 pb-2 ps-3">
+            <span class="badge rounded-pill <%= @room.decorated.badge_color_for_status %>">
+              <%= Room.human_attribute_name("status.#{@room.status}") %>
+            </span>
+          </dd>
         </dl>
       <% end %>
     </div>
