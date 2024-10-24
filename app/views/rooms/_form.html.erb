@@ -20,7 +20,7 @@
       <%= f.label :surface_area, class: "form-label" %>
       <div class="input-group">
         <%= f.number_field :surface_area, class: "form-control" %>
-        <span class="input-group-text">m²</span>
+        <span class="input-group-text"><%= t("surface_area.unit") %></span>
       </div>
     </fieldset>
   <% end %>
