@@ -8,28 +8,28 @@ RSpec.describe RoomDecorator, type: :decorator do
   end
 
   describe "#badge_color_for_status" do
-    let(:subject) { rooms(:one).decorated }
+    subject(:badge_color) { rooms(:one).decorated.badge_color_for_status }
 
     context "with status = active" do
-      it { expect(subject.badge_color_for_status).to eq "text-bg-success" }
+      it { is_expected.to eq "text-bg-success" }
     end
 
     context "with status = passive" do
       before { rooms(:one).status = :passive }
 
-      it { expect(subject.badge_color_for_status).to eq "text-bg-warning" }
+      it { is_expected.to eq "text-bg-warning" }
     end
 
     context "with status = planned" do
       before { rooms(:one).status = :planned }
 
-      it { expect(subject.badge_color_for_status).to eq "text-bg-primary" }
+      it { is_expected.to eq "text-bg-primary" }
     end
 
     context "with status = unknown" do
       before { rooms(:one).status = :unknown }
 
-      it { expect(subject.badge_color_for_status).to be_nil }
+      it { is_expected.to be_nil }
     end
   end
 end
