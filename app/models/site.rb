@@ -8,7 +8,7 @@ class Site < ApplicationRecord
 
   has_one_attached :delivery_map
 
-  validates :delivery_map, content_type: [:png, :jpg, :jpeg, :pdf, :gif]
+  validates :delivery_map, content_type: %i[png jpg jpeg pdf gif]
 
   geocoded_by :address
   after_validation :geocode
