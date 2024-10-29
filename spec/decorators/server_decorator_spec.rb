@@ -6,8 +6,8 @@ RSpec.describe ServerDecorator, type: :decorator do
   let(:server) { servers(:one) }
   let(:decorated_server) { server.decorated }
 
-  describe "#network_types_to_s" do
-    subject(:network_types_sentence) { decorated_server.network_types_to_s }
+  describe "#network_types_to_human" do
+    subject(:network_types_sentence) { decorated_server.network_types_to_human }
 
     context "when server has no network type" do
       it { is_expected.to eq("Non (par défaut)") }

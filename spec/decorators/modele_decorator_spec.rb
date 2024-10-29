@@ -6,8 +6,8 @@ RSpec.describe ModeleDecorator, type: :decorator do
   let(:modele) { modeles(:one) }
   let(:decorated_modele) { modele.decorated }
 
-  describe "#network_types_to_s" do
-    subject(:network_types_sentence) { decorated_modele.network_types_to_s }
+  describe "#network_types_to_human" do
+    subject(:network_types_sentence) { decorated_modele.network_types_to_human }
 
     context "when modele has no network type" do
       it { is_expected.to eq("Non (par défaut)") }
