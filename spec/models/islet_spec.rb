@@ -20,7 +20,7 @@ RSpec.describe Islet do
     it do
       is_expected.to define_enum_for(:cooling_mode) # rubocop:disable RSpec/ImplicitSubject
         .validating(allowing_nil: true)
-        .with_values([:hot_containment, :cold_containment])
+        .with_values(%i[hot_containment cold_containment])
     end
   end
 
