@@ -11,7 +11,7 @@ class AddStatusAttributeToRoom < ActiveRecord::Migration[7.2]
     up_only do
       MigrationRoom.find_each do |room|
         status = room.display_on_home_page ? 0 : 1
-        room.update(status: status)
+        room.update!(status: status)
       end
 
       change_column_null(:rooms, :status, false)
