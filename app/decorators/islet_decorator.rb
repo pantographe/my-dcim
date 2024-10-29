@@ -19,4 +19,10 @@ class IsletDecorator < ApplicationDecorator
       end
     end
   end
+
+  def cooling_mode_to_human
+    return Islet.human_attribute_name("cooling_mode.blank") unless (c_m = cooling_mode.presence)
+
+    Islet.human_attribute_name("cooling_mode.#{c_m}")
+  end
 end
