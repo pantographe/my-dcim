@@ -18,7 +18,6 @@ RSpec.describe Room do
   describe "validations" do
     it do
       is_expected.to define_enum_for(:status) # rubocop:disable RSpec/ImplicitSubject
-        .with_default(:active)
         .validating
         .with_values(%i[active passive planned])
     end

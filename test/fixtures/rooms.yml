@@ -6,7 +6,6 @@ one:
   description: Room n°1
   site_id: 1
   display_on_home_page: true
-  status: :active
 
 two:
   id: 2
@@ -14,7 +13,6 @@ two:
   description: Room n°2
   site_id: 1
   display_on_home_page: true
-  status: :active
 
 three:
   id: 3
@@ -22,18 +20,15 @@ three:
   description: Room n°3
   site_id: 2
   display_on_home_page: false
-  status: :active
 
 four:
   id: 4
   name: S4
   description: Room n°4
   site_id: 2
-  status: :active
 
 five:
   id: 5
   name: S5
   description: Room n°5
   site_id: 1
-  status: :active

@@ -416,7 +416,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_101945) do
     t.boolean "display_on_home_page"
     t.integer "site_id", null: false
     t.integer "islets_count", default: 0
-    t.integer "status", null: false
+    t.integer "status", default: 0, null: false
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end
