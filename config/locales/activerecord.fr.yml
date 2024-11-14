@@ -31,6 +31,7 @@ fr:
       contract_type:
         one: Contrat de maintenance
         other: Contrats de maintenance
+      disk: Disque
       disk_type:
         one: Type de disque
         other: Types de disque
@@ -49,6 +50,9 @@ fr:
       move:
         one: Déplacement prévu
         other: Déplacements prévus
+      contact: Contact
+      contact_role: Rôle
+      contact_assignment: Assignation
 
     attributes:
       room:
@@ -139,7 +143,8 @@ fr:
         status: État
         bay: Baie la plus proche
         last_service: Dernière maintenance
-        air_conditioner_model: Modèle
+        lift_pump: Pompe de relevage
+        air_conditioner_model_id: Modèle
         start: DTC start (début lutte)
         range: DTC range (plage d'accélération)
         setpoint: Temperature de Consigne externe (froid)
@@ -260,16 +265,17 @@ fr:
         short_gbe: Gb
         short_10gbe: 10 Gb
         short_fiber: Fibre
+      enclosures/composants:
+        name: Nom d'un slot d'une enclosure
       enclosure:
         display: Disposition
         grid_areas: Grid areas
-        component: Composant du modèle
-        card_type: Type de carte
-        label: Libellé
+        composant_id: Composant du modèle
+        card_type_id: Type de carte
+        name: Libellé
         orientation: Orientation
-        first_port_name: Numéro du premier port
-        first_port_name_shrt: N° 1e port
-        twin_card: Carte jumelle
+        first_position: N° du 1er port
+        twin_card_id: Carte jumelle
       user:
         id: Identifiant
         name: Nom
@@ -319,6 +325,7 @@ fr:
         position: Position
         bay_id: Baie
         u: U
+        width: Largeur
       bay:
         lane: Ligne
         position: Position
@@ -358,6 +365,25 @@ fr:
         vlans: Vlans
         color: Couleur
         cablename: Nom du câble
+      contact:
+        first_name: Prénom
+        last_name: Nom
+        full_name: Nom
+        phone_number: Numéro de téléphone
+        email: Adresse mail
+      contact_role:
+        name: Nom
+        description: Description
+      contact_assignment:
+        site_id: Site
+        site: Site
+        contact_id: Contact
+        contact: Contact
+        contact_role_id: Rôle
+        contact_role: Rôle
+      contact_assignments:
+        contact_role: Le rôle assigné à un contact
+        contact: Le contact assigné à un rôle
 
     errors:
       models:
@@ -369,3 +395,7 @@ fr:
           attributes:
             numero:
               invalid: ne peut pas être identique à un nom de machine
+        composant:
+          attributes:
+            name:
+              invalid: ne peut pas contenir d'espace

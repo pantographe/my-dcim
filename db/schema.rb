@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_23_155125) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_155125) do
     t.integer "range"
     t.integer "setpoint"
     t.integer "min_setpoint"
+    t.boolean "lift_pump", default: false, null: false
     t.index ["air_conditioner_model_id"], name: "index_air_conditioners_on_air_conditioner_model_id"
     t.index ["bay_id"], name: "index_air_conditioners_on_bay_id"
   end
@@ -186,6 +187,33 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_155125) do
     t.index ["port_id"], name: "index_connections_on_port_id"
   end
 
+  create_table "contact_assignments", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.bigint "contact_id", null: false
+    t.bigint "contact_role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_contact_assignments_on_contact_id"
+    t.index ["contact_role_id"], name: "index_contact_assignments_on_contact_role_id"
+    t.index ["site_id"], name: "index_contact_assignments_on_site_id"
+  end
+
+  create_table "contact_roles", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone_number"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "contract_types", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
@@ -266,6 +294,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_155125) do
     t.integer "switch_slot"
     t.string "slug"
     t.integer "bay_id", null: false
+    t.float "width"
     t.index ["bay_id"], name: "index_frames_on_bay_id"
     t.index ["slug"], name: "index_frames_on_slug", unique: true
   end
@@ -556,6 +585,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_155125) do
   add_foreign_key "cards", "card_types"
   add_foreign_key "composants", "type_composants"
   add_foreign_key "connections", "cables"
+  add_foreign_key "contact_assignments", "contact_roles"
+  add_foreign_key "contact_assignments", "contacts"
+  add_foreign_key "contact_assignments", "sites"
   add_foreign_key "disks", "disk_types"
   add_foreign_key "documents", "servers"
   add_foreign_key "external_app_records", "servers"

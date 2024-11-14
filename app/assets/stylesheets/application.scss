@@ -692,11 +692,19 @@ body {
         &.active,
         &:focus {
           background-color: var(--bs-primary-bg-subtle);
+
+          &.mydcim-sidebar-links-link-warning {
+            background-color: var(--bs-warning-bg-subtle);
+          }
         }
 
         &.active {
           font-weight: 600;
           color: var(--bs-primary-text-emphasis);
+
+          &.mydcim-sidebar-links-link-warning {
+            color: var(--bs-warning-text-emphasis);
+          }
         }
       }
     }
@@ -766,6 +774,23 @@ body {
     max-width: 100px;
   }
 
+  nav.pagy-bootstrap.nav .pagination {
+    margin-bottom: 0;
+  }
+
+  .contact_assignments {
+    .card-body {
+      :nth-child(1 of .contact_assignment-fields:not([style*="display: none"])) {
+        border: none !important;
+        padding-top: 0 !important;
+
+        & > * > * {
+          margin-top: .25rem !important;
+        }
+      }
+    }
+  }
+
   /* Tom-Select */
   /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {
@@ -797,6 +822,20 @@ body {
         box-shadow: none;
         border: none;
         box-shadow: none;
+    }
+  }
+
+  /* Tom-select fix for empty value on FF */
+  .ts-dropdown [data-selectable].option:empty:before {
+    content: "\200b";
+  }
+
+  /* Tom-select fix for small selects */
+  .ts-dropdown {
+    min-width: fit-content;
+
+    .item, .option {
+      white-space: nowrap;
     }
   }
 
