@@ -662,12 +662,6 @@ Style/NumericPredicate:
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
-Style/OrAssignment:
-  Exclude:
-    - 'app/controllers/servers_controller.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
 Style/ParenthesesAroundCondition:
   Exclude:
