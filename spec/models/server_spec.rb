@@ -44,8 +44,6 @@ RSpec.describe Server do
   end
 
   describe ".find_with_numero_or_friendly_id" do
-    before { servers(:one).save }
-
     context "when a numero is given" do
       it { expect(described_class.find_with_numero_or_friendly_id("cz31535fey")).to eq(servers(:one)) }
     end
