@@ -10,15 +10,13 @@ class DeviceModel < ApplicationRecord
   belongs_to :architecture # TODO: counter_cache: true
   belongs_to :manufacturer # TODO: counter_cache: true
 
-  has_many :slots, class_name: "DeviceSlot", as: :record
+  has_many :slots, class_name: "DeviceSlot", as: :record, dependent: :destroy
 
   validates :name, presence: true
   validate :validate_network_types_values
   normalizes :network_types, with: ->(values) { values.compact_blank }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?

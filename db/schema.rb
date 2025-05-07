@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_16_152607) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_23_092803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -227,6 +227,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_152607) do
     t.string "organization"
   end
 
+  create_table "device_cards", force: :cascade do |t|
+    t.bigint "device_slot_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["device_slot_id"], name: "index_device_cards_on_device_slot_id"
+  end
+
   create_table "device_models", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.bigint "architecture_id", null: false
@@ -247,7 +255,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_152607) do
   create_table "device_slots", force: :cascade do |t|
     t.string "record_type", null: false
     t.bigint "record_id", null: false
-    t.string "name"
+    t.string "name", null: false
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -542,6 +550,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_152607) do
   add_foreign_key "contact_assignments", "contact_roles"
   add_foreign_key "contact_assignments", "contacts"
   add_foreign_key "contact_assignments", "sites"
+  add_foreign_key "device_cards", "device_slots"
   add_foreign_key "device_models", "architectures"
   add_foreign_key "device_models", "categories"
   add_foreign_key "device_models", "manufacturers"

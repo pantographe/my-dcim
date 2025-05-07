@@ -8,7 +8,7 @@ RSpec.describe DeviceModel do
   subject(:device_model) do
     described_class.new(
       name: "Express5800 - 120RG-2", category: categories(:one), architecture: architectures(:rackable),
-      manufacturer: manufacturers(:fortinet),
+      manufacturer: manufacturers(:fortinet)
     )
   end
 
@@ -62,6 +62,7 @@ RSpec.describe DeviceModel do
 
     it { expect(device_model.deep_dup).not_to eq(device_model) }
     it { expect(device_model.deep_dup.name).to eq(device_model.name) }
-    it { expect(device_model.deep_dup.slots).to eq(device_model.slots) }
+    it { expect(device_model.deep_dup.slots.first.name).to eq(device_model.slots.first.name) }
+    it { expect(device_model.deep_dup.slots.first.position).to eq(device_model.slots.first.position) }
   end
 end

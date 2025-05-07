@@ -1,0 +1,5 @@
+device_model_slot:
+  id: 1
+  record_type: DeviceModel
+  record_id: 1
+  name: A
