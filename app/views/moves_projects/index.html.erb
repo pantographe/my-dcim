@@ -18,6 +18,14 @@
       <%= link_to moves_project.name, moves_project_path(moves_project) %>
     <% end %>
 
+    <% table.with_column(MovesProject.human_attribute_name(:steps)) do |moves_project| %>
+      <%= moves_project.steps.size %>
+    <% end %>
+
+    <% table.with_column(MovesProject.human_attribute_name(:moves)) do |moves_project| %>
+      <%= moves_project.moves.size %>
+    <% end %>
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |moves_project| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_moves_project_path(moves_project), class: "btn btn-info" do %>
