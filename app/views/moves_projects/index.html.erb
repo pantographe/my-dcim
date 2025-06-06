@@ -18,11 +18,11 @@
       <%= link_to moves_project.name, moves_project_path(moves_project) %>
     <% end %>
 
-    <% table.with_column(MovesProject.human_attribute_name(:steps)) do |moves_project| %>
+    <% table.with_column(MovesProjectStep.model_name.human) do |moves_project| %>
       <%= moves_project.steps.size %>
     <% end %>
 
-    <% table.with_column(MovesProject.human_attribute_name(:moves)) do |moves_project| %>
+    <% table.with_column(Move.model_name.human(count: 2)) do |moves_project| %>
       <%= moves_project.moves.size %>
     <% end %>
 
