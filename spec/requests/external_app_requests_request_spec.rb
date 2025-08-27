@@ -13,7 +13,7 @@ RSpec.describe "ExternalAppRequests" do
 
   describe "GET #show" do
     subject(:response) do
-      get external_app_request_path(request)
+      get external_app_request_path(request, format: :json)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -21,8 +21,8 @@ RSpec.describe "ExternalAppRequests" do
 
     it "returns the request status and progress" do
       json_response = response.parsed_body
-      expect(json_response).to include("status" => request.status,
-                                       "progress" => request.progress)
+      expect(json_response).to include(status: request.status,
+                                       progress: request.progress)
     end
   end
 end

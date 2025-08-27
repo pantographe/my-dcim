@@ -6,3 +6,4 @@
 # Mime::Type.register "text/richtext", :rtf
 
 Mime::Type.register "text/plain", :txt
+Mime::Type.register "text/event-stream", :event_stream

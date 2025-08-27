@@ -18,6 +18,10 @@ class ExternalAppRequest < ApplicationRecord
   scope :failed, -> { where(status: :failed) }
   scope :running, -> { where(status: %i[pending in_progress]) }
 
+  def finished?
+    completed? || failed?
+  end
+
   private
 
   def set_defaults
