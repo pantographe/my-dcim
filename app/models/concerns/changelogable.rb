@@ -70,8 +70,9 @@ module Changelogable
 
   def associations_attributes
     # pour du has_many through ça va pas car ça va être les ids qui nous intéresse et surement load le display_name pour stocker
-    self.class._changelogable_association_names.index_with do |association_name|
-      public_send(association_name).map(&:attributes)
+    self.class._changelogable_association_names.each do |name, attributes|
+      # public_send(name).map(&:attributes) if attributes == {}
+      public_send(name).pluck(*attributes)
     end
   end
 
