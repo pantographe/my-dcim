@@ -63,7 +63,7 @@ module Changelogable
   def _changeloagable_previous_changes
     changes = previous_changes
 
-    # changes[:associations] = @_changelogable_assocations_attributes_before_save
+    changes[:associations] = @_changelogable_assocations_attributes_before_save
 
     _changelogable_parameter_filter(changes)
   end
