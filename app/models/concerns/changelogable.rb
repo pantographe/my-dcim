@@ -15,7 +15,7 @@ module Changelogable
       has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object, dependent: nil,
                                                                     inverse_of: :object
 
-      before_save :store_associations_attributes
+      after_initialize :store_associations_attributes
       after_create_commit :changelog_entry_on_create
       after_update_commit :changelog_entry_on_update
       before_destroy :changelog_entry_on_destroy
@@ -63,16 +63,21 @@ module Changelogable
   def _changeloagable_previous_changes
     changes = previous_changes
 
-    changes[:associations] = @_changelogable_assocations_attributes_before_save
+    changes[:associations] = [@store_associations_attributes, associations_attributes]
 
     _changelogable_parameter_filter(changes)
   end
 
   def associations_attributes
     # pour du has_many through ça va pas car ça va être les ids qui nous intéresse et surement load le display_name pour stocker
-    self.class._changelogable_association_names.each do |name, attributes|
-      # public_send(name).map(&:attributes) if attributes == {}
-      public_send(name).pluck(*attributes)
+    self.class._changelogable_association_names.to_h do |name, attributes|
+      values = if attributes == {} # This mean all attributes
+        public_send(name).map(&:attributes)
+      else
+        public_send(name).pluck(*attributes)
+      end
+
+      [name, values]
     end
   end
 
