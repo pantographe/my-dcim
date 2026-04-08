@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   include ChangelogContextApplication
   include Localization
-  include Pagy::Backend
+  include Pagy::Method
   include Authorization
 
   acts_as_token_authentication_handler_for User
@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
   private
 
   def pagy_get_limit(vars)
-    limit_params = vars[:limit] || Pagy::DEFAULT[:limit_param]
+    limit_params = vars[:limit] || Pagy::OPTIONS[:limit_key]
 
     params[limit_params] || current_user.items_per_page
   end
