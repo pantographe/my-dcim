@@ -8,6 +8,8 @@ RSpec.describe PowerDistributionUnitType do
 
   describe "associations" do
     it { is_expected.to belong_to(:manufacturer) }
+
+    it { is_expected.to have_many(:circuits) }
   end
 
   describe "validations" do

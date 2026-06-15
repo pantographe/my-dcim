@@ -5,6 +5,8 @@ class PowerDistributionUnitType < ApplicationRecord
 
   belongs_to :manufacturer
 
+  has_many :circuits, as: :record, dependent: :destroy
+
   enum :current_type, { three_phase: 0, single_phase: 1 }, validate: true
 
   scope :sorted, -> { order(Arel.sql("LOWER(name)")) }
