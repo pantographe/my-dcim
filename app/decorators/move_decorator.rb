@@ -16,8 +16,11 @@ class MoveDecorator < ApplicationDecorator
 
   def moved_connections_to_badge_component
     color = remove_existing_connections_on_execution ? :success : :danger
+    text = remove_existing_connections_on_execution ? "Connexions gardées" : "Connexions supprimées"
 
-    BadgeComponent.new(I18n.t("boolean.#{remove_existing_connections_on_execution}"), color:, variant: :pill)
+    # I18n.t("boolean.#{remove_existing_connections_on_execution}")
+
+    BadgeComponent.new(text, color:, variant: :pill)
   end
 
   def display_name
