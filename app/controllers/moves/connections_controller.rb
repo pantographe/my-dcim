@@ -7,11 +7,11 @@ module Moves
     before_action do
       breadcrumb.add_step(MovesProject.model_name.human.pluralize, moves_projects_path)
       breadcrumb.add_step(@move.moves_project, moves_project_path(@move.moves_project))
-      breadcrumb.add_step(@move.step, moves_project_step_moves(@move.step))
+      breadcrumb.add_step(@move.step, moves_project_step_moves_path(@move.step))
     end
 
     before_action except: %i[index] do
-      breadcrumb.add_step(@move, move_connections_path(@move))
+      breadcrumb.add_step(@move.moveable, move_connections_path(@move))
     end
 
     def index; end
