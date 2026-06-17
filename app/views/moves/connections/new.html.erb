@@ -1,0 +1,6 @@
+<% breadcrumb.add_step(t("action.create")) %>
+
+<%= render Page::HeadingComponent.new(
+  title: @move.moveable, title: t(".title"), breadcrumb:,
+  back_button_url: move_connections_path(@move),
+) %>

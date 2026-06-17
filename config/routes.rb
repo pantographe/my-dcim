@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   end
 
   resources :moves, only: %i[new create] do
-    resources :move_connections, controller: "moves/connections"
+    resources :move_connections, controller: "moves/connections", as: :connections
   end
 
   get "data_import", action: "index", controller: "data_import"

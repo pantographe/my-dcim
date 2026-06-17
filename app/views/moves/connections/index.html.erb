@@ -1,0 +1,15 @@
+<%
+  breadcrumb.add_step(title = @move.moveable)
+%>
+
+<%= render Page::HeadingComponent.new(
+  title:, breadcrumb:,
+  back_button_url: moves_project_step_moves_path(@move.step)) do |heading| %>
+  <% heading.with_right_content do %>
+    <%= render ButtonComponent.new(t(".new_move_connection"),
+                                   url: new_move_connection_path(@move),
+                                   variant: :success,
+                                   icon: "plus-lg",
+                                   is_responsive: true) %>
+  <% end %>
+<% end %>

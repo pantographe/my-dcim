@@ -593,6 +593,24 @@ fr:
     decorator:
       display_name: Déplacement de %{moveable}
 
+    connections:
+      index:
+        new_move_connection: Nouvelle connection
+      new:
+        title: Nouvelle connection
+      create:
+        flashes:
+          created:
+      destroy:
+        title:
+        flashes:
+          destroyed:
+      edit:
+        title:
+      update:
+        flashes:
+          updated:
+
   moves_projects:
     index:
       new_moves_project: Nouveau projet
