@@ -14,7 +14,10 @@ module Moves
       breadcrumb.add_step(@move.moveable, move_connections_path(@move))
     end
 
-    def index; end
+    def index
+      @filter = ProcessorFilter.new(scoped_move_connections, params)
+      authorize! @move_connections = @filter.results
+    end
 
     def show; end
 

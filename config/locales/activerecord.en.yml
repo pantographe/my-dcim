@@ -147,9 +147,16 @@ en:
         position: Position in frame
         status: State
         executed_at: Executed at
-      move/status:
-        executed: Executed
-        planned: Planned
+        statuses:
+          executed: Executed
+          planned: Planned
+      move/connection:
+        port_from_id: From Port
+        port_to_id: Destination Port
+        vlans: Vlans
+        color: Color
+        cablename: Cable name
+        cable_color: Cable color
       server:
         name: Name
         numero: Serial number

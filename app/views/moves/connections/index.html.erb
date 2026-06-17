@@ -1,6 +1,4 @@
-<%
-  breadcrumb.add_step(title = @move.moveable)
-%>
+<% breadcrumb.add_step(title = @move.moveable) %>
 
 <%= render Page::HeadingComponent.new(
   title:, breadcrumb:,
@@ -13,3 +11,78 @@
                                    is_responsive: true) %>
   <% end %>
 <% end %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= turbo_frame_tag(dom_id(Move::Connection, :table), data: { turbo_action: :advance }) do %>
+    <div class="d-flex flex-column row-gap-4">
+      <%= render List::DataTableComponent.new(@move_connections) do |table| %>
+        <% if allowed_to?(:destroy?, with: Move::ConnectionPolicy) %>
+          <% table.with_bulk_action(
+            url: bulk_move_connections_path(@move),
+            method: :delete,
+            class: "btn btn-danger btn-sm",
+            data: { confirm: t("action.confirm") }
+          ) do %>
+            <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(Move::Connection.human_attribute_name(:cable_name), sort_by: :cable_name) do |move_connection| %>
+          <%= link_to move_connection.cable_name,
+                      move_connection_path(@move, move_connection),
+                      class: "fw-bold",
+                      data: { turbo_frame: :_top } %>
+        <% end %>
+
+        <% table.with_column(Move::Connection.human_attribute_name(:cable_color)) do |move_connection| %>
+          <%= move_connection.cable_color %>
+        <% end %>
+
+        <% table.with_column(Move::Connection.human_attribute_name(:vlans)) do |move_connection| %>
+          <%= move_connection.vlans %>
+        <% end %>
+
+        <% table.with_column(Move::Connection.human_attribute_name(:executed_at)) do |move_connection| %>
+          <%= move_connection.executed_at %>
+        <% end %>
+
+        <% table.with_column(Move::Connection.human_attribute_name(:port_from_id)) do |move_connection| %>
+          <%= move_connection.port_from_id %>
+        <% end %>
+
+        <% table.with_column(Move::Connection.human_attribute_name(:port_to_id)) do |move_connection| %>
+          <%= move_connection.port_to_id %>
+        <% end %>
+
+        <% table.with_column(Move::Connection.human_attribute_name(:port_to_id)) do |move_connection| %>
+          <%= move_connection.port_to_id %>
+        <% end %>
+
+        <% table.with_column(style: "min-width: 100px; width: 100px") do |move_connection| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <% if allowed_to?(:update?, move_connection, with: Move::ConnectionPolicy) %>
+              <%= link_to edit_move_connection_path(@move, move_connection), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+                <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.edit") %></span>
+              <% end %>
+            <% end %>
+
+            <% if allowed_to?(:destroy?, move_connection, with: Move::ConnectionPolicy) %>
+              <%= link_to move_connection_path(@move, move_connection, @filter.attributes),
+                          method: :delete,
+                          data: { turbo_frame: :_top },
+                          class: "btn btn-danger" do %>
+                <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                            data-controller="tooltip"
+                                                                            data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.delete") %></span>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

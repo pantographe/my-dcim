@@ -606,7 +606,7 @@ fr:
         flashes:
           destroyed:
       edit:
-        title:
+        title: Modifier la connection
       update:
         flashes:
           updated:
