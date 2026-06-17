@@ -46,6 +46,9 @@ fr:
       move:
         one: Déplacement prévu
         other: Déplacements prévus
+        connections:
+          one: Connection
+          other: Connections
       moves_project:
         one: Projet de déplacement
         other: Projets de déplacement
@@ -419,6 +422,13 @@ fr:
         statuses:
           executed: Exécuté
           planned: Planifié
+      move/connection:
+        port_from_id: Port de départ
+        port_to_id: Port de destination
+        vlans: Vlans
+        color: Couleur
+        cablename: Nom du câble
+        cable_color: Couleur du cable
       moved_connection:
         port_from_id: Port de départ
         port_to_id: Port de destination

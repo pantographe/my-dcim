@@ -169,6 +169,10 @@ Rails.application.routes.draw do
         get :cables_export
       end
     end
+
+    resources :moves, only: [] do
+      resource :connections, only: :destroy, controller: "moves/connections", as: :connections
+    end
   end
 
   namespace :users do
