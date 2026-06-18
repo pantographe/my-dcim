@@ -37,8 +37,12 @@ class MovesProjectStep < ApplicationRecord
       moves = Move.includes(:frame, :prev_frame)
         .where(step: moves_project.steps.where(position: ..position))
 
-      (moves.map(&:frame) | moves.map(&:prev_frame)).compact.uniq
+      (moves.map(&:frame) | moves.map(&:prev_frame)).compact.uniq.sort_by(&:name)
     end
+  end
+
+  def frames
+    @frames = (moves.map(&:frame) | moves.map(&:prev_frame)).compact.uniq.sort_by(&:name)
   end
 
   def servers_moves_for_frame_at_current_step(frame)
