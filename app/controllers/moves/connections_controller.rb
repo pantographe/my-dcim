@@ -25,7 +25,10 @@ module Moves
       authorize! @move_connection = scoped_move_connections.new
     end
 
-    def edit; end
+    def edit
+      @selected_port = Port.find(params[:selected_port_id])
+      @port_to = @move_connection.try(:port_to)
+    end
 
     def create
       authorize! @move_connection = Move::Connection.new(move_connection_params)
