@@ -607,6 +607,9 @@ fr:
           destroyed:
       edit:
         title: Modifier la connection
+      form:
+        action:
+          delete: Supprimer
       update:
         flashes:
           updated:
