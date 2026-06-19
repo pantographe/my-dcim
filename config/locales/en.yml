@@ -387,11 +387,11 @@ en:
         flashes:
           created: Connection was successfully created.
       destroy:
-        title:
+        title: Supprimer la connection
         flashes:
           destroyed: Connection has been removed.
       edit:
-        title: Edit connection
+        title: Delete this connection
       update:
         flashes:
           updated: Connection has been updated.
