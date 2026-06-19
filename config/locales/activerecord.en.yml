@@ -132,12 +132,10 @@ en:
           executed: Executed
           planned: Planned
       move/connection:
-        port_from_id: From Port
-        port_to_id: Destination Port
-        vlans: Vlans
-        color: Color
-        cablename: Cable name
-        cable_color: Cable color
+        status: State
+        statuses:
+          executed: Executed
+          planned: Planned
       server:
         name: Name
         numero: Serial number

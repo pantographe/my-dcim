@@ -596,6 +596,7 @@ fr:
     connections:
       index:
         new_move_connection: Nouvelle connection
+        representation_title: Représentation
       new:
         title: Nouvelle connection
       create:
