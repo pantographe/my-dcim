@@ -603,7 +603,7 @@ fr:
         flashes:
           created: La connection a été créée avec succès.
       destroy:
-        title:
+        title: Supprimer la connection
         flashes:
           destroyed: La connection a été supprimée.
       edit:

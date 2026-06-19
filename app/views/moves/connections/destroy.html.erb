@@ -9,6 +9,6 @@
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
         @move,
-        confirmation_path: move_connection_path(@move,, @move_connection, confirm: true, back_to: params[:back_to]),
+        confirmation_path: move_connection_path(@move, @move_connection, confirm: true, back_to: params[:back_to]),
       ) %>
 </div>
