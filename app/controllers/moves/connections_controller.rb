@@ -15,8 +15,7 @@ module Moves
     end
 
     def index
-      @filter = ProcessorFilter.new(scoped_move_connections, params)
-      authorize! @move_connections = @filter.results
+      authorize! @move_connections = scoped_move_connections
     end
 
     def show; end

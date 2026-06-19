@@ -40,31 +40,12 @@
           <% end %>
         <% end %>
 
-        <% table.with_column(Move::Connection.human_attribute_name(:cable_name), sort_by: :cable_name) do |move_connection| %>
-          <%= link_to move_connection.cable_name,
-                      move_connection_path(@move, move_connection),
-                      class: "fw-bold",
-                      data: { turbo_frame: :_top } %>
+        <% table.with_column(t(".representation_title")) do |move_connection| %>
+          <%= render partial: "draw", locals: { move_connection: } %>
         <% end %>
 
-        <% table.with_column(Move::Connection.human_attribute_name(:cable_color)) do |move_connection| %>
-          <%= move_connection.cable_color %>
-        <% end %>
-
-        <% table.with_column(Move::Connection.human_attribute_name(:vlans)) do |move_connection| %>
-          <%= move_connection.vlans %>
-        <% end %>
-
-        <% table.with_column(Move::Connection.human_attribute_name(:executed_at)) do |move_connection| %>
-          <%= move_connection.executed_at %>
-        <% end %>
-
-        <% table.with_column(Move::Connection.human_attribute_name(:port_from_id)) do |move_connection| %>
-          <%= link_to move_connection.move.moveable, connections_edit_path(from_port_id: move_connection.port_from_id) %>
-        <% end %>
-
-        <% table.with_column(Move::Connection.human_attribute_name(:port_to_id)) do |move_connection| %>
-          <%= link_to move_connection.port_to.server, connections_edit_path(from_port_id: move_connection.port_to_id) %>
+        <% table.with_column(Move.human_attribute_name(:executed_at)) do |move_connection| %>
+          <%= render move_connection.decorated.status_to_badge_component %>
         <% end %>
 
         <% table.with_column(style: "min-width: 100px; width: 100px") do |move_connection| %>
@@ -79,7 +60,7 @@
             <% end %>
 
             <% if allowed_to?(:destroy?, move_connection, with: Move::ConnectionPolicy) %>
-              <%= link_to move_connection_path(@move, move_connection, @filter.attributes),
+              <%= link_to move_connection_path(@move, move_connection),
                           method: :delete,
                           data: { turbo_frame: :_top },
                           class: "btn btn-danger" do %>
