@@ -600,19 +600,16 @@ fr:
         title: Nouvelle connection
       create:
         flashes:
-          created:
+          created: La connection a été créée avec succès.
       destroy:
         title:
         flashes:
-          destroyed:
+          destroyed: La connection a été supprimée.
       edit:
         title: Modifier la connection
-      form:
-        action:
-          delete: Supprimer
       update:
         flashes:
-          updated:
+          updated: La connection a été mise à jour.
 
   moves_projects:
     index:

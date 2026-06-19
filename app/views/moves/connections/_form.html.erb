@@ -1,5 +1,5 @@
 <%= form_with(model: move_connection,
-              url: move_connections_path(move),
+              url:,
               html: { class: "move_connection_form p-4 rounded border bg-body-tertiary", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(move_connection) %>
   <div class="row g-3">
@@ -8,11 +8,10 @@
       <%= render CardComponent.new() do |card| %>
         <div id="back_departure_server" class="back_server overflow-scroll">
           <%= render partial: "servers/draw_server_compact",
-                      locals: { server: move.moveable, selected_port: move_connection.port_from } %>
+                      locals: { server: move_connection.move.moveable, selected_port: move_connection.port_from } %>
         </div>
       <% end %>
       <%= f.hidden_field :port_from_id, value: move_connection.port_from_id %>
-      <%= f.hidden_field :move_id, value: move.id %>
     </fieldset>
   </div>
 
@@ -24,8 +23,8 @@
           <span id="all_destinations">
             <%= select_tag "to_server",
                           options_for_select(
-                            move.step.frame_servers_at_current_step_for(@move.frame).map { |v| [v.name, v.id] },
-                            { selected: move_connection.port_to&.server }
+                            move_connection.move.step.frame_servers_at_current_step_for(move_connection.move.frame).map { |v| [v.name, v.id] },
+                            { selected: move_connection.port_to&.server_id }
                           ),
                           include_blank: true,
                           onchange: "select_destination_server(this.value)",
@@ -61,22 +60,13 @@
   </fieldset>
 
   <div class="col-12 mt-4 justify-content-between d-flex align-items-center">
-    <%= f.submit t("action.save"), class: "btn btn-primary",
-                                    disabled: move_connection.port_to_id.present? ? false : :disabled %>
-    <span>
-      <%= f.hidden_field :remove_connection, value: "0" %>
-      <button type="button"
-              class="btn btn-link link-danger link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-              onclick="remove_connection()">
-        <%= t(".action.delete") %>
-      </button>
-    </span>
+    <%= f.submit t("action.save"), class: "btn btn-primary", disabled: move_connection.port_to_id.present? ? false : :disabled %>
   </div>
 <% end %>
 
 <script>
 $(document).ready(function(){
-    loadPaletteColorPicker('[name="move_connection[color]"]');
+    loadPaletteColorPicker('[name="move_connection[cable_color]"]');
     $("#back_departure_server").on('click', 'a.port', function(e) {
         e.preventDefault();
     });
@@ -102,9 +92,6 @@ function select_destination_server(server_id){
 function select_destination_port(port_id){
     if(port_id!=undefined && port_id!=''){
         var selected_port = $("#back_destination_server #"+port_id);
-        console.log(port_id)
-        console.log(selected_port)
-        console.log(selected_port)
         selected_port.closest("table").find("span.selected").removeClass("selected");
         selected_port.closest("span").addClass("selected");
         var server_name = $("#back_destination_server .server_name").text();
@@ -113,11 +100,5 @@ function select_destination_port(port_id){
         $('[name="move_connection[port_to_id]"]').val(port_id);
         selected_port.closest("form").find('input[type="submit"]').prop('disabled', false);
     }
-}
-
-function remove_connection(){
-  $('form #move_connection_remove_connection')[0].value = '1';
-  // TODO: calling submit crash the page, because it search for a view "update_connection"
-  $('form.move_connection').trigger('submit.rails');
 }
 </script>

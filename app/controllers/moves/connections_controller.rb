@@ -11,7 +11,7 @@ module Moves
     end
 
     before_action except: %i[index] do
-      breadcrumb.add_step(@move.moveable, move_connections_path(@move))
+      breadcrumb.add_step(@move.decorated.display_name, move_connections_path(@move))
     end
 
     def index
@@ -23,15 +23,13 @@ module Moves
 
     def new
       authorize! @move_connection = scoped_move_connections.new
+      @move_connection.port_from = Port.find(params[:port_from_id])
     end
 
-    def edit
-      @selected_port = Port.find(params[:selected_port_id])
-      @port_to = @move_connection.try(:port_to)
-    end
+    def edit; end
 
     def create
-      authorize! @move_connection = Move::Connection.new(move_connection_params)
+      authorize! @move_connection = scoped_move_connections.new(move_connection_params)
 
       respond_to do |format|
         if @move_connection.save

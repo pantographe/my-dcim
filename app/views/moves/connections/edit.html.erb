@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(@move_connection.port_from, move_connection_path(@move_connection))
+    .add_step(@move_connection.port_from.position)
     .add_step(t("action.edit"))
 %>
 
@@ -9,6 +9,6 @@
   <%= render partial: "form",
              locals: {
                move_connection: @move_connection,
-               move: @move,
+               url: move_connection_path(@move, @move_connection)
              } %>
 </div>

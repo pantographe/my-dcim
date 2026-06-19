@@ -1,4 +1,4 @@
-<% breadcrumb.add_step(title = @move.moveable) %>
+<% breadcrumb.add_step(title = @move.decorated.display_name) %>
 
 <%= render Page::HeadingComponent.new(
   title:, breadcrumb:,
@@ -13,6 +13,19 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
+
+  <% # Temporary for dev %>
+  <% # Todo: remove %>
+  <div class="d-flex gap-4 flex-nowrap">
+    <p class="fw-bold m-0"><%= @move.moveable.name %></p>
+
+    <div class="flex gap-4">
+    <% @move.moveable.ports.each do |port_from| %>
+      <%= link_to port_from.position, new_move_connection_path(@move, port_from_id: port_from.id) %>
+    <% end %>
+    </div>
+  </div>
+
   <%= turbo_frame_tag(dom_id(Move::Connection, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@move_connections) do |table| %>
@@ -47,15 +60,11 @@
         <% end %>
 
         <% table.with_column(Move::Connection.human_attribute_name(:port_from_id)) do |move_connection| %>
-          <%= move_connection.port_from_id %>
+          <%= link_to move_connection.move.moveable, connections_edit_path(from_port_id: move_connection.port_from_id) %>
         <% end %>
 
         <% table.with_column(Move::Connection.human_attribute_name(:port_to_id)) do |move_connection| %>
-          <%= move_connection.port_to_id %>
-        <% end %>
-
-        <% table.with_column(Move::Connection.human_attribute_name(:port_to_id)) do |move_connection| %>
-          <%= move_connection.port_to_id %>
+          <%= link_to move_connection.port_to.server, connections_edit_path(from_port_id: move_connection.port_to_id) %>
         <% end %>
 
         <% table.with_column(style: "min-width: 100px; width: 100px") do |move_connection| %>
