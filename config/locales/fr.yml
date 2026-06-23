@@ -542,7 +542,9 @@ fr:
     index:
       planned_on: Planifié le
       new_move: Prévoir un déplacement
-      frame_table_title: Châssis après déplacements
+      frame_table_title: Résumé des déplacements par châssis
+      visualization_after_step: Visualisation après l'étape
+      show_page: Page du châssis
       edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       remove_existing_connections_on_execution: Supprimer les connexions ?
@@ -597,7 +599,7 @@ fr:
           one: 1 déplacement prévu
           other: "%{count} déplacements prévus"
     show:
-      frame_table_title: Châssis après déplacements
+      frame_table_title: Résumé des déplacements par châssis
       edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
       archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?

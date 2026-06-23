@@ -334,7 +334,9 @@ en:
       planned_on: Planned on
       new_move: Plan a move
       execute_confirmation: Do you really want to apply this move?
-      frame_table_title: Frames after moving
+      frame_table_title: Moves summary per frame
+      visualization_after_step: Visualization after step
+      show_page: Frame page
       edit_connections: Update connections
       remove_existing_connections_on_execution: Delete connections?
       action:
@@ -392,7 +394,7 @@ en:
           one: 1 planned move
           other: "%{count} planned moves"
     show:
-      frame_table_title: Frames after moving
+      frame_table_title: Moves summary per frame
       edit_connections: Edit connections
       execute_confirmation: Do you really want to apply these moves?
       archive_confirmation: Are you sure you want to archive this project?
