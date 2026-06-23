@@ -1,4 +1,4 @@
-<% breadcrumb.add_step(title = @moves_project) %>
+<% breadcrumb.add_step(title = @moves_project_step) %>
 
 <%= render Page::HeadingComponent.new(
       title:, breadcrumb:, back_button_url: moves_project_path(@moves_project),
@@ -42,10 +42,9 @@
                 <div class="d-flex align-items-center">
                   <span class="d-none d-lg-inline-block">
                     <span class="bi bi-info-circle text-body-tertiary"
-                      title="Informations sur <%= move.moveable %>"
-                      aria-label="Informations sur <%= move.moveable %>"
-                      data-controller="tooltip"
-                      data-bs-placement="top">
+                      title="<%= move.moveable %>"
+                      aria-label="<%= move.moveable %>"
+                      data-controller="tooltip">
                     </span>
                   </span>
 
@@ -77,16 +76,14 @@
             <% end %>
           </div>
         <% end %>
-
-        <% table.with_column("Départ") do |move| %>
-        <%# table.with_column(Move.human_attribute_name(:prev_frame_id)) do |move| %>
+-
+        <% table.with_column(Move.human_attribute_name(:prev_frame_id)) do |move| %>
           <%= link_to move.prev_frame,
                       frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.prev_frame),
-                      title: move.prev_frame.name_with_room_and_islet,
+                      title: move.prev_frame.room.name_with_site,
                       data: {
                         turbo_frame: :_top,
                         controller: "tooltip",
-                        bs_placement: "top",
                       } %>
           <div class="small text-nowrap">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
@@ -94,15 +91,13 @@
           </div>
         <% end %>
 
-        <% table.with_column("Destination") do |move| %>
-        <%# table.with_column(Move.human_attribute_name(:frame_id)) do |move| %>
+        <% table.with_column(Move.human_attribute_name(:frame_id)) do |move| %>
           <%= link_to move.frame,
                       frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.frame),
-                      title: move.frame.name_with_room_and_islet,
+                      title: move.frame.room.name_with_site,
                       data: {
                         turbo_frame: :_top,
                         controller: "tooltip",
-                        bs_placement: "top",
                       } %>
           <div class="small text-nowrap">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
@@ -112,8 +107,8 @@
 
         <% table.with_column(Move.human_attribute_name(:status), text_align: :center) do |move| %>
           <span data-controller="tooltip"
-                data-bs-placement="top"
-                title="<%= l(move.executed_at) if move.executed_at.present? %>">
+                title="<%= l(move.executed_at) if move.executed_at.present? %>"
+                aria-label="<%= l(move.executed_at) if move.executed_at.present? %>">
             <%= render move.decorated.status_to_badge_component %>
           </span>
         <% end %>
@@ -138,7 +133,7 @@
                         data: {
                           turbo_frame: :_top,
                           controller: "tooltip",
-                          bs_placement: "top"
+                          bs_placement: "top",
                         } do %>
               <span class="bi bi-pencil" aria-hidden="true"></span>
               <span class="visually-hidden"><%= t(".edit_connections") %></span>
@@ -158,7 +153,6 @@
                               turbo_method: :patch,
                               confirm: t(".execute_confirmation"),
                               controller: "tooltip",
-                              bs_placement: "top",
                               turbo_frame: :_top,
                             },
                             class: "btn btn-outline-primary",
@@ -169,7 +163,6 @@
                             data: {
                               turbo_frame: :_top,
                               controller: "tooltip",
-                              bs_placement: "top",
                             } do %>
                   <span class="bi bi-pencil" aria-hidden="true"></span>
                   <span class="visually-hidden"><%= t("action.edit") %></span>
@@ -181,7 +174,6 @@
                             data: {
                               turbo_frame: :_top,
                               controller: "tooltip",
-                              bs_placement: "top",
                             } do %>
                   <span class="bi bi-trash" aria-hidden="true"></span>
                   <span class="visually-hidden"><%= t("action.delete") %></span>
@@ -194,97 +186,101 @@
     </div>
   <% end %>
 
-  <%= turbo_frame_tag(dom_id(Move, :frames), data: { turbo_action: :advance }) do %>
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-      <% card.with_header do %>
-        <%= t(".frame_table_title") %>
-      <% end %>
+  <%= render CardComponent.new do |card| %>
+    <% card.with_header do %>
+      <%= t(".frame_table_title") %>
+    <% end %>
 
+    <% card.with_body(extra_classes: "bg-body-tertiary rounded") do %>
       <div class="container-fluid p-2">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4">
           <% @moves_project_step.frames.each do |frame| %>
             <div class="col">
-            <!--<div class="col" style="height: 200px;">-->
-              <%= render CardComponent.new(extra_classes: "") do |card| %>
-                <% card.with_body(extra_classes: " overflow-hidden") do %>
-                  <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pb-2">
-                    <h5 class="mb-0">
-                      <span class="bi bi-file-minus text-success me-1"></span>
-                      <span><%= frame %></span>
-                    </h5>
-
-                    <span>
-                      <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="bi bi-three-dots"></span>
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <%= link_to print_moves_project_moves_project_step_path(
-                                        @moves_project, @moves_project_step, frame
-                                      ),
-                                      class: "dropdown-item",
-                                      data: { turbo_frame: :_top },
-                                      target: :_blank,
-                                      rel: :noopener do %>
-                            <span class="bi bi-printer me-1"></span>
-                            <span><%= t("export_button.exports.print") %></span>
-                          <% end %>
-                        </li>
-                        <li>
-                          <%= link_to print_moves_project_moves_project_step_path(
-                                        @moves_project, @moves_project_step, frame
-                                      ),
-                                      class: "dropdown-item",
-                                      data: { turbo_frame: :_top } do %>
-                            <span class="bi bi-file-earmark-pdf me-1"></span>
-                            <span><%= t("export_button.exports.pdf") %></span>
-                          <% end %>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                          <%= link_to visualization_frame_path(frame),
-                                      class: "dropdown-item",
-                                      data: { turbo_frame: :_top } do %>
-                            <span class="bi bi-diagram-3-fill me-1"></span>
-                            <span><%= t("visualization.title") %></span>
-                          <% end %>
-                        </li>
-                        <li>
-                          <%= link_to frame_moves_project_moves_project_step_path(
-                                        @moves_project, @moves_project_step, frame
-                                      ),
-                                      class: "dropdown-item",
-                                      data: { turbo_frame: :_top } do %>
-                            <span class="bi bi-diagram-3-fill me-1"></span>
-                            <span><%= "Visualisation après déplacements" %></span>
-                          <% end %>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                          <%= link_to frame_path(frame),
-                                      class: "dropdown-item",
-                                      data: { turbo_frame: :_top } do %>
-                            <span class="bi bi-eye me-1"></span>
-                            <span><%= "Page de détails" %></span>
-                          <% end %>
-                        </li>
-                      </ul>
+              <%= render CardComponent.new do |card| %>
+                <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pb-2">
+                  <h5 class="mb-0">
+                    <span class="bi bi-file-minus text-success me-1"></span>
+                    <span title="<%= frame.room.name_with_site %>"
+                          aria-label="<%= frame.room.name_with_site %>"
+                          data-controller="tooltip">
+                      <%= frame %>
                     </span>
-                  </div>
+                  </h5>
 
-                  <ul class="list-group list-group-flush">
-                    <% @moves.where(frame_id: frame.id).or(@moves.where(prev_frame_id: frame.id)).each do |move| %>
-                      <li class="list-group-item">
+                  <span>
+                    <button type="button" class="btn link-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="bi bi-three-dots"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <%= link_to print_moves_project_moves_project_step_path(
+                              @moves_project, @moves_project_step, frame,
+                            ),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top },
+                                    target: :_blank,
+                                    rel: :noopener do %>
+                          <span class="bi bi-printer me-1"></span>
+                          <span><%= t("export_button.exports.print") %></span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to print_moves_project_moves_project_step_path(
+                              @moves_project, @moves_project_step, frame,
+                            ),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top } do %>
+                          <span class="bi bi-file-earmark-pdf me-1"></span>
+                          <span><%= t("export_button.exports.pdf") %></span>
+                        <% end %>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                        <%= link_to visualization_frame_path(frame),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top } do %>
+                          <span class="bi bi-diagram-3-fill me-1"></span>
+                          <span><%= t("visualization.title") %></span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to frame_moves_project_moves_project_step_path(
+                              @moves_project, @moves_project_step, frame,
+                            ),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top } do %>
+                          <span class="bi bi-diagram-3-fill me-1"></span>
+                          <span><%= t(".visualization_after_step") %></span>
+                        <% end %>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                        <%= link_to frame_path(frame),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top } do %>
+                          <span class="bi bi-eye me-1"></span>
+                          <span><%= t(".show_page") %></span>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </span>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                  <% @moves.where(frame_id: frame.id).or(@moves.where(prev_frame_id: frame.id)).find_each do |move| %>
+                    <li class="list-group-item">
+                      <div class="d-flex align-items-start">
                         <span class="bi bi-box-seam me-2 text-primary"></span>
 
                         <%= link_to move.decorated.display_name,
                                     moves_project_step_move_path(@moves_project_step, move),
-                                    class: "link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover",
+                                    class: "link-body-emphasis link-offset-2 link-underline-opacity-0 \
+                                            link-underline-opacity-75-hover",
                                     data: { turbo_frame: :_top } %>
-                      </li>
-                    <% end %>
-                  </ul>
-                <% end %>
+                      </div>
+                    </li>
+                  <% end %>
+                </ul>
               <% end %>
             </div>
           <% end %>
