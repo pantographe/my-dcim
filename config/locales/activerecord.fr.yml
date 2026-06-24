@@ -46,6 +46,9 @@ fr:
       move:
         one: Déplacement prévu
         other: Déplacements prévus
+        connections:
+          one: Connection
+          other: Connections
       moves_project:
         one: Projet de déplacement
         other: Projets de déplacement
@@ -419,6 +422,11 @@ fr:
         remove_existing_connections_on_execution: Supprimer toutes les connexions vers cet équipement ?
         position: Position dans le châssis
         status: État
+        statuses:
+          executed: Exécuté
+          planned: Planifié
+      move/connection:
+        executed_at: État
         statuses:
           executed: Exécuté
           planned: Planifié

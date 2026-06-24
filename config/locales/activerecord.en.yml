@@ -137,6 +137,11 @@ en:
         statuses:
           executed: Executed
           planned: Planned
+      move/connection:
+        status: State
+        statuses:
+          executed: Executed
+          planned: Planned
       server:
         name: Name
         numero: Serial number

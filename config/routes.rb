@@ -34,7 +34,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :moves, only: %i[new create]
+  resources :moves, only: %i[new create] do
+    resources :move_connections, controller: "moves/connections", as: :connections
+  end
 
   get "data_import", action: "index", controller: "data_import"
   post "data_import/ansible"
@@ -166,6 +168,10 @@ Rails.application.routes.draw do
       member do
         get :cables_export
       end
+    end
+
+    resources :moves, only: [] do
+      resource :connections, only: :destroy, controller: "moves/connections", as: :connections
     end
   end
 
