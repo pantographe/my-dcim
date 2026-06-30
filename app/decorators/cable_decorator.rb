@@ -25,13 +25,19 @@ class CableDecorator < ApplicationDecorator
     end
   end
 
-  def server_connected_with_link(connection, from: false)
+  def equipment_connected_with_link(connection, from: false)
     tag.span class: class_names("text-body-emphasis col overflow-wrap", "text-end": from) do
       if (server = connection&.server)
         link_to server.to_s,
                 server_path(server),
                 class: "text-body-emphasis",
                 data: { turbo_frame: :_top }
+      elsif (pdu = connection&.power_distribution_unit)
+        link_to pdu.to_s,
+                power_distribution_unit_path(pdu),
+                class: "text-body-emphasis",
+                data: { turbo_frame: :_top }
+
       else
         tag.span "n/c", class: "fst-italic fw-light text-body-secondary"
       end
@@ -48,8 +54,8 @@ class CableDecorator < ApplicationDecorator
 
     if (port = connection&.port)
       card_type = connection&.card&.card_type
-      port_type = card_type&.port_type
-      port_type_class = port_type&.decorated&.css_class_name
+      port_type = connection&.port_type
+      port_type_class = connection.power_distribution_unit.present? ? "portALIM" : port_type&.decorated&.css_class_name
 
       span_text = name.presence || "n/c"
 

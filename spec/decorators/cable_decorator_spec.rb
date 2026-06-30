@@ -26,9 +26,9 @@ RSpec.describe CableDecorator, type: :decorator do
     it { expect(described_class.colors_options_for_select.pluck(1)).to match_array(Cable::COLORS.keys) }
   end
 
-  describe "#server_connected_with_link" do
+  describe "#equipment_connected_with_link" do
     context "with from option to true" do
-      subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(connections(:one), from: true) }
+      subject(:equipment_connected_with_link) { decorated_cable.equipment_connected_with_link(connections(:one), from: true) }
 
       it do
         is_expected.to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") do # rubocop:disable RSpec/ImplicitSubject
@@ -39,7 +39,7 @@ RSpec.describe CableDecorator, type: :decorator do
     end
 
     context "with from option to false" do
-      subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(connections(:one)) }
+      subject(:equipment_connected_with_link) { decorated_cable.equipment_connected_with_link(connections(:one)) }
 
       it { is_expected.not_to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") }
 
@@ -52,7 +52,7 @@ RSpec.describe CableDecorator, type: :decorator do
     end
 
     context "with a nil connection" do
-      subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(nil) }
+      subject(:equipment_connected_with_link) { decorated_cable.equipment_connected_with_link(nil) }
 
       it { is_expected.not_to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") }
 
