@@ -47,6 +47,7 @@ module Moves
           format.html { redirect_to move_connections_path(@move), notice: t(".flashes.updated") }
           format.json { render :show, status: :ok, location: move_connections_path(@move) }
         else
+          # TODO: improve me
           @move_connection.reload
           format.html { render :edit, status: :unprocessable_content }
           format.json { render json: @move_connection.errors, status: :unprocessable_content }

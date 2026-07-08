@@ -10,7 +10,7 @@ class Move
 
     scope :not_executed, -> { where(executed_at: nil) }
 
-    validates :port_from_id, uniqueness: { scope: %i[move] }
+    validates :port_from_id, uniqueness: { scope: %i[move_id] }
 
     def ports
       [port_from, port_to].compact
