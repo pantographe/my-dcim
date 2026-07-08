@@ -7,7 +7,7 @@ RSpec.describe Move::ConnectionDecorator, type: :decorator do
   let(:decorated_mc) { described_class.decorate(object) }
 
   describe "#status_to_badge_component" do
-    subject(:badge) { decorated_room.status_to_badge_component }
+    subject(:badge) { decorated_mc.status_to_badge_component }
 
     context "with executed_at = nil" do
       it { is_expected.to be_a BadgeComponent }
