@@ -74,13 +74,15 @@ class MovesProjectStep < ApplicationRecord
     moves_project.steps.where(position: ...position).order(:position)
   end
 
+  def previous_step
+    previous_steps&.last
+  end
+
+  private
+
   def server_moves_involved_at_current_step
     Move.not_executed
       .where(step: moves_project.steps.where(position: ..position))
       .where(moveable_type: "Server")
-  end
-
-  def previous_step
-    previous_steps&.last
   end
 end
