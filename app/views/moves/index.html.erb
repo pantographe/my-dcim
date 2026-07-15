@@ -101,13 +101,13 @@
                           data: {
                             turbo: true,
                             turbo_method: :patch,
+                            turbo_confirm: t("moves.execute_confirmation"),
                             turbo_frame: :_top,
                           },
                           class: "btn btn-outline-primary" do %>
                 <span class="bi bi-check2-square"
                       title="<%= t("moves.action.execute_move") %>"
                       aria-hidden="true"
-                      data-turbo-confirm="<%= t("moves.execute_confirmation") %>"
                       data-controller="tooltip"
                       data-bs-placement="left"></span>
                 <span class="visually-hidden"><%= t("moves.action.execute_move") %></span>
