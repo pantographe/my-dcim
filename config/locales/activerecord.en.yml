@@ -86,6 +86,14 @@ en:
         grid: Grid
         horizontal: Horizontal
         vertical: Vertical
+      frame:
+        name: name
+        servers: Equipments
+        room: Room
+        position: Position
+        bay_id: Bay
+        u: U
+        width: Width
       manufacturer:
         name: Name
         usage_modele: Usage (model)
