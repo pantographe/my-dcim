@@ -81,15 +81,15 @@
           <span class="row align-items-center">
             <span class="col-5 d-inline-flex justify-content-start">
               <span class="d-inline-flex bg-body border border-success-subtle rounded-3 p-3 flex-column flex-grow-1 row-gap-1">
-                <span>
+                <span class="d-flex align-items-start">
                   <span class="bi bi-geo-alt text-primary me-1"></span>
                   <span><%= @move.prev_frame.room.name_with_site %></span>
                 </span>
-                <span class="fw-light">
+                <span class="d-flex align-items-start fw-light">
                   <span class="bi bi-file-minus text-success me-1"></span>
                   <span><%= @move.prev_frame %></span>
                 </span>
-                <span>
+                <span class="d-flex align-items-start">
                   <span class="fw-light text-secondary me-1"><%= Frame.human_attribute_name(:u) %></span>
                   <span class="font-monospace"><%= @move.prev_position %></span>
                 </span>
@@ -103,15 +103,15 @@
             </span>
             <span class="col-5 d-inline-flex justify-content-end">
               <span class="d-inline-flex bg-body border border-danger-subtle rounded-3 p-3 flex-column flex-grow-1 row-gap-1">
-                <span>
+                <span class="d-flex align-items-start">
                   <span class="bi bi-geo-alt text-primary me-1"></span>
                   <span><%= @move.frame.room.name_with_site %></span>
                 </span>
-                <span class="fw-light">
+                <span class="d-flex align-items-start fw-light">
                   <span class="bi bi-file-minus text-success me-1"></span>
                   <span><%= @move.frame %></span>
                 </span>
-                <span>
+                <span class="d-flex align-items-start">
                   <span class="fw-light text-secondary me-1"><%= Frame.human_attribute_name(:u) %></span>
                   <span class="font-monospace"><%= @move.position %></span>
                 </span>
