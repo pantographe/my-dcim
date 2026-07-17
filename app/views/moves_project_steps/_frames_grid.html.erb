@@ -13,8 +13,8 @@
             <div class="col">
               <%= render CardComponent.new do |card| %>
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pb-2">
-                  <h5 class="mb-0">
-                    <span class="bi bi-file-minus text-success me-1"></span>
+                  <h5 class="mb-0 d-flex align-items-start">
+                    <span class="bi bi-file-minus text-success me-2"></span>
                     <span title="<%= frame.room.name_with_site %>"
                           aria-label="<%= frame.room.name_with_site %>"
                           data-controller="tooltip">
