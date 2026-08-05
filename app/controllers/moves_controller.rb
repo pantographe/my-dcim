@@ -22,8 +22,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def show
     respond_to do |format|
-      format.json { render :show }
-      format.html { render :show }
+      format.json
+      format.html
     end
   end
 
