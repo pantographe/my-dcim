@@ -33,7 +33,7 @@ class MovesProjectStep < ApplicationRecord
   end
 
   def frames
-    @frames = (moves.map(&:frame) | moves.map(&:prev_frame)).compact.uniq.sort_by(&:name)
+    @frames = Frame.where(id: moves.select(:frame_id)).or(Frame.where(id: moves.select(:prev_frame_id))).order(:name)
   end
 
   def frames_with_moves_at_current_step
