@@ -151,14 +151,14 @@ en:
         position: Position in frame
         status: State
         executed_at: Executed at
-        statuses:
-          executed: Executed
-          planned: Planned
+      move/status:
+        executed: Executed
+        planned: Planned
       move/connection:
         status: State
-        statuses:
-          executed: Executed
-          planned: Planned
+      move/connection/status:
+        executed: Executed
+        planned: Planned
       server:
         name: Name
         numero: Serial number

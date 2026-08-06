@@ -5,7 +5,7 @@ class Move
     def status_to_badge_component
       color = executed_at.nil? ? :primary : :success
       trad_value = executed_at.nil? ? :planned : :executed
-      text = I18n.t(".activerecord.attributes.move/connection.statuses.#{trad_value}")
+      text = Move::Connection.human_attribute_name("status.#{trad_value}")
 
       BadgeComponent.new(text, color:, variant: :pill)
     end

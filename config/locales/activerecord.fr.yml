@@ -429,14 +429,14 @@ fr:
         position: Position dans le châssis
         status: État
         executed_at: Exécuté le
-        statuses:
-          executed: Exécuté
-          planned: Planifié
+      move/status:
+        executed: Exécuté
+        planned: Planifié
       move/connection:
         executed_at: État
-        statuses:
-          executed: Exécuté
-          planned: Planifié
+      move/connection/status:
+        executed: Exécuté
+        planned: Planifié
       moved_connection:
         port_from_id: Port de départ
         port_to_id: Port de destination
