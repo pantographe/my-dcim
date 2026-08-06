@@ -91,7 +91,7 @@
                         <span class="bi bi-box-seam me-2 text-primary"></span>
 
                         <%= link_to move.decorated.display_name,
-                                    "#", #TODO: add show link
+                                    moves_project_step_move_path(move.step, move),
                                     class: "link-body-emphasis link-offset-2 link-underline-opacity-0 \
                                             link-underline-opacity-75-hover",
                                     data: { turbo_frame: :_top } %>
