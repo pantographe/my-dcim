@@ -433,7 +433,7 @@ en:
     frames_grid:
       frames_grid_title: Moves summary per frame
       visualization_after_step: Visualization after moves
-      show_page: Frame page
+      show_page: Show frame
 
   n_a: n/a
 

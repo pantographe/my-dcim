@@ -649,7 +649,7 @@ fr:
     frames_grid:
       frames_grid_title: Résumé des déplacements par châssis
       visualization_after_step: Visualisation après déplacements
-      show_page: Page du châssis
+      show_page: Voir le châssis
 
   devise:
     registrations:
