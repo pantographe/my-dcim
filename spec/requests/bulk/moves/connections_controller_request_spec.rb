@@ -2,10 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe "/bulk/moves/:move_id/connections" do
-  before { sign_in users(:admin) }
-
-  describe "DELETE /destroy" do
+RSpec.describe Bulk::Moves::ConnectionsController do
+  describe "DELETE #destroy" do
     subject(:response) do
       delete bulk_move_connections_path(move_id, ids:)
 
@@ -14,6 +12,8 @@ RSpec.describe "/bulk/moves/:move_id/connections" do
 
     let(:move_id) { moves(:one).id }
     let(:ids) { [move_connections(:one).id, move_connections(:three).id] }
+
+    include_context "with authenticated admin"
 
     context "with non existing move" do
       let(:move_id) { 999 }

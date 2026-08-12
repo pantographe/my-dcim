@@ -3,7 +3,7 @@
 module Moves
   class ConnectionsController < ApplicationController
     before_action :set_move
-    before_action :set_move_connection, only: %i[show edit update destroy]
+    before_action :set_move_connection, only: %i[edit update destroy]
     before_action do
       breadcrumb.add_step(MovesProject.model_name.human.pluralize, moves_projects_path)
       breadcrumb.add_step(@move.moves_project, moves_project_path(@move.moves_project))
@@ -17,8 +17,6 @@ module Moves
     def index
       authorize! @move_connections = scoped_move_connections
     end
-
-    def show; end
 
     def new
       authorize! @move_connection = scoped_move_connections.new
@@ -47,8 +45,6 @@ module Moves
           format.html { redirect_to move_connections_path(@move), notice: t(".flashes.updated") }
           format.json { render :show, status: :ok, location: move_connections_path(@move) }
         else
-          # TODO: improve me
-          @move_connection.reload
           format.html { render :edit, status: :unprocessable_content }
           format.json { render json: @move_connection.errors, status: :unprocessable_content }
         end

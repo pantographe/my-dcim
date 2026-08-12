@@ -9,32 +9,32 @@ module Bulk
       def destroy
         respond_to do |format|
           if @move_connections.map(&:destroy).all?
-            # TODO: Use correct translation when available
-            format.html { redirect_to move_connections_path(@move), notice: t("bulk.resource.destroy.flashes.destroyed", resource: "PDU"), status: :see_other }
+            format.html do
+              flash[:notice] = t("bulk.resource.destroy.flashes.destroyed", resource: Move::Connection.model_name.human.pluralize)
+              redirect_to move_connections_path(@move), status: :see_other
+            end
           else
             # TODO: tell which records has not been removed
-            # TODO: Use correct translation when available
-            format.html { redirect_to move_connections_path(@move), alert: t("bulk.resource.destroy.flashes.not_destroyed", resource: "PDU"), status: :see_other }
+            format.html do
+              flash[:alert] = t("bulk.resource.destroy.flashes.not_destroyed", resource: Move::Connection.model_name.human)
+              redirect_to move_connections_path(@move), status: :see_other
+            end
           end
         end
       end
 
       private
 
-      def set_move
-        authorize! @move = Move.find(params[:move_id])
-      end
-
       def scoped_move_connections
         @move.move_connections
       end
 
-      def set_move_connections
-        authorize! @move_connections = scoped_move_connections.where(id: params[:ids])
+      def set_move
+        authorize! @move = Move.find(params[:move_id])
       end
 
-      def default_authorization_policy_class
-        Move::ConnectionPolicy
+      def set_move_connections
+        authorize! @move_connections = scoped_move_connections.where(id: params[:ids])
       end
     end
   end

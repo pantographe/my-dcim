@@ -55,12 +55,11 @@ RSpec.describe Moves::ConnectionsController do
     let(:params) { { move_connection: { cable_name: "", cable_color: "", vlans: "", port_from_id: 7, port_to_id: 10 } } }
 
     include_context "with authenticated admin"
-
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect { response }.to change(Move::Connection, :count).by(1) }
-      it { expect(response).to redirect_to(move_connections_path(move, assigns(:power_distribution_unit))) }
+      it { expect(response).to redirect_to(move_connections_path(move)) }
     end
 
     context "with no attributes" do

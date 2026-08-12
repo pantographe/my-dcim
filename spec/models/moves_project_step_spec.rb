@@ -82,49 +82,49 @@ RSpec.describe MovesProjectStep do
     end
   end
 
-  describe "#frame_servers_at_current_step_for" do
+  describe "#servers_at_current_step_for" do
     context "with a move in a one-step project" do
       it do
-        expect(moves_project_steps(:planned).frame_servers_at_current_step_for(frames(:one)))
+        expect(moves_project_steps(:planned).servers_at_current_step_for(frames(:one)))
           .to contain_exactly(servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
       end
     end
 
     context "with a move in a multi-steps project" do
       it do
-        expect(moves_project_steps(:step_one).frame_servers_at_current_step_for(frames(:one)))
+        expect(moves_project_steps(:step_one).servers_at_current_step_for(frames(:one)))
           .to contain_exactly(servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
       end
 
       it do
-        expect(moves_project_steps(:step_one).frame_servers_at_current_step_for(frames(:three)))
+        expect(moves_project_steps(:step_one).servers_at_current_step_for(frames(:three)))
           .to contain_exactly(servers(:one))
       end
 
       it do
-        expect(moves_project_steps(:step_two).frame_servers_at_current_step_for(frames(:one)))
+        expect(moves_project_steps(:step_two).servers_at_current_step_for(frames(:one)))
           .to contain_exactly(servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
       end
 
       it do
-        expect(moves_project_steps(:step_two).frame_servers_at_current_step_for(frames(:three)))
+        expect(moves_project_steps(:step_two).servers_at_current_step_for(frames(:three)))
           .to be_empty
       end
 
       it do
-        expect(moves_project_steps(:step_three).frame_servers_at_current_step_for(frames(:one)))
+        expect(moves_project_steps(:step_three).servers_at_current_step_for(frames(:one)))
           .to contain_exactly(servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
       end
 
       it do
-        expect(moves_project_steps(:step_three).frame_servers_at_current_step_for(frames(:four)))
+        expect(moves_project_steps(:step_three).servers_at_current_step_for(frames(:four)))
           .to contain_exactly(servers(:two), servers(:four), servers(:hub_network2))
       end
     end
 
     context "with an equipment being moved in the same frame" do
       let(:servers_array) do
-        moves_project_steps(:step_same_frame_move).frame_servers_at_current_step_for(frames(:one))
+        moves_project_steps(:step_same_frame_move).servers_at_current_step_for(frames(:one))
       end
 
       it do
@@ -138,7 +138,7 @@ RSpec.describe MovesProjectStep do
 
     context "with an equipment being moved back in the same frame" do
       let(:servers_array) do
-        moves_project_steps(:second_step_move_back).frame_servers_at_current_step_for(frames(:one))
+        moves_project_steps(:second_step_move_back).servers_at_current_step_for(frames(:one))
       end
 
       it do

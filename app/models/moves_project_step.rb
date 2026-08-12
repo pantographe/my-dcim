@@ -45,11 +45,11 @@ class MovesProjectStep < ApplicationRecord
     end
   end
 
-  # get servers, that will be present in frame after
-  # the execution of current and previous steps
-  def frame_servers_at_current_step_for(frame)
-    # servers that arrives at frame
-    moved = server_moves_involved_at_current_step
+  # Returns servers, that will be present in given frame after
+  # execution of current and previous steps.
+  def servers_at_current_step_for(frame)
+    # Servers that will arrive on the frame
+    moved = server_moves_planned_at_current_step
       .where(frame:)
       .sort_by { |move| move.step.position }
       .map do |move|
@@ -57,14 +57,14 @@ class MovesProjectStep < ApplicationRecord
         move.moveable
       end
 
-    # servers that leave frame
-    removed = server_moves_involved_at_current_step
+    # Servers that will leave frame or stay in the same frame
+    removed = server_moves_planned_at_current_step
       .where(prev_frame: frame)
       .where.not(frame:)
       .map(&:moveable)
 
-    # merge servers that arrive with servers that are already here, then remove those that leave,
-    # to get frame's servers after the execution of current and previous steps
+    # Merge servers that will be moved to the given frame with servers that are already here,
+    # then remove those that will leave.
     ((moved | frame.servers) - removed).sort_by { |server| server.position.presence || 0 }.reverse
   end
 
@@ -80,7 +80,7 @@ class MovesProjectStep < ApplicationRecord
 
   private
 
-  def server_moves_involved_at_current_step
+  def server_moves_planned_at_current_step
     Move.not_executed
       .where(step: moves_project.steps.where(position: ..position))
       .where(moveable_type: "Server")

@@ -23,4 +23,12 @@ RSpec.describe Move::ConnectionDecorator, type: :decorator do
       it { expect(badge.content).to eq "Exécuté" }
     end
   end
+
+  describe "#description" do
+    it do
+      expect(decorated_mc.description).to eq <<~TEXT.squish
+        Connexion entre MyString ReadableServer (port #9) et MyString ReadableServer (port #10) => vlans : vlan01 // nom du câble : NouveauNomDuCableUn // couleur : Blue
+      TEXT
+    end
+  end
 end

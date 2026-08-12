@@ -1,6 +1,7 @@
 <% breadcrumb.add_step(t("action.create")) %>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+<%= render Page::HeadingNewComponent.new(resource: @move_connection, title: t(".title"), breadcrumb:) %>
+
 <div class="col-12 p-4 border-top">
   <%= render partial: "form",
              locals: {

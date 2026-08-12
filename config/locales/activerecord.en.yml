@@ -31,12 +31,8 @@ en:
       islet: Islet
       manufacturer: Manufacturer
       modele: Model
-      move:
-        one: Planned move
-        other: Planned moves
-        connection:
-          one: Edited connection
-          other: Edited connections
+      move: Planned move
+      move/connection: Edited connection
       moves_project: Moves project
       moves_project_steps: Project step
       port_type: Port type
@@ -156,6 +152,7 @@ en:
         planned: Planned
       move/connection:
         status: State
+        executed_at: Executed at
       move/connection/status:
         executed: Executed
         planned: Planned
