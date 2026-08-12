@@ -89,7 +89,6 @@ RSpec.describe MovesProjectStep do
     end
   end
 
-
   describe "#servers_at_current_step_for" do
     context "with a move in a one-step project" do
       it do

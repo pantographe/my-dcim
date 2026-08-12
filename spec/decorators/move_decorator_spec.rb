@@ -43,7 +43,7 @@ RSpec.describe MoveDecorator, type: :decorator do
       end
     end
 
-    context "witout text" do
+    context "without text" do
       subject(:badge) { decorated_move.status_to_badge_component(with_text: false) }
 
       it { is_expected.to be_a(BadgeComponent) }

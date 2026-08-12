@@ -32,7 +32,7 @@ class MoveDecorator < ApplicationDecorator
   end
 
   def planned_or_executed_date
-    if date = (executed_at || step.date)
+    if (date = executed_at || step.date)
       l(date)
     end
   end
