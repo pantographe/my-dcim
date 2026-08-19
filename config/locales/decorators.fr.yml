@@ -1,0 +1,3 @@
+fr:
+    move_connections_decorator:
+      description: "Connexion entre %{port_from_server} (port #%{port_from_id}) et %{port_to_server} (port #%{port_to_id}) => vlans : %{vlans} // nom du câble : %{cable_name} // couleur : %{cable_color}"
