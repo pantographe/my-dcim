@@ -366,6 +366,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_132556) do
     t.bigint "port_to_id"
     t.datetime "updated_at", null: false
     t.string "vlans"
+    t.index ["move_id", "port_from_id"], name: "index_move_connections_on_move_id_and_port_from_id", unique: true
     t.index ["move_id"], name: "index_move_connections_on_move_id"
     t.index ["port_from_id"], name: "index_move_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_move_connections_on_port_to_id"
