@@ -77,11 +77,11 @@ group :test do
 end
 
 group :production do
-  gem "dalli", "~> 5.0"
+  gem "dalli", "~> 5.1"
   gem "passenger", "~> 6.0"
 end
 
-gem "active_storage_validations", "~> 4.0"
+gem "active_storage_validations", "~> 4.1"
 gem "acts_as_list", "~> 1.2"
 gem "friendly_id", "~> 5.7"
 gem "record_tag_helper", "~> 1.0" # Add helpers removed from Rails core in Rails 5

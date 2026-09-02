@@ -1,3 +1,12 @@
 fr:
-    move_connections_decorator:
-      description: "Connexion entre %{port_from_server} (port #%{port_from_id}) et %{port_to_server} (port #%{port_to_id}) => vlans : %{vlans} // nom du câble : %{cable_name} // couleur : %{cable_color}"
+  bay_decorator:
+    no_frame_warning_text: Veuillez renseigner un châssis à cette baie
+
+  modele_decorator:
+    no_enclosure: Aucune enclosure
+
+  move_decorator:
+    display_name: Déplacement de %{moveable}
+
+  move_connections_decorator:
+    description: "Connexion entre %{port_from_server} (port #%{port_from_id}) et %{port_to_server} (port #%{port_to_id}) => vlans : %{vlans} // nom du câble : %{cablename} // couleur : %{color}"
