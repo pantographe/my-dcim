@@ -123,10 +123,10 @@
           <%= Move::Connection.model_name.human.pluralize %>
         <% end %>
 
-        <% if @moved_connections.any? %>
+        <% if @move_connections.any? %>
           <% card.with_body(extra_classes: "p-0") do %>
             <ul class="list-group list-group-flush">
-              <% @moved_connections.each do |connection| %>
+              <% @move_connections.each do |connection| %>
                 <li class="list-group-item">
                   <span>
                     <%= connection.decorated.description %>
