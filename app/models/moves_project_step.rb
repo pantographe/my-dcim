@@ -50,7 +50,7 @@ class MovesProjectStep < ApplicationRecord
       moves = Move.includes(:frame, :prev_frame)
         .where(step: moves_project.steps.where(position: ..position))
 
-      (moves.where(frame: frame) | moves.where(prev_frame: frame)).compact.uniq
+      (moves.where(frame: frame, moveable_type: "Server") | moves.where(prev_frame: frame, moveable_type: "Server")).compact.uniq
     end
   end
 
