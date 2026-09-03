@@ -650,7 +650,7 @@ fr:
 
   moves_project_steps:
     frame:
-      title: Châssis %{frame} après déplacement
+      title: État de %{frame} à l'étape "%{step}"
       applied_moves: Déplacements appliqués
       loading: CHARGEMENT EN COURS
     execute:
@@ -662,7 +662,6 @@ fr:
     frames_grid:
       frames_grid_title: Résumé des déplacements par châssis
       visualization_after_step: Visualisation après déplacements
-      show_page: Voir le châssis
 
   devise:
     registrations:

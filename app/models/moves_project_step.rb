@@ -45,6 +45,15 @@ class MovesProjectStep < ApplicationRecord
     end
   end
 
+  def moves_for_frame_at_current_step(frame)
+    @moves_for_frame_at_current_step ||= begin
+      moves = Move.includes(:frame, :prev_frame)
+        .where(step: moves_project.steps.where(position: ..position))
+
+      (moves.where(frame: frame, moveable_type: "Server") | moves.where(prev_frame: frame, moveable_type: "Server")).compact.uniq
+    end
+  end
+
   # Returns servers, that will be present in given frame after
   # execution of current and previous steps.
   def servers_at_current_step_for(frame)
