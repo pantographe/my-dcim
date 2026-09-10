@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EmptyDataComponent < ApplicationComponent
-  def initialize(icon: :slash_circle, text: nil, **_options)
+  def initialize(icon: :slash_circle, text: nil)
     @icon = icon.to_s.dasherize
     @text = text.presence || I18n.t("empty_data_component.title")
 

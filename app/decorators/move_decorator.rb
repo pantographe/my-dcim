@@ -28,7 +28,7 @@ class MoveDecorator < ApplicationDecorator
   end
 
   def display_name
-    I18n.t("moves.decorator.display_name", moveable:)
+    I18n.t("move_decorator.display_name", moveable:)
   end
 
   def planned_or_executed_date

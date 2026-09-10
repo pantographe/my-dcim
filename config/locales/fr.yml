@@ -581,8 +581,6 @@ fr:
         delete: Supprimer cette connexion
     flashes:
       archived: Ce projet est archivé
-    decorator:
-      display_name: Déplacement de %{moveable}
     execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
     action:
       execute_move: Déplacer le serveur et ses connexions

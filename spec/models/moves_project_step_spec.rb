@@ -82,9 +82,9 @@ RSpec.describe MovesProjectStep do
     end
   end
 
-  describe "#moves_for_frame_at_current_step" do
+  describe "#moves_for_frame" do
     it do
-      expect(moves_project_steps(:step_two).moves_for_frame_at_current_step(frames(:five)))
+      expect(moves_project_steps(:step_two).moves_for_frame(frames(:five)))
         .to contain_exactly(moves(:move_step_two), moves(:move_step_three))
     end
   end
