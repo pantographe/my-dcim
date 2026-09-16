@@ -1,5 +1,5 @@
 fr:
-  card_empty_data_component:
+  empty_data_component:
     title: Aucune donnée trouvée
 
   delete_dependency_component:
