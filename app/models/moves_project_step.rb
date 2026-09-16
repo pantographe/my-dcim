@@ -46,7 +46,8 @@ class MovesProjectStep < ApplicationRecord
   end
 
   def moves_for_frame(frame)
-    @moves_for_frame ||= moves.where(frame: frame).or(moves.where(prev_frame: frame))
+    @moves_for_frame ||= {}
+    @moves_for_frame[frame] ||= moves.where(frame: frame).or(moves.where(prev_frame: frame))
   end
 
   # Returns servers, that will be present in given frame after
