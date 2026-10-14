@@ -12,7 +12,7 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
-$("body").on("click", ".servers a.port, .server a.port, .pdu a.port, .js_connection_edit_link_to", function (event) {
+$("body").on("click", ".servers a.port, .server a.port, .pdu a.port, .js_connection_edit_port a.port, .js_connection_edit_link_to", function (event) {
   event.preventDefault();
 
   var url = $(this).data("url");
