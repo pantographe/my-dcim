@@ -31,6 +31,21 @@
           <% end %>
         <% end %>
 
+        <% table.with_column(Move::Connection.human_attribute_name(:action)) do |move_connection| %>
+          <% move_connection = move_connection.decorated %>
+
+          <%= render BadgeComponent.new(Move::Connection.human_attribute_name("action.#{move_connection.action}"), color: move_connection.action_badge_color)  %>
+          <% if move_connection.extra_connection_destroyed? %>
+            <span class="d-none d-lg-inline-block m-2">
+              <span class="bi bi-info-circle text-body-tertiary"
+                title="<%= t(".extra_connection_destroyed") %>"
+                aria-label="<%= t(".extra_connection_destroyed") %>"
+                data-controller="tooltip">
+              </span>
+            </span>
+          <% end %>
+        <% end %>
+
         <% table.with_column(t(".representation_title")) do |move_connection| %>
           <%= render partial: "draw", locals: { move_connection: } %>
         <% end %>

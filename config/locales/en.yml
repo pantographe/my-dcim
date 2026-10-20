@@ -419,6 +419,7 @@ en:
       index:
         new_move_connection: New connection
         representation_title: Representation
+        extra_connection_destroyed: Destination port has a connection. It will be destroyed
       new:
         title: New connection
       create:

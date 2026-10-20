@@ -2,6 +2,8 @@
 
 class Move
   class ConnectionDecorator < ApplicationDecorator
+    ACTION_BADGE_COLORS = { destroy: :danger, update: :warning, create: :success }.freeze
+
     def status_to_badge_component
       color = executed_at.nil? ? :primary : :success
       locale_key = executed_at.nil? ? :planned : :executed
@@ -23,6 +25,24 @@ class Move
 
     def display_name
       description
+    end
+
+    def action
+      @action ||= if port_to_id.nil?
+                    :destroy
+                  elsif port_from.connections.any?
+                    :update
+                  else
+                    :create
+                  end
+    end
+
+    def extra_connection_destroyed?
+      @extra_connection_destroyed ||= port_to&.connections&.any? || false
+    end
+
+    def action_badge_color
+      ACTION_BADGE_COLORS[action]
     end
   end
 end
