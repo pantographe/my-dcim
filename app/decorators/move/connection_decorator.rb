@@ -28,17 +28,17 @@ class Move
     end
 
     def action
-      @action ||= if port_to_id.nil?
-                    :destroy
-                  elsif port_from.connections.any?
-                    :update
-                  else
-                    :create
-                  end
+      if port_to_id.nil?
+        :destroy
+      elsif port_from.connections.any?
+        :update
+      else
+        :create
+      end
     end
 
     def extra_connection_destroyed?
-      @extra_connection_destroyed ||= port_to&.connections&.any? || false
+      port_to&.connections&.any? || false
     end
 
     def action_badge_color
