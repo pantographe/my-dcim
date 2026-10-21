@@ -11,6 +11,7 @@ class Move
     scope :not_executed, -> { where(executed_at: nil) }
 
     validates :port_from_id, uniqueness: { scope: %i[move_id] }
+    validate :cannot_create_if_move_executed
 
     def ports
       [port_from, port_to].compact
@@ -28,6 +29,14 @@ class Move
 
     def executed?
       executed_at?
+    end
+
+    private
+
+    def cannot_create_if_move_executed
+      return if persisted? || !move.try(:executed?)
+
+      errors.add(:base, :move_is_executed)
     end
   end
 end

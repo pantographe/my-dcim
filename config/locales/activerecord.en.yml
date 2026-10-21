@@ -361,6 +361,9 @@ en:
         modele:
           composant_used_by_cards: "The composant %{composant} can't be deleted because cards of I.T. equipments are installed in it"
 
+        move/connection:
+          move_is_executed: Move is executed, creation impossible
+
         moves_project:
           steps_cannot_be_destroyed: Steps with moves can't be deleted
 

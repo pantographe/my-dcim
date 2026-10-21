@@ -585,6 +585,9 @@ fr:
         modele:
           composant_used_by_cards: "Le composant %{composant} ne peut être supprimé car des cartes y sont installées dans certains matériels I.T."
 
+        move/connection:
+          move_is_executed: Le déplacement est executé, création impossible
+
         moves_project:
           steps_cannot_be_destroyed: Les étapes avec des déplacements ne peuvent être supprimées
 
