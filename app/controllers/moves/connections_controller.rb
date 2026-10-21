@@ -4,8 +4,8 @@ module Moves
   class ConnectionsController < ApplicationController
     before_action :set_move
     before_action :set_move_connection, only: %i[edit update destroy]
-    before_action :set_move_connections, only: %i[new edit load_destination_server]
-    before_action :set_all_servers_per_frames, only: %i[new edit]
+    before_action :set_move_connections, only: %i[new create edit update load_destination_server]
+    before_action :set_all_servers_per_frames, only: %i[new create edit update]
 
     before_action do
       breadcrumb.add_step(MovesProject.model_name.human.pluralize, moves_projects_path)
