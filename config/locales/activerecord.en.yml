@@ -177,9 +177,9 @@ en:
         executed: Executed
         planned: Planned
       move/connection/action:
-        destroy: Deletion
-        update: Modification
-        create: Creation
+        destroy: Delete
+        update: Update
+        create: Create
       netsight_sync_result:
         applied_at: Applied on
         dcim_path: DCIM path
