@@ -22,7 +22,7 @@ module Moves
     end
 
     def new
-      if move_connection = Move::Connection.where(move: @move).find_by(port_from_id: params[:port_from_id])
+      if (move_connection = Move::Connection.where(move: @move).find_by(port_from_id: params[:port_from_id]))
         redirect_to edit_move_connection_path(@move, move_connection)
       end
 
@@ -30,7 +30,7 @@ module Moves
       @move_connection.port_from = port = Port.find(params[:port_from_id])
       @move_connection.vlans = port.vlans
 
-      if connection = port.connection.presence
+      if (connection = port.connection.presence)
         @move_connection.port_to = connection.paired_connection&.port
         @move_connection.cable_name = connection.cable.name
         @move_connection.cable_color = connection.cable.color
@@ -77,12 +77,12 @@ module Moves
     def load_destination_server
       authorize!
 
-      @server = Server.find_by_id(params[:server_id])
+      @server = Server.find_by(id: params[:server_id])
 
-      if @server
-        @server.create_missing_ports
-        @server.reload
-      end
+      return unless @server
+
+      @server.create_missing_ports
+      @server.reload
     end
 
     private
