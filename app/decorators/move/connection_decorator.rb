@@ -38,7 +38,7 @@ class Move
 
       grouped_options_for_select(
         servers,
-        { selected: port_to&.attached&.id },
+        { selected: port_to&.attached&.to_gid },
       )
     end
   end

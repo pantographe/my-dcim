@@ -51,7 +51,7 @@
                 <%= select_tag "to_server",
                                grouped_options_for_select(
                                  all_servers_per_frames,
-                                 { selected: move_connection.port_to&.server_id },
+                                 { selected: move_connection.port_to&.attached&.to_gid },
                                ),
                                include_blank: true,
                                class: "form-select",
