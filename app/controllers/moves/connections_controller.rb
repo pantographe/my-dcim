@@ -77,12 +77,9 @@ module Moves
     def load_destination_server
       authorize!
 
-      @server = Server.find_by(id: params[:server_id])
-
-      return unless @server
-
-      @server.create_missing_ports
-      @server.reload
+      @attachable = GlobalID::Locator.locate(params[:attachable_id])
+      @attachable.create_missing_ports
+      @attachable.reload
     end
 
     private
@@ -105,7 +102,11 @@ module Moves
 
     def set_all_servers_per_frames
       @all_servers_per_frames = Frame.order(:name).map do |frame|
-        [frame.name, frame.servers.collect { |v| [v.name, v.id] }]
+        [
+          frame.name,
+          frame.servers.collect { |v| [v.name, v.to_gid] } +
+            frame.power_distribution_units.collect { |p| [p.name, p.to_gid] },
+        ]
       end
     end
 
