@@ -55,7 +55,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
     respond_to do |format|
       if @move.clear_connections_and_save
-        format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.created") }
+        format.html { form_redirect_to moves_project_step_move_path(@moves_project_step, @move), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @move }
       else
         load_form_data
@@ -70,7 +70,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
     respond_to do |format|
       if @move.clear_connections_and_save
-        format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.updated") }
+        format.html { form_redirect_to moves_project_step_move_path(@moves_project_step, @move), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @move }
       else
         load_form_data
