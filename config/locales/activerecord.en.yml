@@ -172,9 +172,14 @@ en:
       move/connection:
         status: State
         executed_at: Executed at
+        action: Action
       move/connection/status:
         executed: Executed
         planned: Planned
+      move/connection/action:
+        destroy: Delete
+        update: Update
+        create: Create
       netsight_sync_result:
         applied_at: Applied on
         dcim_path: DCIM path

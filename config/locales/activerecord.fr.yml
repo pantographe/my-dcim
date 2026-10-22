@@ -444,9 +444,14 @@ fr:
       move/connection:
         status: État
         executed_at: Exécuté le
+        action: Action
       move/connection/status:
         executed: Exécuté
         planned: Planifié
+      move/connection/action:
+        destroy: Suppression
+        update: Modification
+        create: Création
       moved_connection:
         port_from_id: Port de départ
         port_to_id: Port de destination
