@@ -177,6 +177,11 @@ en:
         planned: Planned
       netsight_sync_result:
         applied_at: Applied on
+        card: Card
+        current_agreement: Current agreement
+        expected_if_name: Likely Netsight port
+        first_port: First port (DCIM, Netsight)
+        shifted_agreement: Agreement once shifted
         dcim_path: DCIM path
         dcim_value: DCIM value
         dcim_vlans: DCIM VLANs
@@ -207,6 +212,8 @@ en:
         serial_to_complete: Serial to fill in
         name_serial_mismatch: Name and serial disagree
         serial_not_in_netsight: Serial unknown to Netsight
+        shifted: Shifted numbering
+        unknown_ports: Ports unknown to Netsight
       permission_scope:
         name: Name
         role: Role
@@ -349,11 +356,17 @@ en:
           attributes:
             name:
               invalid: can't contain any spaces
+            position:
+              outside_frame: "puts the equipment at %{units}, outside the frame"
+              overlaps: "puts the equipment at %{units}, already used by: %{servers}"
 
         move:
           attributes:
             moveable_id:
               taken: already has a move planned for this step
+
+        modele:
+          composant_used_by_cards: "The composant %{composant} can't be deleted because cards of I.T. equipments are installed in it"
 
         moves_project:
           steps_cannot_be_destroyed: Steps with moves can't be deleted
