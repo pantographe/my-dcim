@@ -269,7 +269,7 @@ en:
         server_name: Material's name
         statuses: Status
         external_app_record_frame_ids: Location
-        external_serial_status: Synchronization
+        external_serial_status: Status
         islet_ids: Islet
         islet_id: Islet
         manufacturer_ids: Manufacturer
@@ -595,6 +595,8 @@ en:
 
   ports:
     netsight_port:
+      loading:
+        message: Loading Netsight data…
       show:
         title: Netsight data
         demo: Sample
@@ -607,13 +609,14 @@ en:
         status: Status
         speed: Speed
         description: Description
-        lag: Link aggregation (LAG)
         lag_member: LAG member, master port %{master}
         vlans: VLANs
         default_vlan: Default VLAN (1)
         no_vlan: No VLAN
+        vlans_not_collected: Netsight does not read the VLANs of this switch
         differs_from_dcim: Differs from DCIM
         apply_vlans: Update DCIM
+        scanned_at: "Last switch scan: %{date}"
         sync_page: See the synchronization of every switch
   servers:
     glpi_equipment:
@@ -628,6 +631,8 @@ en:
       edit_confirmation: Edit this I.T. equipment
       add_card: Add a card
       add_document: Add an attachment
+      rack_units_hint: "Occupies %{units} (the position is the top U of the equipment)"
+      rack_units_empty_hint: "Enter the top U of the equipment"
     room:
       title: Romm %{room} - Islet %{islet}
     slot_fields:
