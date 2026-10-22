@@ -46,6 +46,7 @@
               </span>
             <% end %>
           <% end %>
+        <% end %>
 
         <% table.with_column(t(".representation_title")) do |move_connection| %>
           <%= render partial: "draw", locals: { move_connection: } %>
