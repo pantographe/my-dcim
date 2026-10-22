@@ -321,6 +321,8 @@ fr:
       flashes:
         destroyed: Le port a été supprimé.
     netsight_port:
+      loading:
+        message: Chargement des données Netsight…
       show:
         title: Données Netsight
         demo: Exemple
@@ -333,13 +335,14 @@ fr:
         status: Statut
         speed: Vitesse
         description: Description
-        lag: Agrégat (LAG)
         lag_member: Membre du LAG, port maître %{master}
         vlans: VLAN
         default_vlan: VLAN par défaut (1)
         no_vlan: Aucun VLAN
+        vlans_not_collected: Netsight ne relève pas les VLAN de ce switch
         differs_from_dcim: Différent de DCIM
         apply_vlans: Mettre à jour DCIM
+        scanned_at: "Dernier scan du switch : %{date}"
         sync_page: Voir la synchronisation de tous les switchs
   port_types:
     index:
@@ -408,7 +411,7 @@ fr:
   netsight_sync_results:
     index:
       title: Synchronisation avec Netsight
-      description: "Compare les switchs DCIM avec Netsight : identité (numéro de série, puis nom), VLAN des ports et liens entre switchs (y compris à travers les patch panels et leurs cartes jumelles). Rien n'est modifié dans DCIM sans validation."
+      description: "Compare les switchs DCIM avec Netsight : identité (numéro de série, puis nom), numérotation et VLAN des ports, et liens entre switchs (y compris à travers les patch panels et leurs cartes jumelles). Rien n'est modifié dans DCIM sans validation."
       start_synchronization: Synchroniser avec Netsight
       last_complete_sync: "Dernière synchronisation complète :"
       none: aucune
@@ -418,11 +421,12 @@ fr:
         vlan: VLAN
         link: Liens entre switchs
         switch: Identité des switchs
+        numbering: Numérotation des ports
       apply: Mettre à jour DCIM
       apply_confirmation: Remplacer les valeurs DCIM des lignes sélectionnées par celles de Netsight ?
       apply_help:
-        vlan: "Remplace les VLAN DCIM (%{dcim}) par ceux de Netsight (%{netsight}), aussi sur le port à l'autre bout du câble."
-        switch: "Remplace le N° Série DCIM (%{dcim}) par celui de Netsight (%{netsight})."
+        vlan: "Remplace les VLAN DCIM (%{dcim}) par ceux de Netsight (%{netsight}), aussi sur le port à l'autre bout du câble"
+        switch: "Remplace le N° Série DCIM (%{dcim}) par celui de Netsight (%{netsight})"
         none: aucun
       applied_at: Appliqué le %{date}
       edit_connection: Modifier la connexion
@@ -433,6 +437,7 @@ fr:
       not_configured: "L'accès à Netsight n'est pas configuré (identifiants netsight absents des credentials) : la synchronisation est désactivée."
       last_failure: "Dernière tentative en erreur le %{date} :"
       unreachable_details: "Anciens résultats de ce switch conservés. Erreur : %{error}"
+      numbering_details: "Ports de la carte en accord avec Netsight : mêmes VLAN, ou à défaut port câblé dans DCIM et actif dans Netsight. Vérifier l'ordre et le premier numéro des cartes du switch."
     sync:
       not_configured: L'accès à Netsight n'est pas configuré.
       abandoned: "Synchronisation abandonnée : elle ne progressait plus (redémarrage du serveur ?)."
@@ -478,6 +483,8 @@ fr:
       edit_confirmation: Modifier ce matériel I.T.
       add_card: Ajouter une carte
       add_document: Ajouter une pièce jointe
+      rack_units_hint: "%{units} (la position est le U du haut de l'équipement)"
+      rack_units_empty_hint: "Saisir le U du haut de l'équipement"
     room:
       title: Salle %{room} - Ilot %{islet}
     slot_fields:
@@ -1080,7 +1087,7 @@ fr:
         architecture_ids: Architecture
         category_ids: Catégorie
         external_app_record_frame_ids: Emplacement
-        external_serial_status: Synchronisation
+        external_serial_status: Statut
         manufacturer_ids: Constructeur
         islet_ids: Ilot
         islet_id: Ilot

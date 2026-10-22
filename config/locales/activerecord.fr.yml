@@ -472,6 +472,11 @@ fr:
         not_found: Non trouvé dans GLPI
       netsight_sync_result:
         applied_at: Appliqué le
+        card: Carte
+        current_agreement: Concordance actuelle
+        expected_if_name: Port Netsight probable
+        first_port: Premier port (DCIM, Netsight)
+        shifted_agreement: Concordance après décalage
         dcim_path: Chemin dans DCIM
         dcim_value: Valeur DCIM
         dcim_vlans: VLAN DCIM
@@ -502,6 +507,8 @@ fr:
         serial_to_complete: N° Série à compléter
         name_serial_mismatch: Nom et N° Série en désaccord
         serial_not_in_netsight: N° Série inconnu de Netsight
+        shifted: Numérotation décalée
+        unknown_ports: Ports inconnus de Netsight
       contact:
         first_name: Prénom
         last_name: Nom
@@ -587,6 +594,9 @@ fr:
             moveable_id:
               taken: a déjà un déplacement de prévu dans cette étape
 
+        modele:
+          composant_used_by_cards: "Le composant %{composant} ne peut être supprimé car des cartes y sont installées dans certains matériels I.T."
+
         moves_project:
           steps_cannot_be_destroyed: Les étapes avec des déplacements ne peuvent être supprimées
 
@@ -595,6 +605,9 @@ fr:
             numero:
               same_as_server_name: ne peut pas être identique à un nom d'équipement
               invalid: ne peut pas contenir d'espace
+            position:
+              outside_frame: "place l'équipement en %{units}, hors des limites de la baie"
+              overlaps: "place l'équipement en %{units}, déjà occupé par : %{servers}"
 
         user:
           attributes:

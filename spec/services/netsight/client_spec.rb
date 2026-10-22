@@ -50,8 +50,23 @@ RSpec.describe Netsight::Client, type: :service do
                                       lag_master_if_index: nil)
     end
 
+    it "reads when Netsight last scanned the switch" do
+      expect(port.scanned_at).to eq(Time.zone.at(1_792_502_100))
+    end
+
     it "rejects an IP that is not one" do
       expect { client.port(ip: '1.2.3.4") { x', if_index: 1001) }.to raise_error(ArgumentError)
+    end
+
+    context "when Netsight does not poll the VLANs of the switch" do
+      before do
+        body = { data: { network: { device: {
+          sysName: "SW_OLD", entityData: { vlanSupported: 2, port: { ifName: "1:1", vlanList: [] } },
+        } } } }.to_json
+        allow(client.connection).to receive(:get).and_return(instance_double(Faraday::Response, body:))
+      end
+
+      it { expect(port).to have_attributes(vlans_collected: false, tagged: [], untagged: []) }
     end
 
     context "when the device or the port is unknown" do
@@ -93,9 +108,11 @@ RSpec.describe Netsight::Client, type: :service do
       expect(snapshot.ports.keys).to eq(["1:1", "1:2", "1:51", "1:52", "2:1"])
     end
 
-    it "merges the VLANs of each port" do
+    it "reads the VLANs Netsight polled on each port" do
       expect(snapshot.ports["1:1"]).to have_attributes(sys_name: "SW_TEST01", untagged: [201], tagged: [])
     end
+
+    it { expect(snapshot.vlans_collected).to be(true) }
 
     it "orients the links from the device and drops duplicates" do
       expect(snapshot.links.map { |link| [link.if_name, link.peer_ip, link.peer_if_name] })
@@ -122,6 +139,25 @@ RSpec.describe Netsight::Client, type: :service do
       it { expect(port.matches_dcim?("u201, t1192")).to be(false) }
       it { expect(port.matches_dcim?(nil)).to be(false) }
       it { expect(port.matches_dcim?("u201 t1192 t1194")).to be(true) }
+    end
+
+    describe ".parse_vlan_list" do
+      it "splits the tagged and the untagged VLANs" do
+        expect(described_class.parse_vlan_list(["1573[CS_1573] Tagged", "1656[ADMIN [B]] Untagged"]))
+          .to eq(tagged: [1573], untagged: [1656])
+      end
+
+      it { expect(described_class.parse_vlan_list(nil)).to eq(tagged: [], untagged: []) }
+
+      it "rejects an entry it can't read" do
+        expect { described_class.parse_vlan_list(["1573 Forbidden"]) }.to raise_error(Netsight::Client::Error)
+      end
+    end
+
+    describe ".scan_time" do
+      it { expect(described_class.scan_time(1_792_502_100_000)).to eq(Time.zone.at(1_792_502_100)) }
+      it { expect(described_class.scan_time(nil)).to be_nil }
+      it { expect(described_class.scan_time(0)).to be_nil }
     end
 
     describe ".vlan_list?" do
