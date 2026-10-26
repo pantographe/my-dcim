@@ -78,6 +78,8 @@ module Moves
       authorize!
 
       @attachable = GlobalID::Locator.locate(params[:attachable_id])
+      return unless @attachable
+
       @attachable.create_missing_ports
       @attachable.reload
     end
