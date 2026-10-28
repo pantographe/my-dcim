@@ -104,8 +104,10 @@ module Moves
     end
 
     def set_all_servers_per_frames
-      @all_servers_per_frames = Server.select(:id, :name, :frame_id, frame: %i[id name]).includes(:frame).group_by(&:frame).map do |frame, servers|
-        [frame.name, servers.pluck(:name, :id)]
+      # TODO: should be scope for current step
+
+      @all_servers_per_frames = Frame.order(:name).map do |frame|
+        [frame.name, frame.servers.collect { |v| [v.name, v.id] }]
       end
     end
 
