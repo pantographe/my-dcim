@@ -4,7 +4,7 @@ module Moves
   class ConnectionsController < ApplicationController
     before_action :set_move
     before_action :set_move_connection, only: %i[edit update destroy]
-    before_action :set_move_connections, only: %i[new create edit update load_destination_server]
+    before_action :set_move_connections, only: %i[new create edit update update_destination_server]
     before_action :set_all_servers_per_frames, only: %i[new create edit update]
 
     before_action do
@@ -74,7 +74,7 @@ module Moves
       end
     end
 
-    def load_destination_server
+    def update_destination_server
       authorize!
 
       @server = Server.find_by(id: params[:server_id])
@@ -104,8 +104,8 @@ module Moves
     end
 
     def set_all_servers_per_frames
-      @all_servers_per_frames = Frame.order(:name).map do |frame|
-        [frame.name, frame.servers.collect { |v| [v.name, v.id] }]
+      @all_servers_per_frames = Server.select(:id, :name, :frame_id, frame: %i[id name]).includes(:frame).group_by(&:frame).map do |frame, servers|
+        [frame.name, servers.pluck(:name, :id)]
       end
     end
 

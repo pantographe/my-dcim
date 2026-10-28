@@ -45,7 +45,7 @@
                                  select_clear_button_title_value: t("action.clear_all"),
                                },
                                placeholder: t("select.placeholder"),
-                               onchange: "load_destination_server(this.value)" %>
+                               onchange: "update_destination_server(this.value)" %>
               </span>
               <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
                 <%= select_tag "to_server",
@@ -60,7 +60,7 @@
                                  select_clear_button_title_value: t("action.clear_all"),
                                },
                                placeholder: t("select.placeholder"),
-                               onchange: "load_destination_server(this.value)" %>
+                               onchange: "update_destination_server(this.value)" %>
               </span>
               <button class="btn btn-link btn-sm me-auto" data-action="click->reveal#toggle" type="button">
                 <span data-reveal-target="item">
@@ -150,7 +150,7 @@
     }
   })
 
-  function load_destination_server(server_id) {
+  function update_destination_server(server_id) {
     let submit = document.querySelector("#back_destination_server")
                          .closest("form")
                          .querySelector("input[type=\"submit\"]");
@@ -159,7 +159,7 @@
     if (server_id != undefined && server_id != "") {
       $.ajax({
           method: "POST",
-          url: "<%= load_destination_server_move_connections_path(move_connection.move) %>",
+          url: "<%= update_destination_server_move_connections_path(move_connection.move) %>",
           data: { server_id: server_id, with_move_connection: 1 }
       }).done(function () {
         let port_id = document.querySelector("input[name=\"move_connection[port_to_id]\"]");

@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   resources :moves, only: %i[new create] do
     resources :move_connections, except: %i[show], controller: "moves/connections", as: :connections, path: :connections do
       collection do
-        post :load_destination_server
+        post :update_destination_server
       end
     end
   end
