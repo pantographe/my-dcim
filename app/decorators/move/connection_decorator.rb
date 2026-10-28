@@ -2,6 +2,8 @@
 
 class Move
   class ConnectionDecorator < ApplicationDecorator
+    include ActionView::Helpers::FormOptionsHelper
+
     ACTION_BADGE_COLORS = { destroy: :danger, update: :warning, create: :success }.freeze
 
     def status_to_badge_component
@@ -43,6 +45,17 @@ class Move
 
     def action_badge_color
       ACTION_BADGE_COLORS[action]
+    end
+
+    def available_servers_options_for_select
+      servers = move.frame.bay.frames.map do |frame|
+        [frame.name, move.step.servers_at_current_step_for(frame).collect { |v| [v.name, v.id] }]
+      end
+
+      grouped_options_for_select(
+        servers,
+        { selected: port_to&.server_id },
+      )
     end
   end
 end

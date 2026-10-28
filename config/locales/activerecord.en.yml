@@ -173,6 +173,11 @@ en:
         status: State
         executed_at: Executed at
         action: Action
+        port_from_id: Departure port
+        port_to_id: Destination port
+        vlans: Vlans
+        cable_color: Cable color
+        cable_name: Cable name
       move/connection/status:
         executed: Executed
         planned: Planned

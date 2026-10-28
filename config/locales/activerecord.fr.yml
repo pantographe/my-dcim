@@ -445,6 +445,11 @@ fr:
         status: État
         executed_at: Exécuté le
         action: Action
+        port_from_id: Port de départ
+        port_to_id: Port de destination
+        vlans: Vlans
+        cable_color: Couleur du câble
+        cable_name: Nom du câble
       move/connection/status:
         executed: Exécuté
         planned: Planifié
