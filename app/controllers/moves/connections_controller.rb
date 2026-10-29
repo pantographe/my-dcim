@@ -92,7 +92,7 @@ module Moves
     end
 
     def set_move_connections
-      authorize! @move_connections = Move::Connection.where(move: @move)
+      @move_connections = @move.step.moves_planned_at_current_step.map(&:connections).flatten
     end
 
     def scoped_move_connections
@@ -104,8 +104,6 @@ module Moves
     end
 
     def set_all_servers_per_frames
-      # TODO: should be scope for current step
-
       @all_servers_per_frames = Frame.order(:name).map do |frame|
         [frame.name, frame.servers.collect { |v| [v.name, v.id] }]
       end
