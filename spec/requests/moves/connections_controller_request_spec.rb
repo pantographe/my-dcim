@@ -161,7 +161,7 @@ RSpec.describe Moves::ConnectionsController do
 
   describe "POST #load_destination_server" do
     subject(:response) do
-      post(load_destination_server_move_connections_path(move, format:), params:)
+      post(update_destination_server_move_connections_path(move, format:), params:)
 
       @response # rubocop:disable RSpec/InstanceVariable
     end

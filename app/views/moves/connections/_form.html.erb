@@ -168,7 +168,7 @@
     if (attachable_id != undefined && attachable_id != "") {
       $.ajax({
           method: "POST",
-          url: "<%= load_destination_server_move_connections_path(move_connection.move) %>",
+          url: "<%= update_destination_server_move_connections_path(move_connection.move) %>",
           data: { attachable_id, with_move_connection: 1 }
       }).done(function () {
         let port_id = document.querySelector("input[name=\"move_connection[port_to_id]\"]");
