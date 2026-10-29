@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_29_175959) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -363,6 +363,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
     t.bigint "port_to_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_existing_connection_removal_batch", default: false, null: false
     t.index ["move_id", "port_from_id"], name: "index_move_connections_on_move_id_and_port_from_id", unique: true
     t.index ["move_id"], name: "index_move_connections_on_move_id"
     t.index ["port_from_id"], name: "index_move_connections_on_port_from_id"
@@ -378,8 +379,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.datetime "executed_at", precision: nil
+    t.bigint "step_id"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
+    t.index ["step_id"], name: "index_moved_connections_on_step_id"
   end
 
   create_table "moves", id: :serial, force: :cascade do |t|
@@ -700,6 +703,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
   add_foreign_key "move_connections", "moves"
   add_foreign_key "move_connections", "ports", column: "port_from_id"
   add_foreign_key "move_connections", "ports", column: "port_to_id"
+  add_foreign_key "moved_connections", "moves_project_steps", column: "step_id"
   add_foreign_key "moved_connections", "ports", column: "port_from_id"
   add_foreign_key "moved_connections", "ports", column: "port_to_id"
   add_foreign_key "moves", "frames"
