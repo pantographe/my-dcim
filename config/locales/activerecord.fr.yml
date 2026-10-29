@@ -433,7 +433,7 @@ fr:
         moveable_id: Équipement à déplacer
         frame_id: Châssis de destination
         prev_frame_id: Châssis de départ
-        remove_existing_connections_on_execution: Supprimer les connexions de l'équipement ?
+        remove_existing_connections_on_execution: Supprimer les connexions existantes de l'équipement
         remove_existing_connections_on_execution_short: Connexions supprimées ?
         position: Position dans le châssis
         status: État
@@ -444,9 +444,19 @@ fr:
       move/connection:
         status: État
         executed_at: Exécuté le
+        action: Action
+        port_from_id: Port de départ
+        port_to_id: Port de destination
+        vlans: Vlans
+        cable_color: Couleur du câble
+        cable_name: Nom du câble
       move/connection/status:
         executed: Exécuté
         planned: Planifié
+      move/connection/action:
+        destroy: Suppression
+        update: Modification
+        create: Création
       moved_connection:
         port_from_id: Port de départ
         port_to_id: Port de destination
@@ -467,6 +477,11 @@ fr:
         not_found: Non trouvé dans GLPI
       netsight_sync_result:
         applied_at: Appliqué le
+        card: Carte
+        current_agreement: Concordance actuelle
+        expected_if_name: Port Netsight probable
+        first_port: Premier port (DCIM, Netsight)
+        shifted_agreement: Concordance après décalage
         dcim_path: Chemin dans DCIM
         dcim_value: Valeur DCIM
         dcim_vlans: VLAN DCIM
@@ -497,6 +512,8 @@ fr:
         serial_to_complete: N° Série à compléter
         name_serial_mismatch: Nom et N° Série en désaccord
         serial_not_in_netsight: N° Série inconnu de Netsight
+        shifted: Numérotation décalée
+        unknown_ports: Ports inconnus de Netsight
       contact:
         first_name: Prénom
         last_name: Nom

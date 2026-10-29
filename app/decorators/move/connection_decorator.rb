@@ -2,6 +2,10 @@
 
 class Move
   class ConnectionDecorator < ApplicationDecorator
+    include ActionView::Helpers::FormOptionsHelper
+
+    ACTION_BADGE_COLORS = { create: :success, update: :info, destroy: :danger }.freeze
+
     def status_to_badge_component
       color = executed_at.nil? ? :primary : :success
       locale_key = executed_at.nil? ? :planned : :executed
@@ -23,6 +27,39 @@ class Move
 
     def display_name
       description
+    end
+
+    def action
+      if port_to_id.nil?
+        :destroy
+      elsif port_from.connections.any?
+        :update
+      else
+        :create
+      end
+    end
+
+    def human_action
+      Move::Connection.human_attribute_name("action.#{action}")
+    end
+
+    def action_badge_color
+      ACTION_BADGE_COLORS[action]
+    end
+
+    def extra_connection_destroyed?
+      @extra_connection_destroyed ||= port_to&.connections&.any? || false
+    end
+
+    def available_servers_options_for_select
+      servers = move.frame.bay.frames.map do |frame|
+        [frame.name, move.step.servers_at_current_step_for(frame).collect { |v| [v.name, v.id] }]
+      end
+
+      grouped_options_for_select(
+        servers,
+        { selected: port_to&.server_id },
+      )
     end
   end
 end
