@@ -13,12 +13,17 @@
             <div class="col">
               <%= render CardComponent.new do |card| %>
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pb-2">
-                  <h5 class="mb-0 d-flex align-items-start">
+                  <h5 class="mb-0 d-flex align-items-start no-decoration-link">
                     <span class="bi bi-file-minus text-success me-2"></span>
                     <span title="<%= frame.room.name_with_site %>"
                           aria-label="<%= frame.room.name_with_site %>"
                           data-controller="tooltip">
-                      <%= frame %>
+                      <%= link_to frame,
+                                  frame_moves_project_moves_project_step_path(
+                                    moves_project_step.moves_project, moves_project_step, frame,
+                                  ),
+                                  class: "text-body-emphasis"
+                      %>
                     </span>
                   </h5>
 
