@@ -4,7 +4,7 @@ class Move
   class ConnectionDecorator < ApplicationDecorator
     include ActionView::Helpers::FormOptionsHelper
 
-    ACTION_BADGE_COLORS = { destroy: :danger, update: :warning, create: :success }.freeze
+    ACTION_BADGE_COLORS = { create: :success, update: :info, destroy: :danger }.freeze
 
     def status_to_badge_component
       color = executed_at.nil? ? :primary : :success
