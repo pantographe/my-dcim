@@ -81,17 +81,19 @@
   <% end %>
 <% end %>
 
-<div class="p-4 border-top d-flex flex-column row-gap-4">
-  <%= render partial: "visualization/frames/show_frame",
-             locals: {
-               frame: @frame,
-               servers: @servers,
-               view_type: "back",
-               settings: { min_height: 20 },
-             } %>
+<div class="p-4 border-top d-flex flex-column">
+  <div class="row row-cols-1 row-cols-xl-2 row-gap-4">
+    <div class="col col-xl-8">
+      <%= render partial: "visualization/frames/show_frame",
+                 locals: {
+                   frame: @frame,
+                   servers: @servers,
+                   view_type: "back",
+                   settings: { min_height: 20 },
+                 } %>
+    </div>
 
-  <div class="row">
-    <div class="col-12 col-lg-6">
+    <div class="col col-xl-4 d-flex flex-column row-gap-4">
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
           <%= Move.model_name.human(count: 2) %>
@@ -139,9 +141,7 @@
           </ul>
         <% end %>
       <% end %>
-    </div>
 
-    <div class="col-12 col-lg-6">
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
           <%= Move::Connection.model_name.human.pluralize %>
