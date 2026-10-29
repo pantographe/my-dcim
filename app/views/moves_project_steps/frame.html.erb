@@ -10,13 +10,13 @@
       <%= t(".title", frame: @frame) %>
 
       <span class="dropdown">
-        <button class="btn btn-dark dropdown-toggle fs-2"
+        <button class="btn dropdown-toggle fs-2"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
           <%= @moves_project_step %>
         </button>
 
-        <ul class="dropdown-menu dropdown-menu-dark">
+        <ul class="dropdown-menu">
           <% @moves_project.steps.each do |step| %>
             <li>
               <a class="dropdown-item"
