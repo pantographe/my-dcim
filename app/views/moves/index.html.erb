@@ -120,24 +120,6 @@
           <%= render move.moved_connections_to_badge_component %>
         <% end %>
 
-        <% table.with_column(Move::Connection.model_name.human(count: 2), text_align: :right) do |move| %>
-          <% if allowed_to?(:update?, move) && !(@moves_project.archived? || move.executed?) %>
-            <!-- TODO: Add link to edit move::connection -->
-            <%= link_to "#",
-                        title: t(".edit_connections"),
-                        data: {
-                          turbo_frame: :_top,
-                          controller: "tooltip",
-                          bs_placement: "top",
-                        } do %>
-              <span><%= move.connections.count %></span>
-              <span class="visually-hidden"><%= t(".edit_connections") %></span>
-            <% end %>
-          <% else %>
-            <%= move.connections.count %>
-          <% end %>
-        <% end %>
-
         <% table.with_column(text_align: :right, style: "min-width: 100px; width: 100px") do |move| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <% unless @moves_project.archived? || move.executed? %>
