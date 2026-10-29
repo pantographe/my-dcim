@@ -11,14 +11,14 @@ RSpec.describe Move::ConnectionPolicy, type: :policy do
   it_behaves_like "with default manage policy"
 
   describe_rule :create? do
-    failed "when move is executed" do
-      before { move_connection.move = moves(:executed) }
-
-      let(:user) { users(:admin) }
-    end
-
     context "when user is admin" do
-      succeed "when an admin user asks" do
+      failed "when move is executed" do
+        before { move_connection.move = moves(:executed) }
+
+        let(:user) { users(:admin) }
+      end
+
+      succeed "when move is not executed" do
         let(:user) { users(:admin) }
       end
     end
