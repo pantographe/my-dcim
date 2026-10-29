@@ -405,7 +405,7 @@ en:
       action:
         execute_step_moves: Move servers and their connections
     frame:
-      title: "%{frame} state at step \"%{step}\""
+      title: "%{frame} state at step"
       applied_moves: Applied moves
       loading: LOADING IN PROGRESS
     moved_connection_form:
@@ -421,6 +421,7 @@ en:
       index:
         new_move_connection: New connection
         representation_title: Representation
+        extra_connection_destroyed: The existing connection on the destination port will be deleted
       new:
         title: New connection
       create:

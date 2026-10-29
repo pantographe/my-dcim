@@ -4,7 +4,7 @@ module Moves
   class ConnectionsController < ApplicationController
     before_action :set_move
     before_action :set_move_connection, only: %i[edit update destroy]
-    before_action :set_move_connections, only: %i[new create edit update load_destination_server]
+    before_action :set_move_connections, only: %i[new create edit update update_destination_server]
     before_action :set_all_servers_per_frames, only: %i[new create edit update]
 
     before_action do
@@ -74,7 +74,7 @@ module Moves
       end
     end
 
-    def load_destination_server
+    def update_destination_server
       authorize!
 
       @attachable = GlobalID::Locator.locate(params[:attachable_id])
@@ -95,7 +95,7 @@ module Moves
     end
 
     def scoped_move_connections
-      @move.move_connections
+      @move.connections
     end
 
     def set_move_connection
@@ -103,11 +103,11 @@ module Moves
     end
 
     def set_all_servers_per_frames
-      @all_servers_per_frames = Frame.order(:name).map do |frame|
+      @all_servers_per_frames = Frame.order(:name).to_h do |frame|
         [
           frame.name,
-          frame.servers.collect { |v| [v.name, v.to_gid] } +
-            frame.power_distribution_units.collect { |p| [p.name, p.to_gid] },
+          @move.step.servers_at_current_step_for(frame).map { |v| [v.name, v.to_gid] } +
+            frame.power_distribution_units.map { |p| [p.name, p.to_gid] },
         ]
       end
     end

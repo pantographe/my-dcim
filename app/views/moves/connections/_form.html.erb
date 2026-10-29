@@ -45,7 +45,7 @@
                                  select_clear_button_title_value: t("action.clear_all"),
                                },
                                placeholder: t("select.placeholder"),
-                               onchange: "load_destination_server(this.value)" %>
+                               onchange: "update_destination_server(this.value)" %>
               </span>
               <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
                 <%= select_tag "to_server",
@@ -60,7 +60,7 @@
                                  select_clear_button_title_value: t("action.clear_all"),
                                },
                                placeholder: t("select.placeholder"),
-                               onchange: "load_destination_server(this.value)" %>
+                               onchange: "update_destination_server(this.value)" %>
               </span>
               <button class="btn btn-link btn-sm me-auto" data-action="click->reveal#toggle" type="button">
                 <span data-reveal-target="item">
@@ -159,7 +159,7 @@
     }
   })
 
-  function load_destination_server(attachable_id) {
+  function update_destination_server(attachable_id) {
     let submit = document.querySelector("#back_destination_server")
                          .closest("form")
                          .querySelector("input[type=\"submit\"]");

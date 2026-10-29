@@ -161,10 +161,10 @@
 <%= render "ports/modal_edit_port" %>
 
 <script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
-  let move_id = <%= @move.id.to_json %>;
+  let base_url = "<%= new_move_connection_path(@move) %>";
 
   document.querySelectorAll(".server .port").forEach((port) => {
-    let url = "/moves/" + move_id + "/connections/new?port_from_id=" + port.id
+    let url = base_url + "?port_from_id=" + port.id
 
     port.href = port.dataset.url = url
   })
