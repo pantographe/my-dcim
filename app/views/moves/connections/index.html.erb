@@ -24,7 +24,7 @@
           <% move_connection = move_connection.decorated %>
 
           <%= render BadgeComponent.new(color: move_connection.action_badge_color) do %>
-            <span><%= Move::Connection.human_attribute_name("action.#{move_connection.action}") %></span>
+            <span><%= move_connection.human_action %></span>
             <% if move_connection.extra_connection_destroyed? %>
               <span class="d-none d-lg-inline-block ms-1">
                 <span class="bi bi-info-circle"

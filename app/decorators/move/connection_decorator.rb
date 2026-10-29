@@ -39,12 +39,16 @@ class Move
       end
     end
 
-    def extra_connection_destroyed?
-      port_to&.connections&.any? || false
+    def human_action
+      Move::Connection.human_attribute_name("action.#{action}")
     end
 
     def action_badge_color
       ACTION_BADGE_COLORS[action]
+    end
+
+    def extra_connection_destroyed?
+      @extra_connection_destroyed ||= port_to&.connections&.any? || false
     end
 
     def available_servers_options_for_select

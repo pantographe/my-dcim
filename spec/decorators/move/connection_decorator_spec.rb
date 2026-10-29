@@ -54,6 +54,28 @@ RSpec.describe Move::ConnectionDecorator, type: :decorator do
     end
   end
 
+  describe "#human_action" do
+    subject(:human_action) { decorated_mc.human_action }
+
+    context "when port to nil" do
+      let(:object) { move_connections(:four) }
+
+      it { is_expected.to eq("Suppression") }
+    end
+
+    context "when port to not nil and port from has a connection" do
+      let(:object) { move_connections(:three) }
+
+      it { is_expected.to eq("Modification") }
+    end
+
+    context "when port to not nil and port from has no connection" do
+      let(:object) { move_connections(:one) }
+
+      it { is_expected.to eq("Création") }
+    end
+  end
+
   describe "#action_badge_color" do
     subject(:action) { decorated_mc.action_badge_color }
 
