@@ -14,9 +14,7 @@ class Move
 
     def update?
       check_move_executed!
-      return true if user.admin?
-
-      super
+      true if user.admin?
     end
 
     private
