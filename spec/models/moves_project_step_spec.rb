@@ -177,8 +177,8 @@ RSpec.describe MovesProjectStep do
 
     it {
       expect(step.moves_planned_at_current_step).to eq([
-        moves(:move_step_one), moves(:move_step_two), moves(:move_step_four),
-      ])
+                                                         moves(:move_step_one), moves(:move_step_two), moves(:move_step_four),
+                                                       ])
     }
   end
 end
