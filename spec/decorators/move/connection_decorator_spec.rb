@@ -66,7 +66,7 @@ RSpec.describe Move::ConnectionDecorator, type: :decorator do
     context "when port to not nil and port from has a connection" do
       let(:object) { move_connections(:three) }
 
-      it { is_expected.to be(:warning) }
+      it { is_expected.to be(:info) }
     end
 
     context "when port to not nil and port from has no connection" do
