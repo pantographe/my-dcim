@@ -176,13 +176,9 @@ RSpec.describe MovesProjectStep do
     before { moves(:move_step_three).execute! }
 
     it {
-      expect(step.moves_planned_at_current_step).to contain_exactly(
+      expect(step.moves_planned_at_current_step).to eq([
         moves(:move_step_one), moves(:move_step_two), moves(:move_step_four),
-      )
+      ])
     }
-
-    it { expect(step.moves_planned_at_current_step.first).to eq(moves(:move_step_one)) }
-    it { expect(step.moves_planned_at_current_step.second).to eq(moves(:move_step_two)) }
-    it { expect(step.moves_planned_at_current_step.last).to eq(moves(:move_step_four)) }
   end
 end
