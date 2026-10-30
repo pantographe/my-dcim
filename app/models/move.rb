@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 class Move < ApplicationRecord
+  class AlreadyExecutedError < RuntimeError
+    attr_reader :record
+
+    def initialize(record)
+      @record = record
+
+      super("Move##{@record.id} already executed")
+    end
+  end
+
   has_changelog
 
   belongs_to :step, class_name: "MovesProjectStep", foreign_key: :moves_project_step_id, inverse_of: :moves
@@ -21,33 +31,23 @@ class Move < ApplicationRecord
 
   scope :not_executed, -> { where(executed_at: nil) }
 
-  def clear_connections_and_save
-  #   clear_connections
-    save
+  # TODO: better name
+  def remove_existing_connections!
+    raise AlreadyExecutedError.new(self) if executed?
+
+    moveable.ports.map do |p|
+      next unless p.connection
+      next if connections.any? { |c| c.port_from == p }
+
+      # TODO: verify what is done by delete existing connection button in form to confirm this does the same
+      connections.create!(
+        port_from_id: p.id,
+        vlans: "",
+        cable_color: "",
+        cable_name: "",
+      )
+    end.compact
   end
-
-#   def moved_connections
-#     return [] unless moveable
-#
-#     MovedConnection.per_servers([moveable])
-#   end
-
-
-#   def clear_connections
-#     return unless remove_existing_connections_on_execution
-#     # Delete current moved connections
-#     moved_connections.delete_all
-#
-#     # Add moved connection for each port
-#     moveable.ports.each do |p|
-#       MovedConnection.create(
-#         port_from_id: p.id,
-#         vlans: "",
-#         color: "",
-#         cablename: "",
-#       )
-#     end
-#   end
 
   def status
     executed? ? :executed : :planned
@@ -62,7 +62,6 @@ class Move < ApplicationRecord
       equipment.position = position
 
       if equipment.save!
-        # TODO: execute delete first
         connections.map(&:execute!) if apply_connections
 
         # Update prev_frame and prev_position for incoming moves
@@ -99,23 +98,5 @@ class Move < ApplicationRecord
 
     self.prev_frame_id = prev_frame_id || moveable.frame_id
     self.prev_position = prev_position || moveable.position
-  end
-
-  def remove_existing_connections_if_requested
-    # Delete current moved connections
-    connections.where(is_existing_connection_removal_batch: true).delete_all
-
-    return unless remove_existing_connections_on_execution
-
-    # Add moved connection for each port
-    moveable.ports.each do |p|
-      connections.create!(
-        port_from_id: p.id,
-        vlans: "",
-        cable_color: "",
-        cable_name: "",
-        is_existing_connection_removal_batch: true,
-      )
-    end
   end
 end
