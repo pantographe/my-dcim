@@ -176,9 +176,19 @@ RSpec.describe MovesProjectStep do
     before { moves(:move_step_three).execute! }
 
     it {
-      expect(step.moves_planned_at_current_step).to eq([
-                                                         moves(:move_step_one), moves(:move_step_two), moves(:move_step_four),
-                                                       ])
+      expect(step.moves_planned_at_current_step)
+        .to eq([moves(:move_step_one), moves(:move_step_two), moves(:move_step_four)])
+    }
+  end
+
+  describe "#move_connections_planned_at_current_step" do
+    let(:step) { moves_project_steps(:two) }
+
+    before { moves(:move_step_three).execute! }
+
+    it {
+      expect(step.move_connections_planned_at_current_step)
+        .to eq([move_connections(:two), move_connections(:one), move_connections(:five)])
     }
   end
 end

@@ -58,6 +58,6 @@ class MovesProjectStepsController < ApplicationController
     authorize! @frame = Frame.friendly.find(params[:frame_id]), with: FramePolicy, to: :show?
     @servers = @moves_project_step.servers_at_current_step_for(@frame)
     @moves = @moves_project_step.moves_for_frame(@frame)
-    @move_connections = @moves_project_step.moves_planned_at_current_step.map(&:connections).flatten
+    @move_connections = @moves_project_step.move_connections_planned_at_current_step
   end
 end

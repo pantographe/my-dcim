@@ -206,7 +206,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def set_move_connections
-    @move_connections = @move.step.moves_planned_at_current_step.map(&:connections).flatten
+    @move_connections = @move.step.move_connections_planned_at_current_step
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
