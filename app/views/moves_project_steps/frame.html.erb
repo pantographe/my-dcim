@@ -63,16 +63,15 @@
           <%= link_to visualization_frame_path(@frame),
                       class: "dropdown-item",
                       data: { turbo_frame: :_top } do %>
-            <span class="bi bi-diagram-3-fill me-1"></span>
+            <span class="bi bi-diagram-3-fill text-primary  me-1"></span>
             <span><%= t("visualization.title") %></span>
           <% end %>
         </li>
-        <li><hr class="dropdown-divider"></li>
         <li>
           <%= link_to frame_path(@frame),
                       class: "dropdown-item",
                       data: { turbo_frame: :_top } do %>
-            <span class="bi bi-eye me-1"></span>
+            <span class="bi bi-eye text-primary me-1"></span>
             <span><%= t("action.show") %></span>
           <% end %>
         </li>

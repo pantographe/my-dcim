@@ -7,7 +7,7 @@
     <% if @moves_project.unarchived? %>
       <%= render ButtonComponent.new(t(".new_move"),
                                      url: new_moves_project_step_move_path(@moves_project_step, redirect_to_on_success: request.path),
-                                     variant: :success,
+                                     variant: :outline_success,
                                      icon: "plus-lg",
                                      is_responsive: true,
                                      extra_classes: "flex-shrink-0") %>
