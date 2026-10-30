@@ -113,13 +113,6 @@
           </span>
         <% end %>
 
-        <% table.with_column(
-             Move.human_attribute_name(:remove_existing_connections_on_execution_short),
-             text_align: :center,
-           ) do |move| %>
-          <%= render move.moved_connections_to_badge_component %>
-        <% end %>
-
         <% table.with_column(Move::Connection.model_name.human(count: 2), text_align: :right) do |move| %>
           <% if allowed_to?(:update?, move) && !(@moves_project.archived? || move.executed?) %>
             <!-- TODO: Add link to edit move::connection -->

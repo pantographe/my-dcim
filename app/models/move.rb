@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 class Move < ApplicationRecord
+  class AlreadyExecutedError < RuntimeError
+    attr_reader :record
+
+    def initialize(record)
+      @record = record
+
+      super("Move##{@record.id} already executed")
+    end
+  end
+
   has_changelog
 
   belongs_to :step, class_name: "MovesProjectStep", foreign_key: :moves_project_step_id, inverse_of: :moves
@@ -20,30 +30,20 @@ class Move < ApplicationRecord
 
   scope :not_executed, -> { where(executed_at: nil) }
 
-  def clear_connections_and_save
-    clear_connections
-    save
-  end
+  # TODO: better name
+  def remove_existing_connections!
+    raise AlreadyExecutedError, self if executed?
 
-  def moved_connections
-    return [] unless moveable
+    moveable.ports.filter_map do |p|
+      next unless p.connection
+      next if connections.any? { |c| c.port_from == p }
 
-    MovedConnection.per_servers([moveable])
-  end
-
-  def clear_connections
-    return unless remove_existing_connections_on_execution
-
-    # Delete current moved connections
-    moved_connections.delete_all
-
-    # Add moved connection for each port
-    moveable.ports.each do |p|
-      MovedConnection.create(
+      # TODO: verify what is done by delete existing connection button in form to confirm this does the same
+      connections.create!(
         port_from_id: p.id,
         vlans: "",
-        color: "",
-        cablename: "",
+        cable_color: "",
+        cable_name: "",
       )
     end
   end
@@ -61,7 +61,7 @@ class Move < ApplicationRecord
       equipment.position = position
 
       if equipment.save!
-        moved_connections.map(&:execute!) if apply_connections
+        connections.map(&:execute!) if apply_connections
 
         # Update prev_frame and prev_position for incoming moves
         Move.not_executed
