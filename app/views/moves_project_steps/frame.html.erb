@@ -105,36 +105,58 @@
               <% @moves.sort_by(&:step).each do |move| %>
                 <li class="list-group-item">
                   <div class="d-flex align-items-start">
-                    <span class="bi bi-box-seam text-primary"></span>
+                    <span class="bi bi-box-seam text-primary position-relative me-1"
+                          data-controller="tooltip"
+                          data-bs-placement="top"
+                          title="<%= move.decorated.planned_or_executed_date %>">
+                      <% if move.executed? %>
+                        <span class="position-absolute top-50 mt-2 start-100 translate-middle badge rounded-pill p-0 \
+                                    bg-success small">
+                          <span class="bi bi-check"></span>
+                          <span class="visually-hidden"><%= Move.human_attribute_name("status.#{move.status}") %></span>
+                        </span>
+                      <% end %>
+                    </span>
                     <%= link_to move.decorated.display_name,
                                 moves_project_step_move_path(move.step, move),
                                 class: "mx-2 link-body-emphasis link-offset-2 link-underline-opacity-0 \
-                                        link-underline-opacity-75-hover",
-                                title: move.step,
-                                aria: { label: move.step },
-                                data: { turbo_frame: :_top, controller: "tooltip" } %>
-
-                    <span data-controller="tooltip"
-                          data-bs-placement="top"
-                          title="<%= move.decorated.planned_or_executed_date %>">
-                      <%= render move.decorated.status_to_badge_component(with_text: false) %>
-                    </span>
+                                        link-underline-opacity-75-hover" %>
                   </div>
 
                   <span class="d-flex column-gap-2 align-items-center text-secondary mt-1">
                     <span class="small">
-                      <% frame = move.prev_frame == @frame ? nil : move.prev_frame %>
+                      <% if move.frame == @frame %>
+                        <%= link_to(
+                              move.prev_frame,
+                              frame_moves_project_moves_project_step_path(
+                                @moves_project, @moves_project_step, move.prev_frame,
+                              ),
+                              class: "link-secondary link-offset-2 link-underline-opacity-0 \
+                                  link-underline-opacity-75-hover",
+                            ) %>
+                        <span> - </span>
+                      <% end %>
 
-                      <%= [frame, "#{Frame.human_attribute_name(:u)}#{move.prev_position}"].compact.join(" - ") %>
+                      <span><%= [Frame.human_attribute_name(:u), move.prev_position].join %></span>
                     </span>
                     <span class="<%= class_names("bi bi-arrow-right",
                                                  "text-danger": move.prev_frame == @frame,
                                                  "text-success": move.frame == @frame) %>">
                     </span>
                     <span class="small">
-                      <% frame = move.frame == @frame ? nil : move.frame %>
+                      <% if move.prev_frame == @frame %>
+                        <%= link_to(
+                              move.frame,
+                              frame_moves_project_moves_project_step_path(
+                                @moves_project, @moves_project_step, move.frame,
+                              ),
+                              class: "link-secondary link-offset-2 link-underline-opacity-0 \
+                                  link-underline-opacity-75-hover",
+                            ) %>
+                        <span> - </span>
+                      <% end %>
 
-                      <%= [frame, "#{Frame.human_attribute_name(:u)}#{move.position}"].compact.join(" - ") %>
+                      <span><%= [Frame.human_attribute_name(:u), move.position].join %></span>
                     </span>
                   </span>
                 </li>
