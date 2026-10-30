@@ -27,15 +27,14 @@ class Move < ApplicationRecord
 
   before_validation :refresh_prev_data
   before_save :refresh_prev_data
-  before_save :remove_existing_connections_if_requested
 
   scope :not_executed, -> { where(executed_at: nil) }
 
   # TODO: better name
   def remove_existing_connections!
-    raise AlreadyExecutedError.new(self) if executed?
+    raise AlreadyExecutedError, self if executed?
 
-    moveable.ports.map do |p|
+    moveable.ports.filter_map do |p|
       next unless p.connection
       next if connections.any? { |c| c.port_from == p }
 
@@ -46,7 +45,7 @@ class Move < ApplicationRecord
         cable_color: "",
         cable_name: "",
       )
-    end.compact
+    end
   end
 
   def status

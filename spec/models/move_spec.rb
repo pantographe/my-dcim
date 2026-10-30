@@ -80,14 +80,14 @@ RSpec.describe Move do
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        move.moved_connections.each do |moved_connection|
-          expect(moved_connection.executed_at).to be_nil
+        move.connections.each do |move_connection|
+          expect(move_connection.executed_at).to be_nil
         end
 
         execution
 
-        move.moved_connections.each do |moved_connection|
-          expect(moved_connection.executed_at).to be_nil
+        move.connections.each do |move_connection|
+          expect(move_connection.executed_at).to be_nil
         end
       end
     end
@@ -105,14 +105,14 @@ RSpec.describe Move do
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        move.moved_connections.each do |moved_connection|
-          expect(moved_connection.executed_at).to be_nil
+        move.connections.each do |move_connection|
+          expect(move_connection.executed_at).to be_nil
         end
 
         execution
 
-        move.moved_connections.each do |moved_connection|
-          expect(moved_connection.executed_at).not_to be_nil
+        move.connections.each do |move_connection|
+          expect(move_connection.executed_at).not_to be_nil
         end
       end
     end
