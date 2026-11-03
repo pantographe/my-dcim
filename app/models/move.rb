@@ -40,7 +40,7 @@ class Move < ApplicationRecord
 
       connections.create!(
         port_from_id: p.id,
-        vlans: moveable.connections.find { |c| c.port == p }&.port&.vlans,
+        vlans: p.vlans,
         cable_color: "",
         cable_name: "",
       )
