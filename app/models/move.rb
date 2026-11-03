@@ -31,7 +31,6 @@ class Move < ApplicationRecord
   default_scope { order(created_at: :asc) }
   scope :not_executed, -> { where(executed_at: nil) }
 
-  # TODO: better name
   def remove_existing_connections!
     raise AlreadyExecutedError, self if executed?
 
@@ -39,10 +38,9 @@ class Move < ApplicationRecord
       next unless p.connection
       next if connections.any? { |c| c.port_from == p }
 
-      # TODO: verify what is done by delete existing connection button in form to confirm this does the same
       connections.create!(
         port_from_id: p.id,
-        vlans: "",
+        vlans: moveable.connections.find { |c| c.port == p }&.port&.vlans,
         cable_color: "",
         cable_name: "",
       )

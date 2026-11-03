@@ -545,7 +545,7 @@ fr:
     resource:
       destroy:
         flashes:
-          destroyed: Les %{resource} sélectionné(e)s ont bien été supprimés.
+          destroyed: Les %{resource} sélectionné(e)s ont bien été supprimé(e)s.
           not_destroyed: Une erreur est survenue lors de la suppression d'au moins un(e) %{resource}
   glpi:
     computer:
