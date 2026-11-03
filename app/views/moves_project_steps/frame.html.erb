@@ -50,7 +50,7 @@
         </li>
         <li>
           <%= link_to print_moves_project_moves_project_step_path(
-                @moves_project_step.moves_project, @moves_project_step, @frame, format: :pdf
+                @moves_project_step.moves_project, @moves_project_step, @frame, format: :pdf,
               ),
                       class: "dropdown-item",
                       data: { turbo_frame: :_top } do %>
@@ -82,7 +82,7 @@
 
 <div class="p-4 border-top d-flex flex-column">
   <div class="row row-cols-1 row-cols-xl-2 row-gap-4">
-    <div class="col col-xl-8 pe-none">
+    <div class="col col-xl-7 pe-none">
       <%= render partial: "visualization/frames/show_frame",
                  locals: {
                    frame: @frame,
@@ -92,7 +92,7 @@
                  } %>
     </div>
 
-    <div class="col col-xl-4 d-flex flex-column row-gap-4">
+    <div class="col col-xl-5 d-flex flex-column row-gap-4">
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
           <%= Move.model_name.human(count: 2) %>
@@ -104,7 +104,7 @@
               <% @moves.sort_by(&:step).each do |move| %>
                 <li class="list-group-item">
                   <div class="d-flex align-items-start">
-                    <span class="bi bi-box-seam text-primary position-relative me-1"
+                    <span class="bi bi-box-seam position-relative me-1 <%= move.decorated.text_color_related_to_frame(@frame) %>"
                           data-controller="tooltip"
                           data-bs-placement="top"
                           title="<%= move.decorated.planned_or_executed_date %>">
@@ -124,7 +124,7 @@
 
                   <span class="d-flex column-gap-2 align-items-center text-secondary mt-1">
                     <span class="small">
-                      <% if move.frame == @frame %>
+                      <% if move.prev_frame != move.frame && move.frame == @frame %>
                         <%= link_to(
                               move.prev_frame,
                               frame_moves_project_moves_project_step_path(
@@ -138,12 +138,10 @@
 
                       <span><%= [Frame.human_attribute_name(:u), move.prev_position].join %></span>
                     </span>
-                    <span class="<%= class_names("bi bi-arrow-right",
-                                                 "text-danger": move.prev_frame == @frame,
-                                                 "text-success": move.frame == @frame) %>">
+                    <span class="bi bi-arrow-right <%= move.decorated.text_color_related_to_frame(@frame) %>">
                     </span>
                     <span class="small">
-                      <% if move.prev_frame == @frame %>
+                      <% if move.prev_frame != move.frame && move.prev_frame == @frame %>
                         <%= link_to(
                               move.frame,
                               frame_moves_project_moves_project_step_path(

@@ -45,7 +45,7 @@
                       </li>
                       <li>
                         <%= link_to print_moves_project_moves_project_step_path(
-                              moves_project_step.moves_project, moves_project_step, frame, format: :pdf
+                              moves_project_step.moves_project, moves_project_step, frame, format: :pdf,
                             ),
                                     class: "dropdown-item",
                                     data: { turbo_frame: :_top } do %>
@@ -91,7 +91,7 @@
                         aria-label="<%= move.step %>"
                         data-controller="tooltip">
                       <div class="d-flex align-items-start">
-                        <span class="bi bi-box-seam text-primary position-relative me-1">
+                        <span class="bi bi-box-seam position-relative me-1 <%= move.decorated.text_color_related_to_frame(frame) %>">
                           <% if move.executed? %>
                             <span class="position-absolute top-50 mt-2 start-100 translate-middle badge rounded-pill p-0 bg-success small">
                               <span class="bi bi-check"></span>

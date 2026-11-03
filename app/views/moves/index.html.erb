@@ -29,8 +29,6 @@
       <%= render List::DataTableComponent.new(decorate(@moves)) do |table| %>
         <% table.with_column(Move.model_name.human) do |move| %>
           <strong class="d-flex ms-2 my-2 align-items-center ">
-            <span class="bi bi-box-seam me-2 text-primary"></span>
-
             <%= link_to move.decorated.display_name,
                         moves_project_step_move_path(move.step, move),
                         data: { turbo_frame: :_top } %>
