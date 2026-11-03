@@ -343,14 +343,14 @@ RSpec.describe MovesController do
   end
 
   describe "POST #remove_existing_connections" do
-    let(:format) { :html }
-
     subject(:response) do
       post remove_existing_connections_moves_project_step_move_path(step, move), as: format
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
+
+    let(:format) { :html }
 
     include_context "with authenticated admin"
 

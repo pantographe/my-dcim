@@ -112,8 +112,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     set_move_connections
 
     respond_to do |format|
-      format.html { form_redirect_to moves_project_step_move_path(@moves_project_step, @move), notice: 't(".flashes.todo")' }
-      format.turbo_stream
+      format.html { form_redirect_to moves_project_step_move_path(@moves_project_step, @move), notice: t(".flashes.existing_connections_removed") }
+      format.turbo_stream { flash.now[:notice] = t(".flashes.existing_connections_removed") }
       format.json
     end
   end
