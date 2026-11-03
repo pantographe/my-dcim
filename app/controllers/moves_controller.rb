@@ -107,7 +107,9 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def remove_existing_connections
-    @move.remove_existing_connections!
+    @created_move_connections = @move.remove_existing_connections!
+
+    set_move_connections
 
     respond_to do |format|
       format.html { form_redirect_to moves_project_step_move_path(@moves_project_step, @move), notice: 't(".flashes.todo")' }
