@@ -56,26 +56,6 @@ RSpec.describe MoveDecorator, type: :decorator do
     end
   end
 
-  describe "#moved_connections_to_badge_component" do
-    subject(:badge) { decorated_move.moved_connections_to_badge_component }
-
-    context "with moved_connections" do
-      let(:object) { moves(:one).tap { |move| move.remove_existing_connections_on_execution = true } }
-
-      it { is_expected.to be_a(BadgeComponent) }
-      it { expect(badge.instance_variable_get(:@color)).to eq(:success) }
-      it { expect(badge.content).to eq("Oui") }
-    end
-
-    context "without moved_connections" do
-      let(:object) { Move.new }
-
-      it { is_expected.to be_a(BadgeComponent) }
-      it { expect(badge.instance_variable_get(:@color)).to eq(:danger) }
-      it { expect(badge.content).to eq("Non") }
-    end
-  end
-
   describe "#display_name" do
     it { expect(decorated_move.display_name).to eq("Déplacement de ServerName1") }
   end
@@ -103,6 +83,24 @@ RSpec.describe MoveDecorator, type: :decorator do
       let(:object) { moves(:move_step_one) }
 
       it { expect(decorated_move.planned_or_executed_date).to eq("06/06/2025") }
+    end
+  end
+
+  describe "#text_color_related_to_frame" do
+    context "with destination frame" do
+      it { expect(decorated_move.text_color_related_to_frame(frames(:three))).to eq("text-success") }
+    end
+
+    context "with departure frame" do
+      let(:object) { moves(:executed) }
+
+      it { expect(decorated_move.text_color_related_to_frame(frames(:one))).to eq("text-danger") }
+    end
+
+    context "with same frame move" do
+      before { object.prev_frame_id = 3 }
+
+      it { expect(decorated_move.text_color_related_to_frame(frames(:one))).to eq("text-secondary") }
     end
   end
 end

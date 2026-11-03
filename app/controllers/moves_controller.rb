@@ -3,7 +3,7 @@
 class MovesController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :set_moves_project_step
   before_action :redirect_if_archived, except: %i[index show load_server load_frame load_connection]
-  before_action :set_move, only: %i[show edit update destroy execute]
+  before_action :set_move, only: %i[show edit update destroy execute remove_existing_connections]
   before_action :set_move_connections, only: %i[show]
   before_action :load_form_data, only: %i[new edit]
 
@@ -54,7 +54,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     authorize! @move = @moves_project_step.moves.build(move_params)
 
     respond_to do |format|
-      if @move.clear_connections_and_save
+      if @move.save
         format.html { form_redirect_to moves_project_step_move_path(@moves_project_step, @move), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @move }
       else
@@ -69,7 +69,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     @move.assign_attributes(move_params)
 
     respond_to do |format|
-      if @move.clear_connections_and_save
+      if @move.save
         format.html { form_redirect_to moves_project_step_move_path(@moves_project_step, @move), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @move }
       else
@@ -80,21 +80,13 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     end
   end
 
+  destroy_confirmation
   def destroy
-    if @move.executed?
-      respond_to do |format|
-        format.html { redirect_back_to_param_or moves_project_path(@moves_project_step.moves_project), alert: t(".flashes.already_executed") }
-        format.json { head :bad_request }
-      end
-    else
-      return render unless params[:confirm] == "true"
+    @move.destroy
 
-      @move.destroy
-
-      respond_to do |format|
-        format.html { redirect_back_to_param_or moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.destroyed") }
-        format.json { head :no_content }
-      end
+    respond_to do |format|
+      format.html { redirect_back_to_param_or moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.destroyed") }
+      format.json { head :no_content }
     end
   end
 
@@ -111,6 +103,18 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
         format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.executed") }
         format.json { head :no_content }
       end
+    end
+  end
+
+  def remove_existing_connections
+    @created_move_connections = @move.remove_existing_connections!
+
+    set_move_connections
+
+    respond_to do |format|
+      format.html { form_redirect_to moves_project_step_move_path(@moves_project_step, @move), notice: t(".flashes.existing_connections_removed") }
+      format.turbo_stream { flash.now[:notice] = t(".flashes.existing_connections_removed") }
+      format.json
     end
   end
 
@@ -214,16 +218,16 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def set_move_connections
-    authorize! @move_connections = Move::Connection.where(move: @move)
+    @move_connections = @move.step.moves_planned_at_current_step.map(&:connections).flatten
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def move_params
-    params.expect(move: %i[moveable_type moveable_id frame_id moves_project_step_id position remove_existing_connections_on_execution])
+    params.expect(move: %i[moveable_type moveable_id frame_id moves_project_step_id position])
   end
 
   def unscoped_move_params
-    params.expect(move: %i[moveable_type moveable_id moves_project_step_id remove_existing_connections_on_execution])
+    params.expect(move: %i[moveable_type moveable_id moves_project_step_id])
   end
 
   def moved_connection_params

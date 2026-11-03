@@ -21,12 +21,6 @@ class MoveDecorator < ApplicationDecorator
     )
   end
 
-  def moved_connections_to_badge_component
-    color = remove_existing_connections_on_execution ? :success : :danger
-
-    BadgeComponent.new(I18n.t("boolean.#{remove_existing_connections_on_execution}"), color:, variant: :pill)
-  end
-
   def display_name
     I18n.t("move_decorator.display_name", moveable:)
   end
@@ -35,5 +29,12 @@ class MoveDecorator < ApplicationDecorator
     if (date = executed_at || step.date)
       l(date)
     end
+  end
+
+  def text_color_related_to_frame(related_frame)
+    return "text-secondary" if prev_frame == frame
+    return "text-success" if frame == related_frame
+
+    "text-danger"
   end
 end
