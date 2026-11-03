@@ -12,16 +12,6 @@
           <span class="bi bi-three-dots-vertical"></span>
         </button>
         <ul class="dropdown-menu">
-          <% if allowed_to?(:create, @move.connections.build) %>
-            <li>
-              <%= link_to remove_existing_connections_moves_project_step_move_path(@moves_project_step, @move),
-                class: "dropdown-item",
-                data: { turbo: true, turbo_method: :post, turbo_confirm: t("action.confirm") } do %>
-                <span class="bi bi-trash text-danger me-1"></span>
-                <span><%= t(".remove_existing_connections") %></span>
-              <% end %>
-            </li>
-          <% end %>
           <% if allowed_to?(:execute?, @move) %>
             <li>
               <%= link_to execute_moves_project_step_move_path(@moves_project_step, @move),
@@ -45,6 +35,16 @@
                           class: "dropdown-item" do %>
                 <span class="bi bi-pencil text-info me-1"></span>
                 <span><%= t("action.edit") %></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if allowed_to?(:create, @move.connections.build) %>
+            <li>
+              <%= link_to remove_existing_connections_moves_project_step_move_path(@moves_project_step, @move),
+                class: "dropdown-item",
+                data: { turbo: true, turbo_method: :post, turbo_confirm: t("action.confirm") } do %>
+                <span class="bi bi-trash text-danger me-1"></span>
+                <span><%= t(".remove_existing_connections") %></span>
               <% end %>
             </li>
           <% end %>

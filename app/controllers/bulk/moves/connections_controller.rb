@@ -10,7 +10,7 @@ module Bulk
         respond_to do |format|
           if @move_connections.map(&:destroy).all?
             format.html do
-              flash[:notice] = t("bulk.resource.destroy.flashes.destroyed", resource: Move::Connection.model_name.human.pluralize.downcase)
+              flash[:notice] = t("bulk.resource.destroy.flashes.destroyed", resource: Move::Connection.model_name.human(count: 2).downcase)
               redirect_back_to_param_or moves_project_step_move_path(@move.step, @move), status: :see_other
             end
           else
