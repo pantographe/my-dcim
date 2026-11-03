@@ -9,11 +9,12 @@
     <h1 class="d-flex align-items-center gap-2">
       <%= t(".title", frame: @frame) %>
 
-      <span class="dropdown">
-        <button class="btn dropdown-toggle fs-2"
+      <span class="dropdown move-step_frame_dropdown">
+        <button class="btn dropdown-toggle d-inline-flex align-items-center fs-2"
+                title="<%= @moves_project_step %>"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
-          <%= @moves_project_step %>
+          <span class="d-inline-block text-truncate"><%= @moves_project_step %></span>
         </button>
 
         <ul class="dropdown-menu dropdown-menu-end">
