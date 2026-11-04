@@ -90,4 +90,8 @@ class MovesProjectStep < ApplicationRecord
       .where(moveable_type: "Server")
       .order(step: { position: :asc })
   end
+
+  def move_connections_planned_at_current_step
+    Move::Connection.left_joins(move: :step).where(move: moves_planned_at_current_step).order(step: { position: :asc }, created_at: :asc)
+  end
 end
