@@ -55,7 +55,7 @@
                           title: t("action.edit"),
                           data: {
                             controller: "tooltip",
-                            url: edit_move_connection_path(@move, move_connection)
+                            url: edit_move_connection_path(@move, move_connection),
                           },
                           aria: {
                             label: t("action.edit"),
@@ -86,4 +86,6 @@
       <% end %>
     </div>
   <% end %>
+
+  <%= render "ports/modal_edit_port" %>
 </div>
