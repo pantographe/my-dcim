@@ -7,6 +7,7 @@ class MovesProjectStep < ApplicationRecord
 
   belongs_to :moves_project
   has_many :moves, dependent: :restrict_with_error
+  has_many :move_connections, class_name: "Move::Connection", inverse_of: :step, dependent: :restrict_with_error
 
   acts_as_list scope: :moves_project
 

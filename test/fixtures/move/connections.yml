@@ -3,7 +3,7 @@
 one:
   port_from_id: 9
   port_to_id: 10
-  move: one
+  moves_project_step_id: 1
   vlans: vlan01
   cable_name: NouveauNomDuCableUn
   cable_color: Blue
@@ -11,18 +11,18 @@ one:
 two:
   port_from_id: 9
   port_to_id: 10
-  move: two
+  moves_project_step_id: 2
 
 three:
   port_from_id: 8
   port_to_id: 9
-  move: one
+  moves_project_step_id: 1
 
 four:
   port_from_id: 9
-  move: executed
+  moves_project_step_id: 4
 
 five:
   port_from_id: 10
   port_to_id: 8
-  move: two
+  moves_project_step_id: 2

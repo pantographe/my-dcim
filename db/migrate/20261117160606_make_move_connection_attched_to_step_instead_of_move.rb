@@ -57,7 +57,7 @@ class MakeMoveConnectionAttchedToStepInsteadOfMove < ActiveRecord::Migration[8.1
           move_connection.move = MoveMigration.find_by(
             moves_project_step_id: move_connection.moves_project_step_id,
             moveable_type: "Server",
-            moveable_id: card.server_id
+            moveable_id: card.server_id,
           )
 
           move_connection.save!

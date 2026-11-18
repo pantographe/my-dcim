@@ -22,7 +22,7 @@ module Moves
     end
 
     def new
-      if (move_connection = Move::Connection.where(move: @move).find_by(port_from_id: params[:port_from_id]))
+      if (move_connection = @move.associated_connections.find_by(port_from_id: params[:port_from_id]))
         redirect_to edit_move_connection_path(@move, move_connection)
       end
 
@@ -91,11 +91,11 @@ module Moves
     end
 
     def set_move_connections
-      @move_connections = @move.step.moves_planned_at_current_step.map(&:connections).flatten
+      @move_connections = @move.step.move_connections.not_executed.to_a
     end
 
     def scoped_move_connections
-      @move.connections
+      @move.associated_connections
     end
 
     def set_move_connection

@@ -38,7 +38,7 @@
               <% end %>
             </li>
           <% end %>
-          <% if allowed_to?(:create, @move.connections.build) %>
+          <% if allowed_to?(:create, @move.associated_connections.build) %>
             <li>
               <%= link_to remove_existing_connections_moves_project_step_move_path(@moves_project_step, @move),
                 class: "dropdown-item",

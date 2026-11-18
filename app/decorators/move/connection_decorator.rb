@@ -52,10 +52,10 @@ class Move
     end
 
     def available_servers_options_for_select
-      servers = move.frame.bay.frames.map do |frame|
+      servers = step.moves.first.frame.bay.frames.map do |frame|
         [
           frame.name,
-          move.step.servers_at_current_step_for(frame).map { |v| [v.name, v.to_gid] } +
+          step.servers_at_current_step_for(frame).map { |v| [v.name, v.to_gid] } +
             frame.power_distribution_units.map { |p| [p.name, p.to_gid] },
         ]
       end
