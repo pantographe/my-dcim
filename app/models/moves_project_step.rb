@@ -21,7 +21,8 @@ class MovesProjectStep < ApplicationRecord
     raise PreviousMovesNotExecutedError unless prev_moves_executed?
 
     transaction do
-      moves.find_each { |move| move.execute!(apply_connections:) }
+      move_connections.find_each(&:execute!) if apply_connections
+      moves.find_each(&:execute!)
     end
   end
 

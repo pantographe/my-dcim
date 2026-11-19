@@ -49,7 +49,7 @@ class Move < ApplicationRecord
     executed? ? :executed : :planned
   end
 
-  def execute!(apply_connections: true)
+  def execute!
     return if executed?
 
     transaction(requires_new: true) do
@@ -58,8 +58,6 @@ class Move < ApplicationRecord
       equipment.position = position
 
       if equipment.save!
-        associated_connections.map(&:execute!) if apply_connections
-
         # Update prev_frame and prev_position for incoming moves
         Move.not_executed
           .where(moveable: equipment)

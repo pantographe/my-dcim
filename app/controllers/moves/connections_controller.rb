@@ -3,8 +3,9 @@
 module Moves
   class ConnectionsController < ApplicationController
     before_action :set_move
-    before_action :set_move_connection, only: %i[edit update destroy]
+    before_action :set_step
     before_action :set_move_connections, only: %i[new create edit update update_destination_server]
+    before_action :set_move_connection, only: %i[edit update destroy]
     before_action :set_all_servers_per_frames, only: %i[new create edit update]
 
     before_action do
@@ -22,7 +23,7 @@ module Moves
     end
 
     def new
-      if (move_connection = @move.associated_connections.find_by(port_from_id: params[:port_from_id]))
+      if (move_connection = scoped_move_connections.find_by(port_from_id: params[:port_from_id]))
         redirect_to edit_move_connection_path(@move, move_connection)
       end
 
@@ -86,20 +87,24 @@ module Moves
 
     private
 
+    def set_step
+      @step = @move.step
+    end
+
     def set_move
       authorize! @move = Move.find(params[:move_id])
     end
 
-    def set_move_connections
-      @move_connections = @move.step.move_connections.not_executed.to_a
-    end
-
     def scoped_move_connections
-      @move.associated_connections
+      @step.move_connections
     end
 
     def set_move_connection
       authorize! @move_connection = scoped_move_connections.find(params[:id])
+    end
+
+    def set_move_connections
+      @move_connections = scoped_move_connections
     end
 
     def set_all_servers_per_frames
