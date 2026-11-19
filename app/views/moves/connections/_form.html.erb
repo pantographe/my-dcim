@@ -22,12 +22,14 @@
             <%= render CardComponent.new do %>
               <div id="back_departure_server"
                    class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
-                <%= render partial: "servers/draw_server_compact",
-                           locals: {
-                             server: move_connection.move.moveable,
-                             selected_port: move_connection.port_from,
-                             should_hide_left_block: true,
-                           } %>
+                <% if move_connection.port_from %>
+                  <%= render partial: "servers/draw_server_compact",
+                            locals: {
+                              server: move_connection.port_from.attached,
+                              selected_port: move_connection.port_from,
+                              should_hide_left_block: true,
+                            } %>
+                <% end %>
               </div>
             <% end %>
             <%= f.hidden_field :port_from_id, value: move_connection.port_from_id %>
@@ -118,7 +120,7 @@
 
     <div class="d-flex flex-shrink-0 py-4 mt-4 bg-body-tertiary border-top">
       <% if move_connection.persisted? %>
-        <%= link_to move_connection_path(move_connection.move, move_connection),
+        <%= link_to move_connection_path(move_connection.associated_move, move_connection),
                     method: :delete,
                     class: "btn btn-outline-danger" do %>
           <span class="bi bi-trash"></span>
@@ -126,7 +128,7 @@
         <% end %>
       <% else %>
         <%= link_to move_connections_path(
-              move_connection.move,
+              move_connection.associated_move,
               move_connection: { port_from_id: move_connection.port_from, vlans: move_connection.vlans },
             ),
                     method: :post,
@@ -173,7 +175,7 @@
     if (attachable_id != undefined && attachable_id != "") {
       $.ajax({
           method: "POST",
-          url: "<%= update_destination_server_move_connections_path(move_connection.move) %>",
+          url: "<%= update_destination_server_move_connections_path(move_connection.associated_move) %>",
           data: { attachable_id, with_move_connection: 1 }
       }).done(function () {
         let port_id = document.querySelector("input[name=\"move_connection[port_to_id]\"]");

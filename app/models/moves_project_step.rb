@@ -7,6 +7,7 @@ class MovesProjectStep < ApplicationRecord
 
   belongs_to :moves_project
   has_many :moves, dependent: :restrict_with_error
+  has_many :move_connections, class_name: "Move::Connection", inverse_of: :step, dependent: :restrict_with_error
 
   acts_as_list scope: :moves_project
 
@@ -20,7 +21,8 @@ class MovesProjectStep < ApplicationRecord
     raise PreviousMovesNotExecutedError unless prev_moves_executed?
 
     transaction do
-      moves.find_each { |move| move.execute!(apply_connections:) }
+      move_connections.find_each(&:execute!) if apply_connections
+      moves.find_each(&:execute!)
     end
   end
 

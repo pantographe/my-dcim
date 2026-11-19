@@ -9,12 +9,10 @@ RSpec.describe Move::Connection do
 
   describe "validations" do
     it { is_expected.to be_valid }
-    it { is_expected.to validate_uniqueness_of(:port_from_id).scoped_to(:move_id) }
+    it { is_expected.to validate_uniqueness_of(:port_from_id).scoped_to(:moves_project_step_id) }
   end
 
   describe "associations" do
-    it { is_expected.to belong_to(:move) }
-
     it { is_expected.to belong_to(:port_from).class_name("Port") }
     it { is_expected.to belong_to(:port_to).optional(true).class_name("Port") }
   end
@@ -25,7 +23,7 @@ RSpec.describe Move::Connection do
     end
 
     context "without port_from and port_to specified" do
-      subject(:move_connection) { described_class.new(move: moves(:one)) }
+      subject(:move_connection) { described_class.new(step: move_project_steps(:one)) }
 
       it { expect(move_connection.ports).to eq([]) }
     end

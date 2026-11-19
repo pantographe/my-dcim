@@ -20,8 +20,6 @@ class Move < ApplicationRecord
 
   has_one :moves_project, through: :step
 
-  has_many :connections, dependent: :destroy
-
   validates :moveable_id, uniqueness: { scope: %i[step moveable_type] }
   validates :position, presence: true
 
@@ -36,9 +34,9 @@ class Move < ApplicationRecord
 
     moveable.ports.filter_map do |p|
       next unless p.connection
-      next if connections.any? { |c| c.port_from == p }
+      next if associated_connections.any? { |c| c.port_from == p }
 
-      connections.create!(
+      step.move_connections.create!(
         port_from_id: p.id,
         vlans: p.vlans,
         cable_color: "",
@@ -51,7 +49,7 @@ class Move < ApplicationRecord
     executed? ? :executed : :planned
   end
 
-  def execute!(apply_connections: true)
+  def execute!
     return if executed?
 
     transaction(requires_new: true) do
@@ -60,8 +58,6 @@ class Move < ApplicationRecord
       equipment.position = position
 
       if equipment.save!
-        connections.map(&:execute!) if apply_connections
-
         # Update prev_frame and prev_position for incoming moves
         Move.not_executed
           .where(moveable: equipment)
@@ -96,5 +92,9 @@ class Move < ApplicationRecord
 
     self.prev_frame_id = prev_frame_id || moveable.frame_id
     self.prev_position = prev_position || moveable.position
+  end
+
+  def associated_connections
+    step.move_connections.where(port_from: moveable.ports)
   end
 end

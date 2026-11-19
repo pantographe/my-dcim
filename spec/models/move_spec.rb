@@ -18,8 +18,6 @@ RSpec.describe Move do
     it { is_expected.to belong_to(:prev_frame).class_name("Frame") }
 
     it { is_expected.to have_one(:moves_project).through(:step) }
-
-    it { is_expected.to have_many(:connections).dependent(:destroy) }
   end
 
   describe "validations" do
@@ -86,13 +84,13 @@ RSpec.describe Move do
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        move.connections.each do |move_connection|
+        move.associated_connections.each do |move_connection|
           expect(move_connection.executed_at).to be_nil
         end
 
         execution
 
-        move.connections.each do |move_connection|
+        move.associated_connections.each do |move_connection|
           expect(move_connection.executed_at).to be_nil
         end
       end
@@ -111,13 +109,13 @@ RSpec.describe Move do
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        move.connections.each do |move_connection|
+        move.associated_connections.each do |move_connection|
           expect(move_connection.executed_at).to be_nil
         end
 
         execution
 
-        move.connections.each do |move_connection|
+        move.associated_connections.each do |move_connection|
           expect(move_connection.executed_at).not_to be_nil
         end
       end
