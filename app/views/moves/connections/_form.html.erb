@@ -106,7 +106,7 @@
 
         <fieldset class="col-12 mt-4">
           <%= f.label :cable_color, class: "form-label" %>
-          <%= f.hidden_field :cable_color, value: move_connection.cable_color %>
+          <%= f.hidden_field :cable_color, value: move_connection.cable_color, data: { controller: "color-palette" }  %>
         </fieldset>
 
         <fieldset class="col-12 mt-4">
@@ -150,8 +150,6 @@
 </div>
 
 <script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
-  loadPaletteColorPicker('[name="move_connection[cable_color]"]');
-
   document.getElementById("back_departure_server").addEventListener("click", (e) => {
     e.preventDefault();
   })
